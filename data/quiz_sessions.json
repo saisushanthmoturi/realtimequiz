@@ -1,0 +1,64 @@
+[
+  {
+    "id": "1756193621117",
+    "quizId": "1756193581739",
+    "sessionCode": "NDAQBX",
+    "isActive": true,
+    "participants": [
+      "STUDENT001",
+      "STUDENT002",
+      "4312",
+      "TESTSTUDENT",
+      "1232q"
+    ],
+    "createdAt": "2025-08-26T07:33:41.117Z"
+  },
+  {
+    "id": "1756194253593",
+    "quizId": "1756194216721",
+    "sessionCode": "NOCO0P",
+    "isActive": true,
+    "participants": [],
+    "createdAt": "2025-08-26T07:44:13.593Z"
+  },
+  {
+    "id": "1756194318426",
+    "quizId": "1756194314205",
+    "sessionCode": "8HR0SX",
+    "isActive": true,
+    "participants": [
+      "1234",
+      "STUDENT123",
+      "TESTSTUDENT"
+    ],
+    "createdAt": "2025-08-26T07:45:18.426Z"
+  },
+  {
+    "id": "1756194662267",
+    "quizId": "1756194658623",
+    "sessionCode": "N4YC3J",
+    "isActive": true,
+    "participants": [],
+    "createdAt": "2025-08-26T07:51:02.267Z"
+  },
+  {
+    "id": "1756225910114",
+    "quizId": "1756225886162",
+    "sessionCode": "RZKGGE",
+    "isActive": true,
+    "participants": [
+      "S001"
+    ],
+    "createdAt": "2025-08-26T16:31:50.114Z"
+  },
+  {
+    "id": "1756225986379",
+    "quizId": "1756225983639",
+    "sessionCode": "4HNICP",
+    "isActive": true,
+    "participants": [
+      "3213"
+    ],
+    "createdAt": "2025-08-26T16:33:06.379Z"
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1756193581739",
+    "title": "AI Integration Test 2",
+    "topic": "Programming Concepts",
+    "description": "Test quiz with AI-generated questions",
+    "questionCount": 3,
+    "type": "live",
+    "status": "active",
+    "createdBy": "TEACHER001",
+    "createdAt": "2025-08-26T07:33:01.739Z",
+    "timeLimit": 300,
+    "sessionCode": "NDAQBX"
+  },
+  {
+    "id": "1756194216721",
+    "title": "UI Test Quiz",
+    "topic": "Mathematics",
+    "description": "UI Test Quiz - Mathematics",
+    "questionCount": 5,
+    "type": "live",
+    "status": "active",
+    "createdBy": "123456",
+    "createdAt": "2025-08-26T07:43:36.721Z",
+    "timeLimit": 10,
+    "sessionCode": "NOCO0P"
+  },
+  {
+    "id": "1756194314205",
+    "title": "math",
+    "topic": "calculus",
+    "description": "math - calculus",
+    "questionCount": 10,
+    "type": "live",
+    "status": "active",
+    "createdBy": "1232",
+    "createdAt": "2025-08-26T07:45:14.205Z",
+    "timeLimit": 20,
+    "sessionCode": "8HR0SX"
+  },
+  {
+    "id": "1756194658623",
+    "title": "math",
+    "topic": "calcc",
+    "description": "math - calcc",
+    "questionCount": 10,
+    "type": "live",
+    "status": "active",
+    "createdBy": "3543",
+    "createdAt": "2025-08-26T07:50:58.623Z",
+    "timeLimit": 20,
+    "sessionCode": "N4YC3J"
+  },
+  {
+    "id": "1756225886162",
+    "title": "Sample Quiz",
+    "topic": "Computer Science",
+    "description": "A test quiz",
+    "questionCount": 3,
+    "type": "practice",
+    "status": "active",
+    "createdBy": "T001",
+    "createdAt": "2025-08-26T16:31:26.162Z",
+    "timeLimit": 10,
+    "sessionCode": "RZKGGE"
+  },
+  {
+    "id": "1756225983639",
+    "title": "science",
+    "topic": "natural",
+    "description": "science - natural",
+    "questionCount": 10,
+    "type": "live",
+    "status": "active",
+    "createdBy": "1243",
+    "createdAt": "2025-08-26T16:33:03.639Z",
+    "timeLimit": 20,
+    "sessionCode": "4HNICP"
+  }
+]

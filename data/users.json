@@ -1,0 +1,66 @@
+[
+  {
+    "id": "1756193862027",
+    "userType": "teacher",
+    "userId": "123456",
+    "name": "Prof. 123456",
+    "password": "",
+    "createdAt": "2025-08-26T07:37:42.027Z"
+  },
+  {
+    "id": "1756194303780",
+    "userType": "teacher",
+    "userId": "1232",
+    "name": "Prof. 1232",
+    "password": "",
+    "createdAt": "2025-08-26T07:45:03.780Z"
+  },
+  {
+    "id": "1756194338778",
+    "userType": "student",
+    "userId": "1234",
+    "name": "Student 1234",
+    "password": "",
+    "createdAt": "2025-08-26T07:45:38.778Z"
+  },
+  {
+    "id": "1756194649698",
+    "userType": "teacher",
+    "userId": "3543",
+    "name": "Prof. 3543",
+    "password": "",
+    "createdAt": "2025-08-26T07:50:49.698Z"
+  },
+  {
+    "id": "1756194686647",
+    "userType": "student",
+    "userId": "4312",
+    "name": "Student 4312",
+    "password": "",
+    "createdAt": "2025-08-26T07:51:26.647Z"
+  },
+  {
+    "id": "1756194922111",
+    "userType": "student",
+    "userId": "1232q",
+    "name": "Student 1232q",
+    "password": "",
+    "createdAt": "2025-08-26T07:55:22.111Z"
+  },
+  {
+    "id": "1756225969881",
+    "userType": "teacher",
+    "userId": "1243",
+    "name": "Prof. 1243",
+    "password": "",
+    "createdAt": "2025-08-26T16:32:49.881Z"
+  },
+  {
+    "id": "1756226014556",
+    "userType": "student",
+    "userId": "3213",
+    "name": "Student 3213",
+    "password": "",
+    "createdAt": "2025-08-26T16:33:34.556Z"
+  }
+]

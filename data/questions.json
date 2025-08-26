@@ -1,0 +1,1217 @@
+[
+  {
+    "id": "1756193581739-STUDENT001-0",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT001",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-STUDENT001-1",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT001",
+    "question": "Which data structure is best for implementing a FIFO system?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Array",
+      "Hash Table"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Queue follows FIFO (First In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-STUDENT001-2",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT001",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756193581739-STUDENT002-0",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT002",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-STUDENT002-1",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT002",
+    "question": "Which data structure is best for implementing a LIFO system?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Array",
+      "Linked List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stack follows LIFO (Last In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-STUDENT002-2",
+    "quizId": "1756193581739",
+    "studentId": "STUDENT002",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-0",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 10 × 5?",
+    "options": [
+      "50",
+      "55",
+      "47",
+      "60"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 10 × 5, we get 50.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-1234-1",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 2?",
+    "options": [
+      "18",
+      "21",
+      "16",
+      "23"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 2 = 16 + 2 = 18.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-1234-2",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 12 × 7?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 12 × 7, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-3",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 6?",
+    "options": [
+      "42",
+      "45",
+      "40",
+      "47"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 6 = 36 + 6 = 42.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-4",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 14 × 6?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 14 × 6, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-5",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 10?",
+    "options": [
+      "26",
+      "29",
+      "24",
+      "31"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 10 = 16 + 10 = 26.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-6",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 16 × 5?",
+    "options": [
+      "80",
+      "85",
+      "77",
+      "90"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 16 × 5, we get 80.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-7",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 14?",
+    "options": [
+      "50",
+      "53",
+      "48",
+      "55"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 14 = 36 + 14 = 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-8",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 18 × 7?",
+    "options": [
+      "126",
+      "131",
+      "123",
+      "136"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 18 × 7, we get 126.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-9",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 18?",
+    "options": [
+      "34",
+      "37",
+      "32",
+      "39"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 18 = 16 + 18 = 34.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-0",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 10 × 5?",
+    "options": [
+      "50",
+      "55",
+      "47",
+      "60"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 10 × 5, we get 50.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-1234-1",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 2?",
+    "options": [
+      "18",
+      "21",
+      "16",
+      "23"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 2 = 16 + 2 = 18.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-1234-2",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 12 × 7?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 12 × 7, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-3",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 6?",
+    "options": [
+      "42",
+      "45",
+      "40",
+      "47"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 6 = 36 + 6 = 42.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-4",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 14 × 6?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 14 × 6, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-5",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 10?",
+    "options": [
+      "26",
+      "29",
+      "24",
+      "31"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 10 = 16 + 10 = 26.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-6",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 16 × 5?",
+    "options": [
+      "80",
+      "85",
+      "77",
+      "90"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 16 × 5, we get 80.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-7",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 14?",
+    "options": [
+      "50",
+      "53",
+      "48",
+      "55"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 14 = 36 + 14 = 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-8",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 18 × 7?",
+    "options": [
+      "126",
+      "131",
+      "123",
+      "136"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 18 × 7, we get 126.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-9",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 18?",
+    "options": [
+      "34",
+      "37",
+      "32",
+      "39"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 18 = 16 + 18 = 34.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-0",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "What is 19 × 5?",
+    "options": [
+      "95",
+      "100",
+      "92",
+      "105"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 19 × 5, we get 95.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-STUDENT123-1",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "If x = 3, what is the value of x² + 0?",
+    "options": [
+      "9",
+      "12",
+      "7",
+      "14"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 0 = 9 + 0 = 9.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-STUDENT123-2",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "What is 11 × 6?",
+    "options": [
+      "66",
+      "71",
+      "63",
+      "76"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 11 × 6, we get 66.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-3",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "If x = 5, what is the value of x² + 4?",
+    "options": [
+      "29",
+      "32",
+      "27",
+      "34"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 5 into x² + 4 = 25 + 4 = 29.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-4",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "What is 13 × 5?",
+    "options": [
+      "65",
+      "70",
+      "62",
+      "75"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 13 × 5, we get 65.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-5",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "If x = 3, what is the value of x² + 8?",
+    "options": [
+      "17",
+      "20",
+      "15",
+      "22"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 8 = 9 + 8 = 17.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-6",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "What is 15 × 7?",
+    "options": [
+      "105",
+      "110",
+      "102",
+      "115"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 15 × 7, we get 105.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-7",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "If x = 5, what is the value of x² + 12?",
+    "options": [
+      "37",
+      "40",
+      "35",
+      "42"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 5 into x² + 12 = 25 + 12 = 37.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-8",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "What is 17 × 6?",
+    "options": [
+      "102",
+      "107",
+      "99",
+      "112"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 17 × 6, we get 102.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-STUDENT123-9",
+    "quizId": "1756194314205",
+    "studentId": "STUDENT123",
+    "question": "If x = 3, what is the value of x² + 16?",
+    "options": [
+      "25",
+      "28",
+      "23",
+      "30"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 16 = 9 + 16 = 25.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-0",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 10 × 5?",
+    "options": [
+      "50",
+      "55",
+      "47",
+      "60"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 10 × 5, we get 50.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-1234-1",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 2?",
+    "options": [
+      "18",
+      "21",
+      "16",
+      "23"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 2 = 16 + 2 = 18.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-1234-2",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 12 × 7?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 12 × 7, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-3",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 6?",
+    "options": [
+      "42",
+      "45",
+      "40",
+      "47"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 6 = 36 + 6 = 42.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-4",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 14 × 6?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 14 × 6, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-5",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 10?",
+    "options": [
+      "26",
+      "29",
+      "24",
+      "31"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 10 = 16 + 10 = 26.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-6",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 16 × 5?",
+    "options": [
+      "80",
+      "85",
+      "77",
+      "90"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 16 × 5, we get 80.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-7",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 6, what is the value of x² + 14?",
+    "options": [
+      "50",
+      "53",
+      "48",
+      "55"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 14 = 36 + 14 = 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-8",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "What is 18 × 7?",
+    "options": [
+      "126",
+      "131",
+      "123",
+      "136"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 18 × 7, we get 126.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-1234-9",
+    "quizId": "1756194314205",
+    "studentId": "1234",
+    "question": "If x = 4, what is the value of x² + 18?",
+    "options": [
+      "34",
+      "37",
+      "32",
+      "39"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 18 = 16 + 18 = 34.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-0",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "What is 19 × 5?",
+    "options": [
+      "95",
+      "100",
+      "92",
+      "105"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 19 × 5, we get 95.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-1",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "If x = 3, what is the value of x² + 0?",
+    "options": [
+      "9",
+      "12",
+      "7",
+      "14"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 0 = 9 + 0 = 9.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-2",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "What is 11 × 6?",
+    "options": [
+      "66",
+      "71",
+      "63",
+      "76"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 11 × 6, we get 66.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-3",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "If x = 5, what is the value of x² + 4?",
+    "options": [
+      "29",
+      "32",
+      "27",
+      "34"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 5 into x² + 4 = 25 + 4 = 29.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-4",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "What is 13 × 5?",
+    "options": [
+      "65",
+      "70",
+      "62",
+      "75"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 13 × 5, we get 65.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-5",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "If x = 3, what is the value of x² + 8?",
+    "options": [
+      "17",
+      "20",
+      "15",
+      "22"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 8 = 9 + 8 = 17.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-6",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "What is 15 × 7?",
+    "options": [
+      "105",
+      "110",
+      "102",
+      "115"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 15 × 7, we get 105.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-7",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "If x = 5, what is the value of x² + 12?",
+    "options": [
+      "37",
+      "40",
+      "35",
+      "42"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 5 into x² + 12 = 25 + 12 = 37.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-8",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "What is 17 × 6?",
+    "options": [
+      "102",
+      "107",
+      "99",
+      "112"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 17 × 6, we get 102.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-TESTSTUDENT-9",
+    "quizId": "1756194314205",
+    "studentId": "TESTSTUDENT",
+    "question": "If x = 3, what is the value of x² + 16?",
+    "options": [
+      "25",
+      "28",
+      "23",
+      "30"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 3 into x² + 16 = 9 + 16 = 25.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756193581739-4312-0",
+    "quizId": "1756193581739",
+    "studentId": "4312",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-4312-1",
+    "quizId": "1756193581739",
+    "studentId": "4312",
+    "question": "Which data structure is best for implementing a FIFO system?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Array",
+      "Hash Table"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Queue follows FIFO (First In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-4312-2",
+    "quizId": "1756193581739",
+    "studentId": "4312",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756193581739-TESTSTUDENT-0",
+    "quizId": "1756193581739",
+    "studentId": "TESTSTUDENT",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-TESTSTUDENT-1",
+    "quizId": "1756193581739",
+    "studentId": "TESTSTUDENT",
+    "question": "Which data structure is best for implementing a LIFO system?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Array",
+      "Linked List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stack follows LIFO (Last In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-TESTSTUDENT-2",
+    "quizId": "1756193581739",
+    "studentId": "TESTSTUDENT",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756193581739-1232q-0",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-1232q-1",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "Which data structure is best for implementing a LIFO system?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Array",
+      "Linked List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stack follows LIFO (Last In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-1232q-2",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756193581739-1232q-0",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756193581739-1232q-1",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "Which data structure is best for implementing a LIFO system?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Array",
+      "Linked List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stack follows LIFO (Last In, First Out) principle.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756193581739-1232q-2",
+    "quizId": "1756193581739",
+    "studentId": "1232q",
+    "question": "What is the time complexity of binary search in an array of n elements?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Binary search has O(log n) time complexity because it divides the search space in half at each step.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225886162-S001-0",
+    "quizId": "1756225886162",
+    "studentId": "S001",
+    "question": "What is the chemical formula for water?",
+    "options": [
+      "H₂O",
+      "CO₂",
+      "NaCl",
+      "CH₄"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water consists of 2 hydrogen atoms and 1 oxygen atom.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756225886162-S001-1",
+    "quizId": "1756225886162",
+    "studentId": "S001",
+    "question": "At what temperature does water freeze at standard pressure?",
+    "options": [
+      "0°C",
+      "100°C",
+      "-10°C",
+      "32°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water freezes at 0°C (32°F) at standard atmospheric pressure.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756225886162-S001-2",
+    "quizId": "1756225886162",
+    "studentId": "S001",
+    "question": "What is the chemical formula for water?",
+    "options": [
+      "H₂O",
+      "CO₂",
+      "NaCl",
+      "CH₄"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water consists of 2 hydrogen atoms and 1 oxygen atom.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-0",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756225983639-3213-1",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756225983639-3213-2",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-3",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-4",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-5",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-6",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-7",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-8",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756225983639-3213-9",
+    "quizId": "1756225983639",
+    "studentId": "3213",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  }
+]
