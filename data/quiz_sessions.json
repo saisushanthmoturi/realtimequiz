@@ -18,7 +18,9 @@
     "quizId": "1756194216721",
     "sessionCode": "NOCO0P",
     "isActive": true,
-    "participants": [],
+    "participants": [
+      "160123749025"
+    ],
     "createdAt": "2025-08-26T07:44:13.593Z"
   },
   {
@@ -29,7 +31,8 @@
     "participants": [
       "1234",
       "STUDENT123",
-      "TESTSTUDENT"
+      "TESTSTUDENT",
+      "160123749025"
     ],
     "createdAt": "2025-08-26T07:45:18.426Z"
   },
@@ -60,5 +63,43 @@
       "3213"
     ],
     "createdAt": "2025-08-26T16:33:06.379Z"
+  },
+  {
+    "id": "1756228117560",
+    "quizId": "1756228113611",
+    "sessionCode": "EVQLST",
+    "isActive": true,
+    "participants": [
+      "ddfbsf"
+    ],
+    "createdAt": "2025-08-26T17:08:37.560Z"
+  },
+  {
+    "sessionId": "session-iUYtj1Y2XzFr8Atr1yfX5",
+    "quizId": "quiz-_f1CWIbPOcbbRLvGq7JzF",
+    "teacherId": "teacher-1",
+    "joinCode": "LEAMSZ",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-fqqMP3roZymB_YsObANqe",
+    "quizId": "quiz-zHbqTSQFOE7iYvBj6az7O",
+    "teacherId": "teacher-1",
+    "joinCode": "FAF7RS",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-27T14:26:53.361Z",
+    "endsAt": "2025-08-27T14:41:53.361Z"
+  },
+  {
+    "sessionId": "session-T0ZAk7U65cf6Dtp5lz9H8",
+    "quizId": "quiz-DY5mk8V27dGdEDBN2ARC8",
+    "teacherId": "teacher-1",
+    "joinCode": "Z2K4IG",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-27T14:29:30.077Z",
+    "endsAt": "2025-08-27T14:39:30.077Z"
   }
 ]

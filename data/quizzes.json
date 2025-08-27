@@ -76,5 +76,1972 @@
     "createdAt": "2025-08-26T16:33:03.639Z",
     "timeLimit": 20,
     "sessionCode": "4HNICP"
+  },
+  {
+    "id": "1756228113611",
+    "title": "asfafsaasdfaffaf",
+    "topic": "fasfaf",
+    "description": "asfafsaasdfaffaf - fasfaf",
+    "questionCount": 10,
+    "type": "live",
+    "status": "active",
+    "createdBy": "sdaasasf",
+    "createdAt": "2025-08-26T17:08:33.611Z",
+    "timeLimit": 20,
+    "sessionCode": "EVQLST"
+  },
+  {
+    "id": "quiz-_rWRGmnFGlmfHsNy9QUNm",
+    "topics": [
+      "python"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "questions": [
+      {
+        "id": "q-Z-2uxvIW_pkT",
+        "topic": "python",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) python: Sample question 1?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0
+        }
+      },
+      {
+        "id": "q--3inY2WqBuIS",
+        "topic": "python",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) python: Sample question 2?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-l05kP766aakd",
+        "topic": "python",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) python: Sample question 3?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-T-hqyPo2EezB",
+        "topic": "python",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) python: Sample question 4?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3
+        }
+      },
+      {
+        "id": "q--vq4-wvsPIki",
+        "topic": "python",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) python: Sample question 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T13:42:43.034Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-DqXonUEVac7tgMEEn-NoS",
+    "topics": [
+      "arrays java"
+    ],
+    "difficulty": "hard",
+    "mode": "different",
+    "numQuestions": 11,
+    "questions": [
+      {
+        "id": "q-AYQNsMK7hhVS",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 1?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-8uLBM9JTh4I7",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 2?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-1X9DL-sYzc7Y",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 3?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-tAQhDKpT_Lxp",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 4?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-ci3yWSJyL-Zv",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 4
+        }
+      },
+      {
+        "id": "q-xX1ku5jic1x_",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 6?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 5
+        }
+      },
+      {
+        "id": "q--aSwnHgh3vhq",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 7?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 6
+        }
+      },
+      {
+        "id": "q-jkYMS49OEBVb",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 8?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 7
+        }
+      },
+      {
+        "id": "q-FoRxgyNeRVnH",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 9?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 8
+        }
+      },
+      {
+        "id": "q-STUp8O81aQtE",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 10?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 9
+        }
+      },
+      {
+        "id": "q-DHPlRqw9ATuj",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 11?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 10
+        }
+      },
+      {
+        "id": "q-LFnx3RTRGSBx",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 12?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 11
+        }
+      },
+      {
+        "id": "q-8APLVyLy7cPr",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 13?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 12
+        }
+      },
+      {
+        "id": "q-ktWFtaBtZwzJ",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 14?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 13
+        }
+      },
+      {
+        "id": "q-fPkVDWugg-DZ",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 15?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 14
+        }
+      },
+      {
+        "id": "q-oinysSDSU4vx",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 16?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 15
+        }
+      },
+      {
+        "id": "q-xgU0eQzxbz7L",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 17?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 16
+        }
+      },
+      {
+        "id": "q-fEkpid2BcNMP",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 18?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 17
+        }
+      },
+      {
+        "id": "q-w0HpFvcEDNuk",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 19?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 18
+        }
+      },
+      {
+        "id": "q-8Xw72Aplg0V4",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 19
+        }
+      },
+      {
+        "id": "q-w9f-vGMv70nn",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 21?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 20
+        }
+      },
+      {
+        "id": "q-10MvaEGRl1hR",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 22?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 21
+        }
+      },
+      {
+        "id": "q-K3cTMUsOra54",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 23?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 22
+        }
+      },
+      {
+        "id": "q-Z4u7iuDD0DA5",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 24?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 23
+        }
+      },
+      {
+        "id": "q-hXAD9CW9I1Km",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 25?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 24
+        }
+      },
+      {
+        "id": "q-oOWHVTOKyGOm",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 26?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 25
+        }
+      },
+      {
+        "id": "q-CpJ5zyeaPNa0",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 27?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 26
+        }
+      },
+      {
+        "id": "q-0EaRqsQev5ay",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 28?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 27
+        }
+      },
+      {
+        "id": "q-cEb2c4xLKn3q",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 29?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 28
+        }
+      },
+      {
+        "id": "q-qEjVdFrnRrnG",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 30?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 29
+        }
+      },
+      {
+        "id": "q-WoTDvRLJwS9u",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 31?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 30
+        }
+      },
+      {
+        "id": "q-MXHsuaWEDCxM",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 32?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 31
+        }
+      },
+      {
+        "id": "q-15r7IgH7i-N2",
+        "topic": "arrays java",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(hard) arrays java: Sample question 33?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 32
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T13:46:56.271Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-rBU-BCtyJGnerNNPKDddk",
+    "topics": [],
+    "difficulty": "medium",
+    "mode": "different",
+    "numQuestions": 1,
+    "numSets": 2,
+    "questionsPerSet": 1,
+    "poolSize": 2,
+    "questions": [
+      {
+        "id": "q-NyzyJuFDHbJd",
+        "topic": "General",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 1 of 2?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-MFKAkywxg7XI",
+        "topic": "General",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 2 of 2?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 1
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:13:35.538Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-_f1CWIbPOcbbRLvGq7JzF",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "easy",
+    "mode": "different",
+    "numQuestions": 10,
+    "numSets": 2,
+    "questionsPerSet": 10,
+    "poolSize": 20,
+    "questions": [
+      {
+        "id": "q-y30-nt2y9kkj",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 1 of 20 (reworded)?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "hard",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-zebS0Ml1Ssds",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 2 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-YrINX9RTHEEk",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 3 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-fkugRVra0YrS",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 4 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-zmxblmpseZbp",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 5 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-oplCbqUpXEYd",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 6 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 5,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-HGMkKS12-hM5",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 7 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 6,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-UkPScFx3TmsT",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 8 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 7,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-DcsACW2u9NtV",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 9 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 8,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-NvYt2RItKPkJ",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 10 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 9,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-6AFgWAoaImQP",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 11 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 10,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-tcBU0tkOI-kq",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 12 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 11,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-QNxDoD_SyWv0",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 13 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 12,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-xDZEm8yN25H6",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 14 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 13,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-9GQhh9EZfMVc",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 15 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 14,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-OmCXr0HbYkNf",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 16 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 15,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-gBbzJjN2zRiN",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 17 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 16,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-7iH0P6KTXZ9o",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 18 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 17,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-nezigbghfuNg",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 19 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 18,
+          "setIndex": 1
+        }
+      },
+      {
+        "id": "q-1sd_ey1G6aWL",
+        "topic": "arrays",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 20 of 20?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 19,
+          "setIndex": 1
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:17:56.103Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-zHbqTSQFOE7iYvBj6az7O",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "easy",
+    "mode": "same",
+    "numQuestions": 3,
+    "poolSize": 3,
+    "questions": [
+      {
+        "id": "q-a5fultznkk20",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 1 of 3?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-e5RQtOkjGLo5",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 2 of 3?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-dfNr8HlyD6gk",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 3 of 3?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:22:42.433Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-DY5mk8V27dGdEDBN2ARC8",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "easy",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-f-3qc8d46r1c",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-Vz1tm6RvdKst",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-9cEsn80wjs1g",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-B2kx-wPX6W45",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-xoNG8oI9Fgmc",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:29:23.703Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-wvNOTsgZTxKY3Bu3jVaTX",
+    "topics": [
+      "java"
+    ],
+    "difficulty": "easy",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-MT606NgPv2UU",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) java: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-UQsmICxSKwXw",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) java: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-743lGtY5GARG",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) java: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q--5jSUPpu7nkp",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) java: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-xUg5kYy9HI7A",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(easy) java: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "easy",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:36:06.762Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-QyU36Q2gxMOes9MTr7wWb",
+    "topics": [
+      "java"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-FlIn1PbfMBPR",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-LiAg0SX5njJV",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-S4rkoerHctB5",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-_TIZ7JhMq1U1",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-uSobBWOzUU1G",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:48:00.189Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-z7Tirv0wnLfeD0zTjKrPf",
+    "topics": [
+      "java"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-ykWgBgjC6_xa",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-sluWF4swfwiz",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-iFooEYwn396T",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-cGvPD0A05h__",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-4ZomZAXY7dCi",
+        "topic": "java",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) java: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T14:49:54.757Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-XukuRPBg0t_yaT1lKK92O",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-sOobRQexyPbP",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q--L1IVL4ot3cz",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-6mcmQY6fE8eq",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-jc3Bf-79YOxQ",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-dFGrhIt4AV-T",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T15:14:26.944Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-4fjYkGez5Mf9Kv_Qret-M",
+    "topics": [
+      "ray optics"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-RmLMsJ-1",
+        "topic": "ray optics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the phenomenon where light bends as it passes from one medium to another?",
+        "options": [
+          "Reflection",
+          "Refraction",
+          "Diffraction",
+          "Scattering"
+        ],
+        "answer": "Refraction",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-RmLMsJ-2",
+        "topic": "ray optics",
+        "mode": "same",
+        "type": "true_false",
+        "question": "A concave lens always forms a virtual, diminished, and erect image.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-RmLMsJ-3",
+        "topic": "ray optics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Which of the following is NOT an example of refraction of light?",
+        "options": [
+          "Apparent depth of a pool",
+          "Rainbow",
+          "Mirage",
+          "Twinkling of stars"
+        ],
+        "answer": "Twinkling of stars",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-RmLMsJ-4",
+        "topic": "ray optics",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "What is the name of the point where light rays converge after passing through a converging lens?",
+        "answer": "Focus",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-RmLMsJ-5",
+        "topic": "ray optics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What phenomenon causes a pencil to appear bent when partially submerged in water?",
+        "options": [
+          "Reflection",
+          "Refraction",
+          "Diffraction",
+          "Polarization"
+        ],
+        "answer": "Refraction",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-08-27T15:19:45.061Z",
+    "status": "draft"
   }
 ]

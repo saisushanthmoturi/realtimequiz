@@ -66,8 +66,14 @@ The application is complete with all major features working! Run `npm run dev` a
 2. **Set Up Environment**
    ```bash
    cp .env.local.example .env.local
-   # Edit .env.local with your configurations
+   # Edit .env.local and set GEMINI_API_KEY=<your_google_gemini_key>
+   # Optional: set GEMINI_MODEL=gemini-1.5-flash or gemini-1.5-pro
    ```
+
+   Notes:
+   - This is a Next.js app (not Vite). Do not use VITE_ prefixes for server secrets.
+   - Keep API keys server-only. Only use NEXT_PUBLIC_ for non-sensitive client values.
+   - After editing .env.local, restart the dev server.
 
 3. **Run Development Server**
    ```bash

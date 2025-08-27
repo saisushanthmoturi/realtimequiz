@@ -1213,5 +1213,380 @@
     "correctAnswer": 0,
     "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
     "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-0",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "What is 14 × 6?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 14 × 6, we get 84.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194314205-160123749025-1",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "If x = 4, what is the value of x² + 10?",
+    "options": [
+      "26",
+      "29",
+      "24",
+      "31"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 10 = 16 + 10 = 26.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194314205-160123749025-2",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "What is 16 × 5?",
+    "options": [
+      "80",
+      "85",
+      "77",
+      "90"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 16 × 5, we get 80.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-3",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "If x = 6, what is the value of x² + 14?",
+    "options": [
+      "50",
+      "53",
+      "48",
+      "55"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 14 = 36 + 14 = 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-4",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "What is 18 × 7?",
+    "options": [
+      "126",
+      "131",
+      "123",
+      "136"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 18 × 7, we get 126.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-5",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "If x = 4, what is the value of x² + 18?",
+    "options": [
+      "34",
+      "37",
+      "32",
+      "39"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 18 = 16 + 18 = 34.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-6",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "What is 10 × 5?",
+    "options": [
+      "50",
+      "55",
+      "47",
+      "60"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 10 × 5, we get 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-7",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "If x = 4, what is the value of x² + 2?",
+    "options": [
+      "18",
+      "21",
+      "16",
+      "23"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 2 = 16 + 2 = 18.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-8",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "What is 12 × 7?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 12 × 7, we get 84.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194314205-160123749025-9",
+    "quizId": "1756194314205",
+    "studentId": "160123749025",
+    "question": "If x = 6, what is the value of x² + 6?",
+    "options": [
+      "42",
+      "45",
+      "40",
+      "47"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 6 = 36 + 6 = 42.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194216721-160123749025-0",
+    "quizId": "1756194216721",
+    "studentId": "160123749025",
+    "question": "What is 14 × 6?",
+    "options": [
+      "84",
+      "89",
+      "81",
+      "94"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 14 × 6, we get 84.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756194216721-160123749025-1",
+    "quizId": "1756194216721",
+    "studentId": "160123749025",
+    "question": "If x = 4, what is the value of x² + 10?",
+    "options": [
+      "26",
+      "29",
+      "24",
+      "31"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 4 into x² + 10 = 16 + 10 = 26.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756194216721-160123749025-2",
+    "quizId": "1756194216721",
+    "studentId": "160123749025",
+    "question": "What is 16 × 5?",
+    "options": [
+      "80",
+      "85",
+      "77",
+      "90"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 16 × 5, we get 80.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194216721-160123749025-3",
+    "quizId": "1756194216721",
+    "studentId": "160123749025",
+    "question": "If x = 6, what is the value of x² + 14?",
+    "options": [
+      "50",
+      "53",
+      "48",
+      "55"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Substitute x = 6 into x² + 14 = 36 + 14 = 50.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756194216721-160123749025-4",
+    "quizId": "1756194216721",
+    "studentId": "160123749025",
+    "question": "What is 18 × 7?",
+    "options": [
+      "126",
+      "131",
+      "123",
+      "136"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To multiply 18 × 7, we get 126.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-0",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "1756228113611-ddfbsf-1",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "1756228113611-ddfbsf-2",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-3",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-4",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-5",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-6",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-7",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-8",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "N₂"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Carbon dioxide consists of 1 carbon atom and 2 oxygen atoms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "1756228113611-ddfbsf-9",
+    "quizId": "1756228113611",
+    "studentId": "ddfbsf",
+    "question": "At what temperature does water boil at standard pressure?",
+    "options": [
+      "100°C",
+      "0°C",
+      "50°C",
+      "200°C"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure.",
+    "difficulty": "hard"
   }
 ]
