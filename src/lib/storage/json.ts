@@ -12,20 +12,54 @@ export class JsonStorageAdapter implements StorageAdapter {
   }
 
   private async withLock<T>(file: string, operation: () => Promise<T>): Promise<T> {
+    // Wait for any existing operation on this file to complete
     const current: Promise<void> = this.locks.get(file) || Promise.resolve();
+    
+    let result: T;
     const newOperation: Promise<void> = current
-      .then(() => operation())
-      .then(() => undefined)
-      .catch(() => undefined);
+      .then(async () => {
+        result = await operation();
+      })
+      .catch((error) => {
+        console.error(`Lock operation failed for ${file}:`, error);
+        throw error;
+      });
+    
     this.locks.set(file, newOperation);
-    // Execute and return the actual operation result separately
-    return operation();
+    
+    try {
+      await newOperation;
+      return result!;
+    } finally {
+      // Clean up completed lock
+      if (this.locks.get(file) === newOperation) {
+        this.locks.delete(file);
+      }
+    }
   }
 
   private async atomicWrite(file: string, data: any): Promise<void> {
-    const tempFile = `${file}.tmp`;
-    await fs.writeFile(tempFile, JSON.stringify(data, null, 2));
-    await fs.rename(tempFile, file);
+    const tempFile = `${file}.tmp.${Date.now()}.${Math.random().toString(36).slice(2)}`;
+    try {
+      // Ensure directory exists
+      const dir = path.dirname(file);
+      await fs.mkdir(dir, { recursive: true });
+      
+      // Write to temp file first
+      await fs.writeFile(tempFile, JSON.stringify(data, null, 2), 'utf8');
+      
+      // Then rename (atomic operation)
+      await fs.rename(tempFile, file);
+    } catch (error) {
+      // Clean up temp file if it exists
+      try {
+        await fs.unlink(tempFile);
+      } catch {
+        // Ignore cleanup errors
+      }
+      console.error(`Atomic write failed for ${file}:`, error);
+      throw error;
+    }
   }
 
   private async readJsonFile<T>(filename: string): Promise<T[]> {
@@ -42,8 +76,62 @@ export class JsonStorageAdapter implements StorageAdapter {
 
   // Quiz operations
   async getQuiz(id: string): Promise<GeneratedQuiz | null> {
-    const quizzes = await this.readJsonFile<GeneratedQuiz>('quizzes.json');
-    return quizzes.find(q => q.id === id) || null;
+    const quizzes = await this.readJsonFile<any>('quizzes.json');
+    const quiz = quizzes.find((q: any) => q.id === id);
+    
+    if (!quiz) {
+      return null;
+    }
+
+    // Handle legacy quiz format that doesn't have questions embedded
+    if (!quiz.questions || !Array.isArray(quiz.questions)) {
+      try {
+        // Try to load questions from separate questions.json file
+        const questions = await this.readJsonFile<any>('questions.json');
+        const quizQuestions = questions.filter((q: any) => q.quizId === id);
+        
+        if (quizQuestions.length > 0) {
+          // Convert legacy question format to new format
+          quiz.questions = quizQuestions.map((q: any) => ({
+            id: q.id || `q-${Date.now()}-${Math.random()}`,
+            topic: quiz.topic || 'General',
+            mode: quiz.mode || 'same',
+            type: 'mcq', // Legacy questions were mostly MCQ
+            question: q.question,
+            options: q.options ? q.options : undefined,
+            answer: q.options && typeof q.correctAnswer === 'number' 
+              ? q.options[q.correctAnswer] 
+              : (q.answer || q.correctAnswer),
+            difficulty: (q.difficulty as any) || 'medium',
+            metadata: { legacy: true, explanation: q.explanation }
+          }));
+          
+          console.log(`Loaded ${quiz.questions.length} legacy questions for quiz ${id}`);
+        } else {
+          console.warn(`No questions found for quiz ${id}`);
+          quiz.questions = [];
+        }
+      } catch (error) {
+        console.error(`Error loading questions for quiz ${id}:`, error);
+        quiz.questions = [];
+      }
+    }
+
+    // Ensure required fields exist with defaults
+    return {
+      id: quiz.id,
+      topics: Array.isArray(quiz.topics) ? quiz.topics : [quiz.topic || 'General'],
+      difficulty: quiz.difficulty || 'medium',
+      mode: quiz.mode || 'same',
+      numQuestions: quiz.numQuestions || quiz.questionCount || quiz.questions.length,
+      questions: quiz.questions || [],
+      createdAt: quiz.createdAt || new Date().toISOString(),
+      status: quiz.status === 'active' ? 'launched' : (quiz.status || 'draft'),
+      // Optional fields
+      numSets: quiz.numSets,
+      questionsPerSet: quiz.questionsPerSet,
+      poolSize: quiz.questions ? quiz.questions.length : 0
+    } as GeneratedQuiz;
   }
 
   async saveQuiz(quiz: GeneratedQuiz): Promise<void> {
@@ -78,6 +166,16 @@ export class JsonStorageAdapter implements StorageAdapter {
   async getSession(id: string): Promise<Session | null> {
     const sessions = await this.readJsonFile<Session>('quiz_sessions.json');
     return sessions.find(s => s.sessionId === id) || null;
+  }
+
+  async getSessionByJoinCode(joinCode: string): Promise<Session | null> {
+    const sessions = await this.readJsonFile<Session>('quiz_sessions.json');
+    return sessions.find(s => s.joinCode === joinCode.toUpperCase()) || null;
+  }
+
+  async listActiveSessions(): Promise<Session[]> {
+    const sessions = await this.readJsonFile<Session>('quiz_sessions.json');
+    return sessions.filter(s => s.status !== 'ended');
   }
 
   async saveSession(session: Session): Promise<void> {

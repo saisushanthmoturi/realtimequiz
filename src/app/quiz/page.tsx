@@ -7,10 +7,11 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface Question {
   id: string;
+  topic: string;
+  type: 'mcq' | 'true_false' | 'short_answer';
   question: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
+  options?: string[];
+  difficulty: string;
 }
 
 interface QuizData {
@@ -24,7 +25,7 @@ interface QuizData {
 export default function TakeQuiz() {
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: string]: number }>({});
+  const [answers, setAnswers] = useState<{ [key: string]: string | number }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [sessionCode, setSessionCode] = useState('');
@@ -104,17 +105,41 @@ export default function TakeQuiz() {
     }
   };
 
-  const handleAnswerSelect = (questionId: string, answerIndex: number) => {
+  const isQuestionAnswered = (questionId: string, question: Question): boolean => {
+    const answer = answers[questionId];
+    if (answer === undefined || answer === null) return false;
+    
+    // For short answer questions, check if there's non-empty text
+    if (question.type === 'short_answer') {
+      return typeof answer === 'string' && answer.trim().length > 0;
+    }
+    
+    // For MCQ and true_false, any non-undefined answer is valid
+    return true;
+  };
+
+  const getAnsweredCount = (): number => {
+    return quizData?.questions.filter(q => isQuestionAnswered(q.id, q)).length || 0;
+  };
+
+  const handleAnswerSelect = (questionId: string, answer: string | number) => {
     setAnswers(prev => ({
       ...prev,
-      [questionId]: answerIndex
+      [questionId]: answer
+    }));
+  };
+
+  const handleTextAnswerChange = (questionId: string, value: string) => {
+    setAnswers(prev => ({
+      ...prev,
+      [questionId]: value
     }));
   };
 
   const handleSubmit = async (isAutoSubmit = false) => {
     if (isSubmitting) return;
     
-    const unansweredQuestions = quizData?.questions.filter(q => answers[q.id] === undefined) || [];
+    const unansweredQuestions = quizData?.questions.filter(q => !isQuestionAnswered(q.id, q)) || [];
     
     if (!isAutoSubmit && unansweredQuestions.length > 0) {
       const confirmSubmit = confirm(
@@ -133,10 +158,10 @@ export default function TakeQuiz() {
         return;
       }
 
-      // Convert answers object to array format expected by API
-      const answersArray = quizData?.questions.map(q => answers[q.id] ?? -1) || [];
+      // Get session information
+      const currentSessionId = sessionStorage.getItem('currentSessionId');
       
-      // Calculate time spent (you might want to track this more precisely)
+      // Send answers as object with question IDs as keys (matches our new API)
       const timeSpent = Math.floor((Date.now() - (sessionStorage.getItem('quizStartTime') ? parseInt(sessionStorage.getItem('quizStartTime')!) : Date.now())) / 1000);
       
       const response = await fetch('/api/quiz/submit', {
@@ -145,7 +170,8 @@ export default function TakeQuiz() {
         body: JSON.stringify({
           quizId: quizData?.id,
           studentId: studentId,
-          answers: answersArray,
+          sessionId: currentSessionId,
+          answers: answers, // Send the answers object directly
           timeSpent: timeSpent
         })
       });
@@ -214,7 +240,8 @@ export default function TakeQuiz() {
   }
 
   const currentQ = quizData.questions[currentQuestion];
-  const progress = ((currentQuestion + 1) / quizData.questions.length) * 100;
+  const answeredCount = getAnsweredCount();
+  const progress = (answeredCount / quizData.questions.length) * 100;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -238,7 +265,7 @@ export default function TakeQuiz() {
           <div className="mt-4">
             <div className="flex justify-between text-sm text-gray-600 mb-1">
               <span>Question {currentQuestion + 1} of {quizData.questions.length}</span>
-              <span>{Math.round(progress)}% Complete</span>
+              <span>{answeredCount}/{quizData.questions.length} Answered ({Math.round(progress)}%)</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
@@ -258,14 +285,14 @@ export default function TakeQuiz() {
             <div className="bg-white rounded-lg shadow-sm p-4 sticky top-32">
               <h3 className="font-semibold text-gray-900 mb-4">Questions</h3>
               <div className="grid grid-cols-5 lg:grid-cols-3 gap-2">
-                {quizData.questions.map((_, index) => (
+                {quizData.questions.map((question, index) => (
                   <button
                     key={index}
                     onClick={() => goToQuestion(index)}
-                    className={`w-8 h-8 rounded text-xs font-medium ${
+                    className={`w-8 h-8 rounded text-xs font-medium transition-colors ${
                       index === currentQuestion
                         ? 'bg-blue-600 text-white'
-                        : answers[quizData.questions[index].id] !== undefined
+                        : isQuestionAnswered(question.id, question)
                         ? 'bg-green-100 text-green-800'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
@@ -296,31 +323,94 @@ export default function TakeQuiz() {
           <div className="lg:col-span-3">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="mb-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  {currentQ.question}
-                </h2>
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900 flex-1">
+                    {currentQ.question}
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      currentQ.type === 'mcq' ? 'bg-blue-100 text-blue-800' :
+                      currentQ.type === 'true_false' ? 'bg-green-100 text-green-800' :
+                      'bg-purple-100 text-purple-800'
+                    }`}>
+                      {currentQ.type === 'mcq' ? 'Multiple Choice' :
+                       currentQ.type === 'true_false' ? 'True/False' :
+                       'Short Answer'}
+                    </span>
+                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600 capitalize">
+                      {currentQ.difficulty}
+                    </span>
+                  </div>
+                </div>
                 
-                <div className="space-y-3">
-                  {currentQ.options.map((option, index) => (
-                    <label
-                      key={index}
-                      className={`flex items-center p-3 rounded-lg border cursor-pointer hover:bg-gray-50 ${
-                        answers[currentQ.id] === index
-                          ? 'bg-blue-50 border-blue-300'
-                          : 'border-gray-200'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${currentQ.id}`}
-                        value={index}
-                        checked={answers[currentQ.id] === index}
-                        onChange={() => handleAnswerSelect(currentQ.id, index)}
-                        className="mr-3"
+                <div className="space-y-4">
+                  {/* MCQ Questions */}
+                  {currentQ.type === 'mcq' && currentQ.options && (
+                    <div className="space-y-3">
+                      {currentQ.options.map((option, index) => (
+                        <label
+                          key={index}
+                          className={`flex items-center p-3 rounded-lg border cursor-pointer hover:bg-gray-50 transition-colors ${
+                            answers[currentQ.id] === index
+                              ? 'bg-blue-50 border-blue-300'
+                              : 'border-gray-200'
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name={`question-${currentQ.id}`}
+                            value={index}
+                            checked={answers[currentQ.id] === index}
+                            onChange={() => handleAnswerSelect(currentQ.id, index)}
+                            className="mr-3 text-blue-600"
+                          />
+                          <span className="flex-1">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* True/False Questions */}
+                  {currentQ.type === 'true_false' && (
+                    <div className="space-y-3">
+                      {['true', 'false'].map((option) => (
+                        <label
+                          key={option}
+                          className={`flex items-center p-3 rounded-lg border cursor-pointer hover:bg-gray-50 transition-colors ${
+                            answers[currentQ.id] === option
+                              ? 'bg-blue-50 border-blue-300'
+                              : 'border-gray-200'
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name={`question-${currentQ.id}`}
+                            value={option}
+                            checked={answers[currentQ.id] === option}
+                            onChange={() => handleAnswerSelect(currentQ.id, option)}
+                            className="mr-3 text-blue-600"
+                          />
+                          <span className="flex-1 capitalize">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Short Answer Questions */}
+                  {currentQ.type === 'short_answer' && (
+                    <div>
+                      <textarea
+                        value={answers[currentQ.id] as string || ''}
+                        onChange={(e) => handleTextAnswerChange(currentQ.id, e.target.value)}
+                        placeholder="Type your answer here..."
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                        rows={4}
                       />
-                      <span className="flex-1">{option}</span>
-                    </label>
-                  ))}
+                      <p className="text-sm text-gray-500 mt-2">
+                        Provide a clear, concise answer. Be specific and accurate.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 

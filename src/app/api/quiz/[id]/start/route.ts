@@ -1,16 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SimpleDB, Quiz, QuizSession, Question, DB_KEYS } from '@/lib/database';
-import { AIQuestionService } from '@/lib/ai-service';
+import { storage } from '@/lib/storage';
+import { nanoid } from 'nanoid';
+import type { Session } from '@/types/quiz';
 
 function generateSessionCode(): string {
-  return Math.random().toString(36).substring(2, 8).toUpperCase();
+  // Generate a more reliable 6-character code
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
 }
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const quizId = id;
-    const quiz = SimpleDB.find<Quiz>(DB_KEYS.QUIZZES, quizId);
+    
+    // Get quiz from the consistent storage system
+    const quiz = await storage.getQuiz(quizId);
 
     if (!quiz) {
       return NextResponse.json(
@@ -19,43 +28,61 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       );
     }
 
-    if (quiz.status === 'active') {
+    if (quiz.status === 'launched') {
       return NextResponse.json(
         { success: false, message: 'Quiz is already active' },
         { status: 400 }
       );
     }
 
-    // Generate session code
-    const sessionCode = generateSessionCode();
+    // Generate unique session code
+    let sessionCode = generateSessionCode();
+    
+    // Ensure session code is unique (check existing sessions)
+    let attempts = 0;
+    while (attempts < 10) {
+      try {
+        const existingSessions = await storage.listQuizzes();
+        const codeExists = existingSessions.some(q => 
+          q.status === 'launched' && q.questions.some(question => 
+            question.metadata?.sessionCode === sessionCode
+          )
+        );
+        if (!codeExists) break;
+        sessionCode = generateSessionCode();
+        attempts++;
+      } catch {
+        break; // If we can't check, proceed with current code
+      }
+    }
 
-    // Update quiz status
-    SimpleDB.update(DB_KEYS.QUIZZES, quizId, { 
-      status: 'active' as const,
-      sessionCode 
-    });
+    // Update quiz status to launched
+    await storage.updateQuizStatus(quizId, 'launched');
 
-    // Create quiz session
-    const session: QuizSession = {
-      id: Date.now().toString(),
+    // Create session
+    const session: Session = {
+      sessionId: 'session-' + nanoid(),
       quizId,
-      sessionCode,
-      isActive: true,
+      teacherId: 'current-teacher', // You might want to get this from auth
+      joinCode: sessionCode,
+      status: 'running',
       participants: [],
-      createdAt: new Date().toISOString()
+      startedAt: new Date().toISOString()
     };
 
-    SimpleDB.add(DB_KEYS.SESSIONS, session);
+    await storage.saveSession(session);
 
     return NextResponse.json({
       success: true,
       message: 'Quiz started successfully',
       sessionCode,
-      quiz: { ...quiz, status: 'active', sessionCode }
+      sessionId: session.sessionId,
+      quiz: { ...quiz, status: 'launched' }
     });
   } catch (error) {
+    console.error('Failed to start quiz:', error);
     return NextResponse.json(
-      { success: false, message: 'Failed to start quiz' },
+      { success: false, message: 'Failed to start quiz', error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

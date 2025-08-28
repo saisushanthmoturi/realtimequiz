@@ -13,6 +13,25 @@ function generateJoinCode(): string {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
+async function generateUniqueJoinCode(): Promise<string> {
+  let attempts = 0;
+  const maxAttempts = 10;
+  
+  while (attempts < maxAttempts) {
+    const code = generateJoinCode();
+    const existing = await storage.getSessionByJoinCode(code);
+    
+    if (!existing || existing.status === 'ended') {
+      return code;
+    }
+    
+    attempts++;
+  }
+  
+  // Fallback to longer code if needed
+  return Math.random().toString(36).substring(2, 12).toUpperCase();
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -27,7 +46,7 @@ export async function POST(req: NextRequest) {
       sessionId: 'session-' + nanoid(),
       quizId,
       teacherId,
-      joinCode: generateJoinCode(),
+      joinCode: await generateUniqueJoinCode(),
       status: 'ready',
       participants: []
     };

@@ -1,77 +1,95 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SimpleDB, Quiz, QuizSession, Question, DB_KEYS } from '@/lib/database';
-import { AIQuestionService } from '@/lib/ai-service';
+import { storage } from '@/lib/storage';
+import { z } from 'zod';
+import { nanoid } from 'nanoid';
+import type { QuizQuestion } from '@/types/quiz';
+
+const JoinSchema = z.object({
+  joinCode: z.string(),
+  studentId: z.string(),
+  studentName: z.string().optional()
+});
 
 export async function POST(request: NextRequest) {
   try {
-    const { sessionCode, studentId } = await request.json();
+    const body = await request.json();
+    const { joinCode, studentId, studentName } = JoinSchema.parse(body);
 
-    if (!sessionCode || !studentId) {
+    // Find session by join code
+    const session = await storage.getSessionByJoinCode(joinCode.toUpperCase());
+
+    if (!session || (session.status !== 'ready' && session.status !== 'running')) {
       return NextResponse.json(
-        { success: false, message: 'Missing session code or student ID' },
-        { status: 400 }
-      );
-    }
-
-    // Find active session
-    const sessions = SimpleDB.get<QuizSession>(DB_KEYS.SESSIONS);
-    const session = sessions.find(s => s.sessionCode === sessionCode.toUpperCase() && s.isActive);
-
-    if (!session) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid session code or session not active' },
+        { success: false, message: 'Invalid join code or session not available' },
         { status: 404 }
       );
     }
 
     // Get quiz details
-    const quiz = SimpleDB.find<Quiz>(DB_KEYS.QUIZZES, session.quizId);
-    if (!quiz || quiz.status !== 'active') {
+    const quiz = await storage.getQuiz(session.quizId);
+    
+    if (!quiz) {
       return NextResponse.json(
-        { success: false, message: 'Quiz is not active' },
-        { status: 400 }
+        { success: false, message: 'Quiz not found' },
+        { status: 404 }
       );
     }
 
     // Add student to participants if not already there
-    if (!session.participants.includes(studentId)) {
-      session.participants.push(studentId);
-      SimpleDB.update(DB_KEYS.SESSIONS, session.id, { participants: session.participants });
+    const existingParticipant = session.participants.find(p => p.studentId === studentId);
+    if (!existingParticipant) {
+      session.participants.push({ 
+        studentId, 
+        name: studentName || studentId 
+      });
+      await storage.updateSession({
+        sessionId: session.sessionId,
+        participants: session.participants
+      });
+      
+      console.log(`Student ${studentId} joined session ${session.sessionId} (${session.joinCode})`);
     }
 
-    // Generate unique questions for this student
-    const questions = await AIQuestionService.generateQuestionsForStudent(
-      quiz.topic,
-      quiz.questionCount,
-      studentId,
-      quiz.id
-    );
+    // For "different" mode, generate unique questions for this student
+    let questionsForStudent: QuizQuestion[] = [];
+    
+    if (quiz.mode === 'different') {
+      // Take a random subset from the question pool for this student
+      const questionsPerSet = quiz.questionsPerSet || quiz.numQuestions;
+      const shuffled = [...quiz.questions].sort(() => Math.random() - 0.5);
+      questionsForStudent = shuffled.slice(0, questionsPerSet);
+    } else {
+      // For "same" mode, all students get the same questions
+      questionsForStudent = quiz.questions;
+    }
 
-    // Save questions to database
-    questions.forEach(question => {
-      SimpleDB.add(DB_KEYS.QUESTIONS, question);
-    });
-
-    // Return quiz data with questions for the quiz interface
-    const questionsForStudent = questions.map(q => ({
+    // Return quiz data for the student interface
+    const sanitizedQuestions = questionsForStudent.map(q => ({
       id: q.id,
+      topic: q.topic,
+      type: q.type,
       question: q.question,
       options: q.options,
-      correctAnswer: q.correctAnswer, // Include for results calculation
-      explanation: q.explanation // Include for feedback
+      difficulty: q.difficulty
+      // Note: Don't include the answer for security
     }));
 
     return NextResponse.json({
       success: true,
       message: 'Successfully joined quiz',
+      sessionId: session.sessionId,
       quiz: {
         id: quiz.id,
-        title: quiz.title,
-        topic: quiz.topic,
-        timeLimit: quiz.timeLimit,
-        questionCount: quiz.questionCount,
-        type: quiz.type,
-        questions: questionsForStudent
+        topics: quiz.topics,
+        difficulty: quiz.difficulty,
+        mode: quiz.mode,
+        numQuestions: quiz.mode === 'different' ? (quiz.questionsPerSet || quiz.numQuestions) : quiz.numQuestions,
+        questions: sanitizedQuestions
+      },
+      session: {
+        status: session.status,
+        startedAt: session.startedAt,
+        endsAt: session.endsAt
       }
     });
   } catch (error) {

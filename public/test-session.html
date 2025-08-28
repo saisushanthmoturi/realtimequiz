@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Session Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, button { 
+            padding: 10px; 
+            margin: 5px 0; 
+            border-radius: 4px; 
+            border: 1px solid #ddd; 
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button { 
+            background: #007cba; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        button:hover { background: #005a87; }
+        button:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { 
+            background: #e7f3ff; 
+            padding: 15px; 
+            border-radius: 4px; 
+            margin: 10px 0;
+            border-left: 4px solid #007cba;
+        }
+        .section { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        .questions { 
+            max-height: 300px; 
+            overflow-y: auto; 
+            border: 1px solid #eee; 
+            padding: 10px; 
+            border-radius: 4px; 
+        }
+        .question {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        pre { 
+            background: #f4f4f4; 
+            padding: 10px; 
+            border-radius: 4px; 
+            white-space: pre-wrap; 
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Session Multi-Device Test</h1>
+        <p>Use this page to test session creation and joining from multiple devices/tabs.</p>
+        
+        <div class="section">
+            <h3>1. Create Test Session</h3>
+            <button onclick="createTestSession()">Create Test Quiz & Session</button>
+            <div id="sessionInfo"></div>
+        </div>
+
+        <div class="section">
+            <h3>2. Join Session</h3>
+            <input type="text" id="joinCode" placeholder="Enter Join Code" style="text-transform: uppercase;">
+            <input type="text" id="studentId" placeholder="Student ID (e.g., student1)">
+            <input type="text" id="studentName" placeholder="Student Name (optional)">
+            <button onclick="joinSession()">Join Session</button>
+            <div id="joinResult"></div>
+        </div>
+
+        <div class="section">
+            <h3>3. Session Status</h3>
+            <button onclick="checkSessionStatus()">Check Current Session</button>
+            <div id="sessionStatus"></div>
+        </div>
+
+        <div class="section">
+            <h3>4. Active Sessions (Debug)</h3>
+            <button onclick="listActiveSessions()">List All Active Sessions</button>
+            <div id="activeSessionsList"></div>
+        </div>
+
+        <div class="info">
+            <strong>Multi-Device Testing:</strong><br>
+            1. Create a session on one device<br>
+            2. Open this page on other devices/tabs<br>
+            3. Join the same session using the join code<br>
+            4. Check session status to see all participants
+        </div>
+    </div>
+
+    <script>
+        let currentSessionId = null;
+        let currentJoinCode = null;
+
+        async function createTestSession() {
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = 'Creating...';
+            
+            try {
+                const response = await fetch('/api/test-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentSessionId = data.session.sessionId;
+                    currentJoinCode = data.session.joinCode;
+                    
+                    document.getElementById('sessionInfo').innerHTML = `
+                        <div class="success">
+                            <h4>Test Session Created Successfully!</h4>
+                            <p><strong>Join Code:</strong> <span style="font-size: 18px; font-weight: bold; color: #007cba;">${data.session.joinCode}</span></p>
+                            <p><strong>Session ID:</strong> ${data.session.sessionId}</p>
+                            <p><strong>Quiz:</strong> ${data.quiz.topics.join(', ')} (${data.quiz.numQuestions} questions)</p>
+                            <p><strong>AI Questions Generated:</strong> ${data.quiz.questionsGenerated}</p>
+                        </div>
+                        <div class="info">
+                            <strong>Next Steps:</strong><br>
+                            1. Copy the join code: <code>${data.session.joinCode}</code><br>
+                            2. Open this page on other devices<br>
+                            3. Use the join code to test multi-device functionality
+                        </div>
+                    `;
+                    
+                    // Auto-fill join code for convenience
+                    document.getElementById('joinCode').value = data.session.joinCode;
+                } else {
+                    document.getElementById('sessionInfo').innerHTML = `
+                        <div class="error">Error: ${data.error}</div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('sessionInfo').innerHTML = `
+                    <div class="error">Network error: ${error.message}</div>
+                `;
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Create Test Quiz & Session';
+            }
+        }
+
+        async function joinSession() {
+            const joinCode = document.getElementById('joinCode').value.trim().toUpperCase();
+            const studentId = document.getElementById('studentId').value.trim();
+            const studentName = document.getElementById('studentName').value.trim();
+            
+            if (!joinCode || !studentId) {
+                alert('Please enter both join code and student ID');
+                return;
+            }
+
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = 'Joining...';
+            
+            try {
+                const response = await fetch('/api/quiz/join', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ joinCode, studentId, studentName })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    currentSessionId = data.sessionId;
+                    
+                    document.getElementById('joinResult').innerHTML = `
+                        <div class="success">
+                            <h4>Successfully Joined Session!</h4>
+                            <p><strong>Student:</strong> ${studentId} ${studentName ? `(${studentName})` : ''}</p>
+                            <p><strong>Session:</strong> ${data.sessionId}</p>
+                            <p><strong>Quiz:</strong> ${data.quiz.topics.join(', ')} - ${data.quiz.difficulty} difficulty</p>
+                            <p><strong>Questions:</strong> ${data.quiz.questions.length}</p>
+                            <p><strong>Session Status:</strong> ${data.session.status}</p>
+                        </div>
+                        <div class="questions">
+                            <h4>Quiz Questions:</h4>
+                            ${data.quiz.questions.map((q, i) => `
+                                <div class="question">
+                                    <strong>Q${i + 1}:</strong> ${q.question}<br>
+                                    <small>Topic: ${q.topic} | Type: ${q.type} | Difficulty: ${q.difficulty}</small>
+                                    ${q.options ? `<br><small>Options: ${q.options.join(', ')}</small>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('joinResult').innerHTML = `
+                        <div class="error">
+                            <h4>Failed to Join Session</h4>
+                            <p>${data.message || 'Unknown error occurred'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('joinResult').innerHTML = `
+                    <div class="error">Network error: ${error.message}</div>
+                `;
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Join Session';
+            }
+        }
+
+        async function checkSessionStatus() {
+            if (!currentSessionId) {
+                document.getElementById('sessionStatus').innerHTML = `
+                    <div class="error">No active session. Create or join a session first.</div>
+                `;
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/session/${currentSessionId}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('sessionStatus').innerHTML = `
+                        <div class="success">
+                            <h4>Session Status</h4>
+                            <p><strong>Session ID:</strong> ${data.sessionId}</p>
+                            <p><strong>Join Code:</strong> ${data.joinCode}</p>
+                            <p><strong>Status:</strong> ${data.status}</p>
+                            <p><strong>Participants:</strong> ${data.participantCount}</p>
+                            ${data.participants.length > 0 ? `
+                                <div style="margin-top: 10px;">
+                                    <strong>Participant List:</strong>
+                                    <ul>
+                                        ${data.participants.map(p => `<li>${p.studentId}${p.name ? ` (${p.name})` : ''}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                            ${data.startedAt ? `<p><strong>Started:</strong> ${new Date(data.startedAt).toLocaleString()}</p>` : ''}
+                            ${data.endsAt ? `<p><strong>Ends:</strong> ${new Date(data.endsAt).toLocaleString()}</p>` : ''}
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('sessionStatus').innerHTML = `
+                        <div class="error">Error: ${data.error}</div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('sessionStatus').innerHTML = `
+                    <div class="error">Network error: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function listActiveSessions() {
+            try {
+                const response = await fetch('/api/session');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('activeSessionsList').innerHTML = `
+                        <div class="success">
+                            <h4>Active Sessions (${data.count})</h4>
+                            ${data.sessions.length === 0 ? '<p>No active sessions found.</p>' : `
+                                <div style="max-height: 300px; overflow-y: auto;">
+                                    ${data.sessions.map(s => `
+                                        <div style="border: 1px solid #ddd; padding: 10px; margin: 5px 0; border-radius: 4px;">
+                                            <strong>${s.joinCode}</strong> (${s.status})<br>
+                                            <small>Session: ${s.sessionId}</small><br>
+                                            <small>Quiz: ${s.quizId}</small><br>
+                                            <small>Participants: ${s.participantCount}</small>
+                                            ${s.startedAt ? `<br><small>Started: ${new Date(s.startedAt).toLocaleString()}</small>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `}
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('activeSessionsList').innerHTML = `
+                        <div class="error">Error: ${data.error}</div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('activeSessionsList').innerHTML = `
+                    <div class="error">Network error: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Auto-generate student ID
+        document.getElementById('studentId').value = 'student' + Math.floor(Math.random() * 1000);
+    </script>
+</body>
+</html>

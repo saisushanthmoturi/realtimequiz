@@ -4,18 +4,21 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 
 interface QuizResult {
+  attemptId: string;
   score: number;
   totalQuestions: number;
   percentage: number;
   timeSpent: number;
   feedback: string;
+  submittedAt: string;
   detailedResults: Array<{
     questionId: string;
     question: string;
-    selectedAnswer: number;
-    correctAnswer: number;
+    type: string;
+    studentAnswer: string | number;
+    correctAnswer: string;
     isCorrect: boolean;
-    explanation: string;
+    topic: string;
   }>;
 }
 
@@ -201,12 +204,28 @@ function ResultsContent() {
                 }`}
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-semibold text-gray-900 flex-1 pr-4">
-                    <span className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs mr-2">
-                      Q{index + 1}
-                    </span>
-                    {item.question}
-                  </h4>
+                  <div className="flex-1 pr-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">
+                        Q{index + 1}
+                      </span>
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        item.type === 'mcq' ? 'bg-blue-100 text-blue-800' :
+                        item.type === 'true_false' ? 'bg-green-100 text-green-800' :
+                        'bg-purple-100 text-purple-800'
+                      }`}>
+                        {item.type === 'mcq' ? 'Multiple Choice' :
+                         item.type === 'true_false' ? 'True/False' :
+                         'Short Answer'}
+                      </span>
+                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
+                        {item.topic}
+                      </span>
+                    </div>
+                    <h4 className="font-semibold text-gray-900">
+                      {item.question}
+                    </h4>
+                  </div>
                   <span className={`flex-shrink-0 px-3 py-1 rounded-full text-sm font-medium ${
                     item.isCorrect 
                       ? 'bg-green-100 text-green-800 border border-green-200' 
@@ -220,28 +239,33 @@ function ResultsContent() {
                   <div className="bg-white p-3 rounded border">
                     <p className="text-sm font-medium text-gray-700 mb-1">Your Answer:</p>
                     <p className={`text-sm font-semibold ${item.isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                      {item.selectedAnswer !== -1 
-                        ? `${String.fromCharCode(65 + item.selectedAnswer)} - Option ${item.selectedAnswer + 1}` 
-                        : '❌ Not answered'
-                      }
+                      {item.studentAnswer ? String(item.studentAnswer) : '❌ Not answered'}
                     </p>
                   </div>
                   {!item.isCorrect && (
                     <div className="bg-white p-3 rounded border">
                       <p className="text-sm font-medium text-gray-700 mb-1">Correct Answer:</p>
                       <p className="text-sm font-semibold text-green-600">
-                        ✅ {String.fromCharCode(65 + item.correctAnswer)} - Option {item.correctAnswer + 1}
+                        ✅ {item.correctAnswer}
                       </p>
                     </div>
                   )}
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <div className="flex items-start space-x-2">
-                    <div className="text-blue-500 text-lg">💡</div>
+                {/* Performance Indicator */}
+                <div className={`rounded-lg p-3 ${
+                  item.isCorrect ? 'bg-green-100 border border-green-200' : 'bg-orange-100 border border-orange-200'
+                }`}>
+                  <div className="flex items-center space-x-2">
+                    <div className={`text-lg ${item.isCorrect ? 'text-green-600' : 'text-orange-600'}`}>
+                      {item.isCorrect ? '🎯' : '�'}
+                    </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-blue-900 mb-2">Explanation:</p>
-                      <p className="text-sm text-blue-800 leading-relaxed">{item.explanation}</p>
+                      <p className={`text-sm font-medium ${item.isCorrect ? 'text-green-900' : 'text-orange-900'}`}>
+                        {item.isCorrect 
+                          ? 'Great job! You got this one right.' 
+                          : 'Review this topic for better understanding.'}
+                      </p>
                     </div>
                   </div>
                 </div>

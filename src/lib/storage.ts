@@ -9,6 +9,8 @@ export interface StorageAdapter {
 
   // Session operations
   getSession(id: string): Promise<Session | null>;
+  getSessionByJoinCode(joinCode: string): Promise<Session | null>;
+  listActiveSessions(): Promise<Session[]>;
   saveSession(s: Session): Promise<void>;
   updateSession(s: Partial<Session> & { sessionId: string }): Promise<void>;
 

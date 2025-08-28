@@ -59,9 +59,33 @@ function sanitizeJsonText(text: string): string {
     // 2. Ensure property names are properly quoted
     cleaned = cleaned.replace(/(\{|\,)\s*([a-zA-Z0-9_]+)\s*\:/g, '$1"$2":');
     
-    // 3. Replace single quotes with double quotes for JSON compatibility
-    cleaned = cleaned.replace(/(\w+)\'(\w+)/g, '$1\\\'$2'); // Preserve apostrophes
-    cleaned = cleaned.replace(/'([^']*)'([\s\:\,\}])/g, '"$1"$2'); // Replace other singles
+    // 3. Fix unescaped quotes in JSON string values - MAIN ISSUE
+    // Replace problematic patterns like: "question": "What does "HTTP" stand for?"
+    // Strategy: Find : "..." patterns and escape internal quotes
+    cleaned = cleaned.replace(/:\s*"([^"\\]*(\\.[^"\\]*)*?)"/g, (match, content) => {
+      // Don't process if already properly escaped
+      if (content.includes('\\"') && !content.match(/[^\\]"/)) {
+        return match;
+      }
+      
+      // Escape unescaped quotes within the content
+      const fixedContent = content.replace(/(?<!\\)"/g, '\\"');
+      return ': "' + fixedContent + '"';
+    });
+    
+    // Alternative simpler approach - replace smart quotes and common patterns
+    cleaned = cleaned.replace(/"/g, '"'); // Replace smart quotes
+    cleaned = cleaned.replace(/"/g, '"'); // Replace smart quotes
+    cleaned = cleaned.replace(/'/g, "'"); // Replace smart apostrophe
+    
+    // 4. Fix escaped characters in strings
+    cleaned = cleaned.replace(/\\'/g, "'"); // Fix \' to just '
+    cleaned = cleaned.replace(/\\n/g, "\\\\n"); // Properly escape newlines
+    cleaned = cleaned.replace(/\\t/g, "\\\\t"); // Properly escape tabs
+    
+    // 5. Handle mathematical expressions and special characters
+    cleaned = cleaned.replace(/\^(\d+)/g, "^$1"); // Fix exponents
+    cleaned = cleaned.replace(/([²³⁴⁵⁶⁷⁸⁹])/g, "^$1"); // Convert superscript to ^
     
     return cleaned;
   }
@@ -69,17 +93,23 @@ function sanitizeJsonText(text: string): string {
   return text; // Return original if we couldn't identify JSON pattern
 }
 
-async function runGenerate(modelName: string, prompt: string): Promise<any> {
+async function runGenerate(modelName: string, prompt: string, requestedQuestions: number = 10): Promise<any> {
   const model = getGeminiModel(modelName);
-  console.info(`[AI] Requesting content from ${modelName}...`);
+  console.info(`[AI] Requesting content from ${modelName} for ${requestedQuestions} questions...`);
+  
+  // Add timeout and generation limits for large requests
+  const generationConfig = {
+    temperature: 0.6,
+    topK: 40,
+    topP: 0.95,
+    responseMimeType: 'application/json',
+    // Add token limits for large requests
+    maxOutputTokens: requestedQuestions > 20 ? 4096 : 2048,
+  };
+  
   const res = await model.generateContent({
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    generationConfig: {
-      temperature: 0.6,
-      topK: 40,
-      topP: 0.95,
-      responseMimeType: 'application/json'
-    }
+    generationConfig
   });
   const raw = res.response.text();
   
@@ -89,7 +119,12 @@ async function runGenerate(modelName: string, prompt: string): Promise<any> {
   
   const jsonText = sanitizeJsonText(raw);
   try {
-    return JSON.parse(jsonText);
+    const parsed = JSON.parse(jsonText);
+    // Validate that we got the expected number of questions
+    if (parsed.quiz && Array.isArray(parsed.quiz)) {
+      console.info(`[AI] Generated ${parsed.quiz.length} questions (requested: ${requestedQuestions})`);
+    }
+    return parsed;
   } catch (error) {
     console.error(`[AI] JSON parse error from ${modelName}:`, error);
     console.info(`[AI] Failed JSON text: ${jsonText.substring(0, 500)}...`);
@@ -97,7 +132,7 @@ async function runGenerate(modelName: string, prompt: string): Promise<any> {
   }
 }
 
-async function generateJSONWithFallback(modelNames: string[], prompt: string): Promise<any> {
+async function generateJSONWithFallback(modelNames: string[], prompt: string, requestedQuestions: number = 10): Promise<any> {
   const errors: Array<{ model: string; error: unknown }> = [];
   for (const name of modelNames) {
     try {
@@ -105,7 +140,7 @@ async function generateJSONWithFallback(modelNames: string[], prompt: string): P
         console.info(`[AI] Trying Gemini model: ${name}`);
       }
       
-      const result = await runGenerate(name, prompt);
+      const result = await runGenerate(name, prompt, requestedQuestions);
       
       // Verify basic structure before returning
       if (!result || typeof result !== 'object' || !result.quiz || !Array.isArray(result.quiz)) {
@@ -120,12 +155,29 @@ async function generateJSONWithFallback(modelNames: string[], prompt: string): P
       return result;
     } catch (err) {
       errors.push({ model: name, error: err });
-      console.warn(`[AI] Model failed: ${name}. ${err instanceof Error ? err.message : String(err)}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      console.warn(`[AI] Model failed: ${name}. ${errorMessage}`);
+      
+      // Check if this is a rate limit error
+      if (errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
+        console.warn(`[AI] Rate limit detected for ${name}. Consider upgrading API plan or waiting.`);
+      }
     }
   }
   const message = errors
     .map(e => `${e.model}: ${e.error instanceof Error ? e.error.message : String(e.error)}`)
     .join(' | ');
+  
+  // Check if all errors are rate limit errors
+  const allRateLimitErrors = errors.every(e => {
+    const errorMessage = e.error instanceof Error ? e.error.message : String(e.error);
+    return errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('rate limit');
+  });
+  
+  if (allRateLimitErrors) {
+    throw new Error(`All Gemini models hit rate limits. Please wait and try again, or upgrade your API plan. Details: ${message}`);
+  }
+  
   throw new Error(`All Gemini models failed. Attempts: ${message}`);
 }
 
@@ -178,6 +230,14 @@ export async function generateQuiz(params: {
   const sets = mode === 'different' ? (numSets ?? 1) : 1;
   const poolSize = numQuestions * sets;
 
+  console.info(`[AI] Generating ${poolSize} questions (${sets} sets × ${numQuestions} each) for topics: ${topics.join(', ')}`);
+
+  // For large requests (>25 questions), use batch generation
+  if (poolSize > 25) {
+    console.info(`[AI] Large request detected (${poolSize} questions). Using batch generation...`);
+    return await generateQuizInBatches(params);
+  }
+
   // Helper: local generation used when key missing or Gemini fails
   const localGenerate = (): QuizQuestion[] => {
     const questions: QuizQuestion[] = Array.from({ length: poolSize }).map((_, i) => {
@@ -212,27 +272,28 @@ Return ONLY JSON with this exact shape (no markdown, no comments):
     {
       "id": "string",
       "topic": "string",
-      "mode": "same" | "different",
+      "mode": "${mode}",
       "type": "mcq" | "true_false" | "short_answer",
       "question": "string",
       "options": ["A","B","C","D"],  // EXACTLY 4 options for mcq type
       "answer": "string",
-      "difficulty": "easy" | "medium" | "hard"
+      "difficulty": "${difficulty}"
     }
   ]
 }
 
 Constraints:
-- Generate exactly ${poolSize} items at ${difficulty} difficulty, covering topics: ${topics.join(', ')}.
+- Generate exactly ${poolSize} diverse questions at ${difficulty} difficulty.
+- Cover topics evenly: ${topics.join(', ')}.
 - mode must be "${mode}" for all items.
-- For "mcq" type, ALWAYS include EXACTLY 4 options array.
+- For "mcq" type, ALWAYS include EXACTLY 4 options array with correct answer.
 - For "true_false" type, answer must be "true" or "false".
-- Treat the ${poolSize} items as ${sets} set(s) × ${numQuestions} each; keep coverage balanced within each set.
+- Mix question types: 60% MCQ, 25% true_false, 15% short_answer.
 - No explanations, hints, rationales, or extra fields.
-- IDs should be unique like "q-${nanoid(6)}-*" (you choose the suffix).`;
+- IDs should be unique like "q-${nanoid(6)}-*" format.`;
 
   try {
-    const jsonData = await generateJSONWithFallback(modelChain, prompt);
+    const jsonData = await generateJSONWithFallback(modelChain, prompt, poolSize);
     
     // Pre-validate and sanitize before passing to Zod
     if (!jsonData || !jsonData.quiz || !Array.isArray(jsonData.quiz)) {
@@ -242,26 +303,31 @@ Constraints:
     // Filter out obviously invalid questions and normalize structure
     jsonData.quiz = jsonData.quiz
       .filter((q: any) => q && typeof q === 'object' && q.question && q.type)
-      .map((q: any) => {
+      .map((q: any, idx: number) => {
         // Ensure required fields exist
-        q.topic = q.topic || topics[0] || 'General';
+        q.topic = q.topic || topics[idx % topics.length] || 'General';
         q.difficulty = q.difficulty || difficulty;
         q.mode = q.mode || mode;
         
         // Handle MCQ questions
         if (q.type === 'mcq') {
-          // Ensure options is an array
-          q.options = Array.isArray(q.options) ? q.options : [];
-          
-          // Ensure answer exists
-          if (!q.answer && q.options.length > 0) {
-            q.answer = q.options[0];
-          } else if (!q.answer) {
-            q.answer = 'Option A';
+          // Ensure options is an array with exactly 4 options
+          q.options = Array.isArray(q.options) ? q.options.slice(0, 4) : [];
+          while (q.options.length < 4) {
+            q.options.push(`Option ${String.fromCharCode(65 + q.options.length)}`);
           }
-        } else if (!q.answer) {
-          // Default answer for non-MCQ
-          q.answer = q.type === 'true_false' ? 'true' : 'Answer';
+          
+          // Ensure answer exists and is valid
+          if (!q.answer || !q.options.includes(q.answer)) {
+            q.answer = q.options[0];
+          }
+        } else if (q.type === 'true_false') {
+          q.answer = ['true', 'false'].includes(q.answer) ? q.answer : 'true';
+          delete q.options;
+        } else {
+          // Short answer
+          q.answer = q.answer || 'Sample answer';
+          delete q.options;
         }
         
         return q;
@@ -269,11 +335,200 @@ Constraints:
     
     // Now validate with Zod
     const parsed = QuizResponseSchema.parse(jsonData);
-    return toQuizQuestions(parsed.quiz, mode);
+    const questions = toQuizQuestions(parsed.quiz, mode);
+    
+    // If we didn't get enough questions, pad with local generation
+    if (questions.length < poolSize) {
+      console.warn(`[AI] Got ${questions.length} questions, expected ${poolSize}. Padding with local generation.`);
+      const remaining = poolSize - questions.length;
+      const localQuestions = localGenerate().slice(0, remaining);
+      return [...questions, ...localQuestions];
+    }
+    
+    return questions.slice(0, poolSize); // Ensure exact count
   } catch (err) {
     console.warn('[AI] Falling back to local question generation due to Gemini error:', err);
     return localGenerate();
   }
+}
+
+// New function for batch generation of large question sets
+async function generateQuizInBatches(params: {
+  topics: string[];
+  difficulty: Difficulty;
+  numQuestions: number;
+  mode: Mode;
+  numSets?: number;
+}): Promise<QuizQuestion[]> {
+  const { topics, difficulty, numQuestions, mode, numSets } = params;
+  const sets = mode === 'different' ? (numSets ?? 1) : 1;
+  const totalQuestions = numQuestions * sets;
+  
+  // For rate limiting, use smaller batches and longer delays
+  const batchSize = 10; // Reduced from 15
+  const batches = Math.ceil(totalQuestions / batchSize);
+  
+  console.info(`[AI] Splitting ${totalQuestions} questions into ${batches} batches of ~${batchSize} questions each`);
+  
+  const allQuestions: QuizQuestion[] = [];
+  
+  for (let batchIdx = 0; batchIdx < batches; batchIdx++) {
+    const startIdx = batchIdx * batchSize;
+    const endIdx = Math.min(startIdx + batchSize, totalQuestions);
+    const batchQuestionCount = endIdx - startIdx;
+    
+    console.info(`[AI] Generating batch ${batchIdx + 1}/${batches} (${batchQuestionCount} questions)...`);
+    
+    try {
+      // Generate this batch using smaller request
+      const batchQuestions = await generateSingleBatch({
+        topics,
+        difficulty,
+        numQuestions: batchQuestionCount,
+        mode,
+        batchIdx
+      });
+      
+      allQuestions.push(...batchQuestions);
+      
+      // Add longer delay between batches to avoid rate limiting
+      if (batchIdx < batches - 1) {
+        const delay = 2000; // 2 seconds
+        console.info(`[AI] Waiting ${delay/1000} seconds before next batch...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    } catch (error) {
+      console.warn(`[AI] Batch ${batchIdx + 1} failed, using local generation:`, error);
+      // Generate local questions for failed batch
+      const localBatch: QuizQuestion[] = [];
+      for (let i = 0; i < batchQuestionCount; i++) {
+        const globalIdx = startIdx + i;
+        const topicIndex = globalIdx % topics.length;
+        const topic = topics[topicIndex];
+        
+        localBatch.push({
+          id: `q-local-batch${batchIdx}-${i}`,
+          topic,
+          mode,
+          type: 'mcq',
+          question: `${topic} question ${globalIdx + 1} (batch ${batchIdx + 1})`,
+          options: ['Option A', 'Option B', 'Option C', 'Option D'],
+          answer: 'Option A',
+          difficulty,
+          metadata: { idx: globalIdx, batch: batchIdx, local: true }
+        });
+      }
+      allQuestions.push(...localBatch);
+    }
+  }
+  
+  console.info(`[AI] Batch generation complete. Generated ${allQuestions.length} total questions.`);
+  return allQuestions;
+}
+
+async function generateSingleBatch(args: {
+  topics: string[];
+  difficulty: Difficulty;
+  numQuestions: number;
+  mode: Mode;
+  batchIdx: number;
+}): Promise<QuizQuestion[]> {
+  const { topics, difficulty, numQuestions, mode, batchIdx } = args;
+  
+  if (!hasGemini) {
+    throw new Error('No Gemini API key available for batch generation');
+  }
+  
+  const modelChain = [PRIMARY_MODEL, ...DEFAULT_FALLBACKS];
+  const prompt = `Generate ${numQuestions} assessment questions for a college quiz.
+Return ONLY valid JSON with this exact structure:
+{
+  "quiz": [
+    {
+      "id": "q-b${batchIdx}-1",
+      "topic": "string",
+      "mode": "${mode}",
+      "type": "mcq",
+      "question": "string",
+      "options": ["A","B","C","D"],
+      "answer": "A",
+      "difficulty": "${difficulty}"
+    }
+  ]
+}
+
+Requirements:
+- Generate exactly ${numQuestions} unique questions
+- Topics to cover: ${topics.join(', ')}
+- Difficulty: ${difficulty}
+- Question types: 70% mcq, 20% true_false, 10% short_answer
+- For MCQ: include exactly 4 options, answer must match one option
+- For true_false: answer must be "true" or "false", no options array
+- For short_answer: no options array, provide correct answer
+- Make questions diverse and educational
+- ID format: "q-b${batchIdx}-{number}"`;
+
+  const jsonData = await generateJSONWithFallback(modelChain, prompt, numQuestions);
+  
+  if (!jsonData || !jsonData.quiz || !Array.isArray(jsonData.quiz)) {
+    throw new Error('Invalid JSON structure: missing quiz array');
+  }
+  
+  // Sanitize and validate each question
+  const sanitized = jsonData.quiz
+    .filter((q: any) => q && typeof q === 'object' && q.question && q.type)
+    .map((q: any, idx: number) => {
+      // Assign topic and other required fields
+      q.topic = q.topic || topics[idx % topics.length] || 'General';
+      q.difficulty = q.difficulty || difficulty;
+      q.mode = q.mode || mode;
+      q.id = q.id || `q-b${batchIdx}-${idx + 1}`;
+      
+      // Type-specific validation
+      if (q.type === 'mcq') {
+        // Ensure exactly 4 options
+        if (!Array.isArray(q.options)) {
+          q.options = ['Option A', 'Option B', 'Option C', 'Option D'];
+        } else {
+          q.options = q.options.slice(0, 4);
+          while (q.options.length < 4) {
+            q.options.push(`Option ${String.fromCharCode(65 + q.options.length)}`);
+          }
+        }
+        // Ensure answer is valid
+        if (!q.answer || !q.options.includes(q.answer)) {
+          q.answer = q.options[0];
+        }
+      } else if (q.type === 'true_false') {
+        q.answer = ['true', 'false'].includes(q.answer) ? q.answer : 'true';
+        delete q.options;
+      } else if (q.type === 'short_answer') {
+        q.answer = q.answer || 'Sample answer';
+        delete q.options;
+      }
+      
+      return q;
+    })
+    .slice(0, numQuestions); // Ensure we don't exceed requested count
+  
+  // Pad with local questions if we didn't get enough
+  while (sanitized.length < numQuestions) {
+    const idx = sanitized.length;
+    const topic = topics[idx % topics.length];
+    sanitized.push({
+      id: `q-b${batchIdx}-pad-${idx}`,
+      topic,
+      mode,
+      type: 'mcq',
+      question: `${topic} question ${idx + 1} (batch ${batchIdx})`,
+      options: ['Option A', 'Option B', 'Option C', 'Option D'],
+      answer: 'Option A',
+      difficulty
+    });
+  }
+  
+  const parsed = QuizResponseSchema.parse({ quiz: sanitized });
+  return toQuizQuestions(parsed.quiz, mode);
 }
 
 export async function refineQuestion(input: {
@@ -339,7 +594,7 @@ Schema (single item wrapped in quiz array):
 - No extra text.`;
 
   try {
-    const parsed = QuizResponseSchema.parse(await generateJSONWithFallback(modelChain, prompt));
+    const parsed = QuizResponseSchema.parse(await generateJSONWithFallback(modelChain, prompt, 1));
     const updated = toQuizQuestions(parsed.quiz, question.mode)[0];
     // Preserve original id for stability
     return { ...updated, id: question.id };
@@ -456,7 +711,7 @@ export function generateFeedback(
   studentId: string,
   score: number,
   totalQuestions: number,
-  detailedResults: Array<{ question?: string; isCorrect: boolean }>
+  detailedResults: Array<{ question?: string; isCorrect: boolean; topic?: string }>
 ): string {
   const percentage = totalQuestions ? Math.round((score / totalQuestions) * 100) : 0;
   const incorrect = detailedResults.filter(r => !r.isCorrect);
@@ -469,6 +724,19 @@ export function generateFeedback(
 
   if (incorrect.length > 0) {
     feedback += `Review the explanations for ${incorrect.length} question(s) you missed. `;
+    
+    // Add topic-specific feedback
+    const incorrectTopics: Record<string, number> = {};
+    incorrect.forEach(r => {
+      if (r.topic) {
+        incorrectTopics[r.topic] = (incorrectTopics[r.topic] || 0) + 1;
+      }
+    });
+    
+    if (Object.keys(incorrectTopics).length > 0) {
+      const topicList = Object.keys(incorrectTopics).join(', ');
+      feedback += `Focus on: ${topicList}. `;
+    }
   }
   feedback += 'Keep up the great work and continue learning!';
   return feedback;

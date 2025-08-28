@@ -40,8 +40,9 @@ export default function StudentDashboard() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sessionCode: sessionCode.toUpperCase(),
+          joinCode: sessionCode.toUpperCase(),
           studentId: userId,
+          studentName: `Student ${userId}`
         }),
       });
 
@@ -50,10 +51,22 @@ export default function StudentDashboard() {
       if (data.success) {
         // Store quiz data in sessionStorage for the quiz page
         sessionStorage.setItem('currentQuiz', JSON.stringify(data.quiz));
+        sessionStorage.setItem('currentSessionId', data.sessionId);
+        
+        // Show success message briefly before redirect
+        setError(''); // Clear any previous errors
+        
         // Redirect to quiz taking page
         router.push(`/quiz?sessionCode=${sessionCode.toUpperCase()}`);
       } else {
-        setError(data.message || 'Failed to join quiz');
+        // Provide more specific error messages
+        if (response.status === 404) {
+          setError('Session not found. Please check the join code or ask your teacher for a new one.');
+        } else if (response.status === 400) {
+          setError('Invalid session code format. Please enter a 6-digit code.');
+        } else {
+          setError(data.message || 'Failed to join quiz. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Join quiz error:', error);
@@ -100,47 +113,42 @@ export default function StudentDashboard() {
             </div>
           )}
           
-          <div className="flex space-x-4 mb-6">
-            <input
-              type="text"
-              value={sessionCode}
-              onChange={(e) => setSessionCode(e.target.value.toUpperCase())}
-              placeholder="Enter session code (e.g., ABC123)"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              maxLength={6}
-            />
-            <button
-              onClick={joinQuiz}
-              disabled={isJoining || !sessionCode.trim()}
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
-            >
-              {isJoining ? 'Joining...' : 'Join Quiz'}
-            </button>
-          </div>
-
-          {/* Active Session Codes for Testing */}
-          <div className="bg-blue-50 rounded-lg p-4">
-            <h4 className="font-semibold text-blue-900 mb-2">Test Session Codes:</h4>
-            <div className="flex space-x-2 text-sm">
-              <button 
-                onClick={() => setSessionCode('8HR0SX')}
-                className="px-3 py-1 bg-blue-100 text-blue-800 rounded cursor-pointer hover:bg-blue-200"
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex-1">
+              <label htmlFor="sessionCode" className="block text-sm font-medium text-gray-700 mb-2">
+                Session Code
+              </label>
+              <input
+                id="sessionCode"
+                type="text"
+                value={sessionCode}
+                onChange={(e) => setSessionCode(e.target.value.toUpperCase())}
+                placeholder="Enter 6-digit code (e.g., IPBKIT)"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center font-mono text-lg tracking-widest"
+                maxLength={6}
+                autoComplete="off"
+              />
+            </div>
+            <div className="flex items-end">
+              <button
+                onClick={joinQuiz}
+                disabled={isJoining || !sessionCode.trim()}
+                className="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium transition-colors"
               >
-                8HR0SX
-              </button>
-              <button 
-                onClick={() => setSessionCode('NOCO0P')}
-                className="px-3 py-1 bg-blue-100 text-blue-800 rounded cursor-pointer hover:bg-blue-200"
-              >
-                NOCO0P
-              </button>
-              <button 
-                onClick={() => setSessionCode('NDAQBX')}
-                className="px-3 py-1 bg-blue-100 text-blue-800 rounded cursor-pointer hover:bg-blue-200"
-              >
-                NDAQBX
+                {isJoining ? 'Joining...' : 'Join Quiz'}
               </button>
             </div>
+          </div>
+
+          {/* Instructions */}
+          <div className="bg-blue-50 rounded-lg p-4 mb-6">
+            <h4 className="font-semibold text-blue-900 mb-2">📝 How to Join:</h4>
+            <ol className="list-decimal list-inside space-y-1 text-blue-800 text-sm">
+              <li>Get the 6-digit session code from your teacher</li>
+              <li>Enter the code above and click "Join Quiz"</li>
+              <li>Wait for your teacher to start the timer</li>
+              <li>Complete all questions before time runs out</li>
+            </ol>
           </div>
 
           {/* AI Features Info */}
