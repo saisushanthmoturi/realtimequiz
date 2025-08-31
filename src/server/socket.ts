@@ -70,9 +70,22 @@ export function initSocketIO(server: HttpServer): SocketServer {
       io.emit('session:ready', { sessionId: session.sessionId, joinCode: session.joinCode });
     });
 
+    // Store timers for each session to manage pause/resume
+    const sessionTimers = new Map<string, { 
+      timer: NodeJS.Timeout;
+      endsAt: string;
+      remaining: number;
+      isPaused: boolean;
+    }>();
+
     socket.on('teacher:session:start', async ({ sessionId, durationSec }) => {
       const session = await storage.getSession(sessionId);
       if (!session) return;
+
+      // Clear any existing timer for this session
+      if (sessionTimers.has(sessionId)) {
+        clearInterval(sessionTimers.get(sessionId)!.timer);
+      }
 
       const startedAt = new Date().toISOString();
       const endsAt = new Date(Date.now() + durationSec * 1000).toISOString();
@@ -84,7 +97,7 @@ export function initSocketIO(server: HttpServer): SocketServer {
         endsAt
       });
 
-        io.to(`session:${sessionId}`).emit('session:started', { 
+      io.to(`session:${sessionId}`).emit('session:started', { 
         sessionId, 
         startAt: startedAt,
         endsAt 
@@ -92,27 +105,84 @@ export function initSocketIO(server: HttpServer): SocketServer {
 
       // Start timer
       const timer = setInterval(() => {
+        const timerInfo = sessionTimers.get(sessionId);
+        if (!timerInfo || timerInfo.isPaused) return;
+
         const now = Date.now();
-        const end = new Date(endsAt).getTime();
+        const end = new Date(timerInfo.endsAt).getTime();
+        const remaining = Math.ceil((end - now) / 1000);
         
-        if (now >= end) {
+        // Update the remaining time in our timer info
+        timerInfo.remaining = remaining;
+        
+        if (remaining <= 0) {
           clearInterval(timer);
           storage.updateSession({ sessionId, status: 'ended' });
-            io.to(`session:${sessionId}`).emit('session:ended');
+          io.to(`session:${sessionId}`).emit('session:ended');
+          sessionTimers.delete(sessionId);
         } else {
-            io.to(`session:${sessionId}`).emit('timer:tick', {
-            remaining: Math.ceil((end - now) / 1000)
-          });
+          io.to(`session:${sessionId}`).emit('timer:tick', { remaining });
         }
       }, 1000);
+      
+      // Store timer info
+      sessionTimers.set(sessionId, {
+        timer,
+        endsAt,
+        remaining: durationSec,
+        isPaused: false
+      });
     });
 
     // Student events
+    socket.on('teacher:session:pause', async ({ sessionId }) => {
+      const timerInfo = sessionTimers.get(sessionId);
+      if (!timerInfo) return;
+      
+      timerInfo.isPaused = true;
+      await storage.updateSession({ sessionId, status: 'paused' });
+      io.to(`session:${sessionId}`).emit('session:paused', { 
+        remaining: timerInfo.remaining
+      });
+    });
+
+    socket.on('teacher:session:resume', async ({ sessionId }) => {
+      const timerInfo = sessionTimers.get(sessionId);
+      if (!timerInfo) return;
+      
+      // When resuming, update the end time based on remaining seconds
+      const newEndsAt = new Date(Date.now() + (timerInfo.remaining * 1000)).toISOString();
+      timerInfo.endsAt = newEndsAt;
+      timerInfo.isPaused = false;
+      
+      await storage.updateSession({ 
+        sessionId, 
+        status: 'running',
+        endsAt: newEndsAt
+      });
+      
+      io.to(`session:${sessionId}`).emit('session:resumed', { 
+        remaining: timerInfo.remaining,
+        endsAt: newEndsAt
+      });
+    });
+
+    socket.on('teacher:session:stop', async ({ sessionId }) => {
+      const timerInfo = sessionTimers.get(sessionId);
+      if (timerInfo) {
+        clearInterval(timerInfo.timer);
+        sessionTimers.delete(sessionId);
+      }
+      
+      await storage.updateSession({ sessionId, status: 'ended' });
+      io.to(`session:${sessionId}`).emit('session:ended');
+    });
+
     socket.on('student:join', async ({ sessionId, studentId, name }) => {
       const session = await storage.getSession(sessionId);
       if (!session) return;
 
-        socket.join(`session:${sessionId}`);
+      socket.join(`session:${sessionId}`);
       
       // Update participants
       session.participants.push({ studentId, name });

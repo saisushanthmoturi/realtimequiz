@@ -12,6 +12,8 @@
     "@google/generative-ai": "^0.24.1",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.19.0",
+    "mongoose": "^8.18.0",
     "nanoid": "^5.1.5",
     "next": "15.5.0",
     "next-auth": "^4.24.11",

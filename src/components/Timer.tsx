@@ -3,14 +3,34 @@
 import { useState, useEffect } from 'react';
 
 interface TimerProps {
-  duration: number; // duration in minutes
-  onTimeUp: () => void;
+  duration?: number; // duration in minutes
+  initialSeconds?: number; // initial seconds
+  onTimeUpAction?: () => void;
+  isActive?: boolean;
   className?: string;
+  showProgressBar?: boolean;
 }
 
-export default function Timer({ duration, onTimeUp, className = '' }: TimerProps) {
-  const [timeLeft, setTimeLeft] = useState(duration * 60); // convert to seconds
-  const [isActive, setIsActive] = useState(true);
+export default function Timer({ 
+  duration, 
+  initialSeconds,
+  onTimeUpAction = () => {}, 
+  isActive = true,
+  className = '',
+  showProgressBar = true
+}: TimerProps) {
+  // Initialize with either initialSeconds or convert duration from minutes
+  const totalInitialSeconds = initialSeconds !== undefined ? initialSeconds : (duration || 0) * 60;
+  const [timeLeft, setTimeLeft] = useState(totalInitialSeconds);
+
+  // Update timer if initialSeconds or duration changes
+  useEffect(() => {
+    if (initialSeconds !== undefined) {
+      setTimeLeft(initialSeconds);
+    } else if (duration !== undefined) {
+      setTimeLeft(duration * 60);
+    }
+  }, [initialSeconds, duration]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -19,22 +39,20 @@ export default function Timer({ duration, onTimeUp, className = '' }: TimerProps
       interval = setInterval(() => {
         setTimeLeft(timeLeft => {
           if (timeLeft <= 1) {
-            setIsActive(false);
-            onTimeUp();
+            onTimeUpAction();
             return 0;
           }
           return timeLeft - 1;
         });
       }, 1000);
     } else if (timeLeft === 0) {
-      setIsActive(false);
-      onTimeUp();
+      onTimeUpAction();
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isActive, timeLeft, onTimeUp]);
+  }, [isActive, timeLeft, onTimeUpAction]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -43,59 +61,37 @@ export default function Timer({ duration, onTimeUp, className = '' }: TimerProps
   };
 
   const getTimerColor = () => {
-    const percentage = (timeLeft / (duration * 60)) * 100;
-    if (percentage > 50) return 'text-green-600';
-    if (percentage > 20) return 'text-yellow-600';
-    return 'text-red-600';
+    const percentage = (timeLeft / totalInitialSeconds) * 100;
+    if (percentage > 50) return 'text-green-400';
+    if (percentage > 20) return 'text-yellow-400';
+    return 'text-red-400';
   };
 
   const getProgressPercentage = () => {
-    return ((duration * 60 - timeLeft) / (duration * 60)) * 100;
+    return Math.max(0, Math.min(100, ((totalInitialSeconds - timeLeft) / totalInitialSeconds) * 100));
   };
 
   return (
-    <div className={`flex items-center space-x-3 ${className}`}>
-      <div className="relative">
-        {/* Circular Progress */}
-        <div className="w-16 h-16">
-          <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-            <path
-              className="text-gray-200"
-              d="M18 2.0845
-                a 15.9155 15.9155 0 0 1 0 31.831
-                a 15.9155 15.9155 0 0 1 0 -31.831"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              className={getTimerColor()}
-              d="M18 2.0845
-                a 15.9155 15.9155 0 0 1 0 31.831
-                a 15.9155 15.9155 0 0 1 0 -31.831"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeDasharray={`${getProgressPercentage()}, 100`}
-            />
-          </svg>
-        </div>
-        
-        {/* Timer Text Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-sm font-bold ${getTimerColor()}`}>
-            {formatTime(timeLeft)}
-          </span>
-        </div>
-      </div>
-      
-      {/* Status Text */}
-      <div className="flex flex-col">
-        <span className="text-sm font-medium text-gray-700">Time Remaining</span>
-        <span className={`text-xs ${getTimerColor()}`}>
-          {timeLeft <= 60 ? 'Hurry up!' : timeLeft <= 300 ? '5 minutes left' : 'Keep going!'}
+    <div className={`flex flex-col items-center ${className}`}>
+      <div className="font-mono text-2xl font-bold">
+        <span className={getTimerColor()}>
+          {formatTime(timeLeft)}
         </span>
       </div>
+      
+      {/* Progress bar */}
+      {showProgressBar && (
+        <div className="mt-2 h-1.5 w-full rounded-full bg-slate-700">
+          <div 
+            className={`h-full rounded-full transition-all ${
+              timeLeft / totalInitialSeconds > 0.5 ? 'bg-green-500' : 
+              timeLeft / totalInitialSeconds > 0.25 ? 'bg-yellow-500' : 
+              'bg-red-500'
+            }`}
+            style={{ width: `${getProgressPercentage()}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 }

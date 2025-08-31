@@ -308,5 +308,90 @@
     ],
     "startedAt": "2025-08-28T16:27:06.490Z",
     "endsAt": "2025-08-28T16:37:06.490Z"
+  },
+  {
+    "sessionId": "session-YATEb1S4yLM6OiJ6L2crP",
+    "quizId": "quiz-xY9NBnPyqUVC4V1Dt0T44",
+    "teacherId": "teacher-1",
+    "joinCode": "9CCSB3",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "6766",
+        "name": "Student 6766"
+      }
+    ],
+    "startedAt": "2025-08-29T11:19:29.138Z",
+    "endsAt": "2025-08-29T11:29:29.138Z"
+  },
+  {
+    "sessionId": "session-fTiKfDP43rlLj-uJxtRBX",
+    "quizId": "quiz-bqLbFh-dQ0mV00NpV1ygK",
+    "teacherId": "teacher-1",
+    "joinCode": "A654UE",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "",
+        "name": "Student "
+      }
+    ],
+    "startedAt": "2025-08-29T11:46:19.078Z",
+    "endsAt": "2025-08-29T11:56:19.078Z"
+  },
+  {
+    "sessionId": "session-cvR6Ic5dYBx_-PysIT1rs",
+    "quizId": "quiz-L8qZGuzgHWQWeas11bwjU",
+    "teacherId": "teacher-1",
+    "joinCode": "DB4QIY",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-30T10:16:05.818Z",
+    "endsAt": "2025-08-30T10:26:05.818Z"
+  },
+  {
+    "sessionId": "session-4VmdHuspxt3VvhA4YZNoc",
+    "quizId": "quiz-TSd0gd491KOxoRrDTzdli",
+    "teacherId": "teacher-1",
+    "joinCode": "BMF1F5",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-30T11:02:57.416Z",
+    "endsAt": "2025-08-30T11:12:57.416Z"
+  },
+  {
+    "sessionId": "session-zXoH3q9vkHldmjRkWxdoS",
+    "quizId": "quiz-VsUmxzuKww1IiBiMpvXQD",
+    "teacherId": "teacher-1",
+    "joinCode": "N764SL",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-30T11:03:48.818Z",
+    "endsAt": "2025-08-30T11:13:48.818Z"
+  },
+  {
+    "sessionId": "session-ILqFEK03zn8I26liiGVMi",
+    "quizId": "quiz-IcbjbNFokiN4ZIT0oyPEw",
+    "teacherId": "teacher-1",
+    "joinCode": "75KYHR",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-08-31T04:26:15.907Z",
+    "endsAt": "2025-08-31T04:36:15.907Z"
+  },
+  {
+    "sessionId": "session-8CPeerun92F9fyAHLbRbl",
+    "quizId": "quiz-Jsh-_B40jVBZySVyQFlBG",
+    "teacherId": "teacher-1",
+    "joinCode": "1JJPC6",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "",
+        "name": "Student "
+      }
+    ],
+    "startedAt": "2025-08-31T04:49:39.514Z",
+    "endsAt": "2025-08-31T04:59:39.514Z"
   }
 ]

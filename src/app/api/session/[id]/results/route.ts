@@ -3,10 +3,10 @@ import { storage } from '@/lib/storage';
 
 export async function GET(
   request: NextRequest, 
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    const { id: sessionId } = await params;
+    const { id: sessionId } = params instanceof Promise ? await params : params;
     
     if (!sessionId) {
       return NextResponse.json(

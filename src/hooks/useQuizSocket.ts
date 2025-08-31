@@ -14,6 +14,8 @@ export function useQuizSocket() {
   const [connected, setConnected] = useState(false);
   const [leaderboard, setLeaderboard] = useState<LeaderboardRow[]>([]);
   const [timerSeconds, setTimerSeconds] = useState<number | null>(null);
+  const [sessionStatus, setSessionStatus] = useState<'ready' | 'running' | 'paused' | 'ended' | 'unknown'>('unknown');
+  const [endsAt, setEndsAt] = useState<string | null>(null);
 
   useEffect(() => {
     const socket = io({
@@ -30,6 +32,27 @@ export function useQuizSocket() {
 
     socket.on('timer:tick', ({ remaining }) => {
       setTimerSeconds(remaining);
+      setSessionStatus('running');
+    });
+
+    socket.on('session:started', ({ endsAt }) => {
+      setSessionStatus('running');
+      setEndsAt(endsAt);
+    });
+
+    socket.on('session:paused', ({ remaining }) => {
+      setTimerSeconds(remaining);
+      setSessionStatus('paused');
+    });
+
+    socket.on('session:resumed', ({ remaining, endsAt }) => {
+      setTimerSeconds(remaining);
+      setSessionStatus('running');
+      setEndsAt(endsAt);
+    });
+
+    socket.on('session:ended', () => {
+      setSessionStatus('ended');
     });
 
     setSocket(socket);
@@ -75,6 +98,8 @@ export function useQuizSocket() {
     connected,
     leaderboard,
     timerSeconds,
+    sessionStatus,
+    endsAt,
     startSession,
     pauseSession,
     resumeSession,

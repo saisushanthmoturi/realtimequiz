@@ -10136,5 +10136,1143 @@
     ],
     "createdAt": "2025-08-28T16:26:08.429Z",
     "status": "draft"
+  },
+  {
+    "id": "quiz-xY9NBnPyqUVC4V1Dt0T44",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-F8NQpDsrC561",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-AsGeOpKqyItb",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-wsFSm7o9WV7m",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-mFfz-zB6A2zs",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-J_nJPnAOeRps",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-29T11:17:22.049Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-bqLbFh-dQ0mV00NpV1ygK",
+    "topics": [
+      "arays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-Y0qe-UumuisO",
+        "topic": "arays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-kG06Q4ScHgjn",
+        "topic": "arays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-3aMQ281_TOmN",
+        "topic": "arays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-4ketYd03xZA6",
+        "topic": "arays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-DtGk16GlRiGe",
+        "topic": "arays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-29T11:46:09.792Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-L8qZGuzgHWQWeas11bwjU",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-sxAS7NxeNsfl",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-U3n43XZhTqcR",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-2R3pM0dvL2q_",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-VetSrlB6XOVv",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-BReNSCCT4mUl",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T10:15:24.480Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-UbersFeSOgq5hMKhnEyzo",
+    "topics": [
+      "pointers"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-BIDi3KBIGmCK",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-bi8zqAqpvcCK",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-OlhBl9j-4aN6",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-Eyw_xD4Zb38F",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-DfcncdsNA38C",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T10:38:07.838Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-6W_pPwhjnTImz-t_j7CUO",
+    "topics": [
+      "pointers"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-OWd6VBec0Q71",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-gXmrDeaw8h69",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-rg3J_53OpUh1",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-wfvdZCNJCXZa",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-LLornq5o8hZV",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) pointers: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T10:38:15.350Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-_6GL_yCvs29VJd-xhhKMw",
+    "topics": [],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-T2b5bGjLHu3p",
+        "topic": "General",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-5rCbyjYlFAvA",
+        "topic": "General",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-EC7PB1ky105p",
+        "topic": "General",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-PZAdLUVMKDn9",
+        "topic": "General",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q---owhl1enTRV",
+        "topic": "General",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) General: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T10:59:59.902Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-TSd0gd491KOxoRrDTzdli",
+    "topics": [
+      "photosynthesis"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-N3wCdKrKey2m",
+        "topic": "photosynthesis",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) photosynthesis: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-eV-kuXQ_7ZS1",
+        "topic": "photosynthesis",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) photosynthesis: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-f2jRQNc_sosk",
+        "topic": "photosynthesis",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) photosynthesis: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-GKVqri5hpQRJ",
+        "topic": "photosynthesis",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) photosynthesis: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-EKsntWpF2R32",
+        "topic": "photosynthesis",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) photosynthesis: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T11:00:29.954Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-VsUmxzuKww1IiBiMpvXQD",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-6EtMYsRGBbKN",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-apMFfDUpdkV8",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-b62earZTkkVm",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-Uz-JCaZMdmTO",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-1Wst7zHkWTi4",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-30T11:03:31.925Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-IcbjbNFokiN4ZIT0oyPEw",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-twYkvNlhumAP",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-0SoDw_K5FkOI",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q--MhbLjqYxZmC",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-F4taflzTMRbx",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-gGiGy3SThIWU",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-31T04:12:01.914Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-Jsh-_B40jVBZySVyQFlBG",
+    "topics": [
+      "arrays and pointers"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q--XhqoKQ-lBtw",
+        "topic": "arrays and pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays and pointers: Sample question 1 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-57sm3SaPkJoW",
+        "topic": "arrays and pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays and pointers: Sample question 2 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 1,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-wdvveB-nrrD8",
+        "topic": "arrays and pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays and pointers: Sample question 3 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 2,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-pnPjSxIDH8d_",
+        "topic": "arrays and pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays and pointers: Sample question 4 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 3,
+          "setIndex": 0
+        }
+      },
+      {
+        "id": "q-__e-gP9JAhTN",
+        "topic": "arrays and pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "(medium) arrays and pointers: Sample question 5 of 5?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 4,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-31T04:49:25.208Z",
+    "status": "draft"
   }
 ]

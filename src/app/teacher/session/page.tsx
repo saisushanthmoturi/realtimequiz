@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useQuizSocket } from '@/hooks/useQuizSocket';
+import Timer from '@/components/Timer';
 
 // Add interface for student results
 interface StudentResult {
@@ -37,7 +38,16 @@ interface SessionResults {
 }
 
 export default function TeacherSessionPage() {
-  const { leaderboard, timerSeconds, startSession, pauseSession, resumeSession, stopSession } = useQuizSocket();
+  const { 
+    leaderboard, 
+    timerSeconds, 
+    sessionStatus: socketStatus,
+    startSession, 
+    pauseSession, 
+    resumeSession, 
+    stopSession 
+  } = useQuizSocket();
+  
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [joinCode, setJoinCode] = useState<string | null>(null);
   const [durationMin, setDurationMin] = useState(10);
@@ -45,69 +55,295 @@ export default function TeacherSessionPage() {
   const [sessionStatus, setSessionStatus] = useState<string>('unknown');
   const [sessionResults, setSessionResults] = useState<SessionResults | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [quizTitle, setQuizTitle] = useState<string>('Quiz Session');
+  const [isOperationLoading, setIsOperationLoading] = useState(false);
 
   useEffect(() => {
+    // Try to get session from new unified storage first
+    try {
+      const storedSession = sessionStorage.getItem('currentSession');
+      if (storedSession) {
+        const session = JSON.parse(storedSession);
+        setSessionId(session.id);
+        setJoinCode(session.joinCode);
+        if (session.quizTitle) {
+          setQuizTitle(session.quizTitle);
+        }
+        if (session.duration) {
+          setDurationMin(Math.floor(session.duration / 60));
+        }
+        return; // Exit if we found the session
+      }
+    } catch (error) {
+      console.error('Failed to load session data:', error);
+    }
+
+    // Fall back to old storage method if needed
     const sid = sessionStorage.getItem('rq_sessionId');
     const code = sessionStorage.getItem('rq_joinCode');
+    const title = sessionStorage.getItem('rq_quizTitle');
     if (sid) setSessionId(sid);
     if (code) setJoinCode(code);
+    if (title) setQuizTitle(title);
   }, []);
+
+  // Update session status from socket
+  useEffect(() => {
+    if (socketStatus !== 'unknown') {
+      setSessionStatus(socketStatus);
+    }
+  }, [socketStatus]);
 
   // Poll for session updates
   useEffect(() => {
     if (!sessionId) return;
 
+    // Track consecutive failures to implement an exponential backoff
+    let failureCount = 0;
+    const maxRetries = 5;
+    
     const fetchSessionStatus = async () => {
       try {
-        const response = await fetch(`/api/session/${sessionId}`);
+        // Add cache-busting parameter to avoid browser caching issues
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/session/${sessionId}?_=${timestamp}`, {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+        
         if (response.ok) {
           const data = await response.json();
+          // Reset failure count on success
+          failureCount = 0;
           setParticipants(data.participants || []);
-          setSessionStatus(data.status || 'unknown');
+          // Only update status from API if socket hasn't provided a status yet
+          if (socketStatus === 'unknown') {
+            setSessionStatus(data.status || 'unknown');
+          }
+        } else {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
         }
       } catch (error) {
-        console.error('Failed to fetch session status:', error);
+        failureCount++;
+        if (failureCount <= maxRetries) {
+          console.error(`Failed to fetch session status (attempt ${failureCount}/${maxRetries}):`, error);
+        } else {
+          console.error('Max retries reached for session status fetching:', error);
+        }
       }
     };
 
     // Fetch immediately
     fetchSessionStatus();
 
-    // Then poll every 5 seconds
-    const interval = setInterval(fetchSessionStatus, 5000);
+    // Then poll every 5 seconds with exponential backoff on failures
+    const interval = setInterval(() => {
+      // If we've had too many consecutive failures, poll less frequently
+      if (failureCount > maxRetries) {
+        const backoffTime = Math.min(30000, Math.pow(2, failureCount - maxRetries) * 5000);
+        console.log(`Backing off, next attempt in ${backoffTime/1000} seconds`);
+        return;
+      }
+      fetchSessionStatus();
+    }, 5000);
+    
     return () => clearInterval(interval);
-  }, [sessionId]);
+  }, [sessionId, socketStatus]);
 
   // Poll for session results
   useEffect(() => {
     if (!sessionId) return;
 
+    // Track consecutive failures for exponential backoff
+    let failureCount = 0;
+    const maxRetries = 5;
+    
     const fetchResults = async () => {
       try {
-        const response = await fetch(`/api/session/${sessionId}/results`);
+        // Add cache-busting parameter to prevent browser caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/session/${sessionId}/results?_=${timestamp}`, {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+        
         if (response.ok) {
           const data = await response.json();
+          // Reset failure count on success
+          failureCount = 0;
           if (data.success) {
             setSessionResults(data);
           }
+        } else {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
         }
       } catch (error) {
-        console.error('Failed to fetch session results:', error);
+        failureCount++;
+        if (failureCount <= maxRetries) {
+          console.error(`Failed to fetch session results (attempt ${failureCount}/${maxRetries}):`, error);
+        } else {
+          console.error('Max retries reached for session results fetching:', error);
+        }
       }
     };
 
     // Fetch results every 10 seconds if session is active
     if (sessionStatus === 'running' || sessionStatus === 'ended') {
       fetchResults();
-      const interval = setInterval(fetchResults, 10000);
+      
+      const interval = setInterval(() => {
+        // If we've had too many consecutive failures, poll less frequently
+        if (failureCount > maxRetries) {
+          const backoffTime = Math.min(30000, Math.pow(2, failureCount - maxRetries) * 10000);
+          console.log(`Results fetching backing off, next attempt in ${backoffTime/1000} seconds`);
+          return;
+        }
+        fetchResults();
+      }, 10000);
+      
       return () => clearInterval(interval);
     }
   }, [sessionId, sessionStatus]);
 
-  const start = () => { if (sessionId) startSession(sessionId, durationMin * 60); };
-  const pause = () => { if (sessionId) pauseSession(sessionId); };
-  const resume = () => { if (sessionId) resumeSession(sessionId); };
-  const stop = () => { if (sessionId) stopSession(sessionId); };
+  const start = async () => { 
+    if (!sessionId) return;
+    
+    try {
+      setIsOperationLoading(true);
+      // First, ensure we update the session via API
+      const response = await fetch(`/api/session/launch`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        },
+        body: JSON.stringify({ 
+          sessionId, 
+          durationSec: durationMin * 60 
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `Server error: ${response.status} ${response.statusText}`
+        );
+      }
+      
+      // Then send the socket command
+      startSession(sessionId, durationMin * 60);
+      setSessionStatus('running');
+    } catch (error) {
+      console.error('Failed to start session:', error);
+      // Show user feedback about the error
+      alert(`Failed to start session: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsOperationLoading(false);
+    }
+  };
+  
+  const pause = async () => { 
+    if (!sessionId) return;
+    
+    try {
+      setIsOperationLoading(true);
+      // Update via API first
+      const response = await fetch(`/api/session/pause`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        },
+        body: JSON.stringify({ sessionId }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `Server error: ${response.status} ${response.statusText}`
+        );
+      }
+      
+      // Then socket
+      pauseSession(sessionId); 
+      setSessionStatus('paused');
+    } catch (error) {
+      console.error('Failed to pause session:', error);
+      alert(`Failed to pause session: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsOperationLoading(false);
+    }
+  };
+  
+  const resume = async () => { 
+    if (!sessionId) return;
+    
+    try {
+      setIsOperationLoading(true);
+      // Update via API first
+      const response = await fetch(`/api/session/resume`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        },
+        body: JSON.stringify({ sessionId }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `Server error: ${response.status} ${response.statusText}`
+        );
+      }
+      
+      // Then socket
+      resumeSession(sessionId); 
+      setSessionStatus('running');
+    } catch (error) {
+      console.error('Failed to resume session:', error);
+      alert(`Failed to resume session: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsOperationLoading(false);
+    }
+  };
+  
+  const stop = async () => { 
+    if (!sessionId) return;
+    
+    try {
+      setIsOperationLoading(true);
+      // Update via API first
+      const response = await fetch(`/api/session/${sessionId}`, {
+        method: 'DELETE',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `Server error: ${response.status} ${response.statusText}`
+        );
+      }
+      
+      // Then socket
+      stopSession(sessionId); 
+      setSessionStatus('ended');
+    } catch (error) {
+      console.error('Failed to stop session:', error);
+      alert(`Failed to stop session: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsOperationLoading(false);
+    }
+  };
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -127,42 +363,44 @@ export default function TeacherSessionPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Launch & monitor</h1>
-          <p className="text-gray-600 mt-1">Manage the live session, timer, and leaderboard.</p>
+    <div className="relative">
+      {/* Import TeacherNavigation component at the top */}
+      <div className="mx-auto max-w-6xl px-6 space-y-6">
+        <div className="flex items-center justify-between mt-6">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight text-white">{quizTitle}</h1>
+            <p className="text-slate-400 mt-1 text-sm">Manage the live session, timer, and leaderboard</p>
+          </div>
+          <div className="flex gap-3 items-center">
+            {sessionResults && sessionResults.results.length > 0 && (
+              <button
+                onClick={() => setShowResults(!showResults)}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  showResults 
+                    ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                    : 'bg-slate-700 text-slate-200 hover:bg-slate-600'
+                }`}
+              >
+                {showResults ? 'Hide Results' : 'Show Results'} ({sessionResults.results.length})
+              </button>
+            )}
+            <Link href="/teacher" className="px-4 py-2 rounded-lg bg-slate-700 text-slate-200 hover:bg-slate-600 font-medium">
+              Back to Dashboard
+            </Link>
+          </div>
         </div>
-        <div className="flex gap-3">
-          {sessionResults && sessionResults.results.length > 0 && (
-            <button
-              onClick={() => setShowResults(!showResults)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                showResults 
-                  ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {showResults ? 'Hide Results' : 'Show Results'} ({sessionResults.results.length})
-            </button>
-          )}
-          <Link href="/teacher" className="text-blue-600 hover:text-blue-800 font-medium">
-            Back to dashboard
-          </Link>
-        </div>
-      </div>
 
       {/* Student Results Section */}
       {showResults && sessionResults && sessionResults.results.length > 0 && (
-        <div className="bg-white rounded-lg border shadow-sm p-6">
+        <div className="bg-slate-800/80 rounded-lg border border-slate-700 shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Student Results</h2>
-              <p className="text-gray-600 text-sm">
+              <h2 className="text-xl font-semibold text-white">Student Results</h2>
+              <p className="text-slate-400 text-sm">
                 {sessionResults.totalAttempts} submissions • Average: {sessionResults.averageScore}%
               </p>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-slate-400">
               Session: {sessionResults.session.joinCode}
             </div>
           </div>
@@ -173,7 +411,7 @@ export default function TeacherSessionPage() {
               .map((result, index) => (
                 <div 
                   key={result.attemptId} 
-                  className="border rounded-lg p-4 bg-gray-50"
+                  className="border border-slate-700 rounded-lg p-4 bg-slate-900/40"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
@@ -186,10 +424,10 @@ export default function TeacherSessionPage() {
                         {index + 1}
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-white">
                           {result.studentId}
                           {sessionResults.results.filter(r => r.studentId === result.studentId).length > 1 && (
-                            <span className="ml-2 text-xs bg-gray-200 px-2 py-1 rounded-full">
+                            <span className="ml-2 text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded-full">
                               Attempt #{sessionResults.results
                                 .filter(r => r.studentId === result.studentId)
                                 .sort((a, b) => new Date(a.submittedAt).getTime() - new Date(b.submittedAt).getTime())
@@ -197,29 +435,29 @@ export default function TeacherSessionPage() {
                             </span>
                           )}
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-slate-400">
                           Submitted at {formatDateTime(result.submittedAt)}
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className={`text-2xl font-bold ${
-                        result.percentage >= 90 ? 'text-green-600' :
-                        result.percentage >= 80 ? 'text-blue-600' :
-                        result.percentage >= 70 ? 'text-yellow-600' :
-                        'text-red-600'
+                        result.percentage >= 90 ? 'text-green-400' :
+                        result.percentage >= 80 ? 'text-blue-400' :
+                        result.percentage >= 70 ? 'text-yellow-400' :
+                        'text-red-400'
                       }`}>
                         {result.percentage}%
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-slate-400">
                         {result.score}/{result.totalQuestions} • {formatTime(result.timeSpent)}
                       </div>
                     </div>
                   </div>
 
                   {/* Answer breakdown */}
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="mt-3 pt-3 border-t border-slate-700">
+                    <div className="grid grid-cols-2 gap-4 text-sm text-slate-300">
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                         <span>Correct: {result.answers.filter(a => a.isCorrect).length}</span>
@@ -236,18 +474,18 @@ export default function TeacherSessionPage() {
         </div>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid gap-6 lg:grid-cols-3 items-start justify-center">
+        <div className="lg:col-span-2 space-y-6 max-w-3xl w-full mx-auto">
           {/* Session Section */}
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Session</h2>
+          <div className="rounded-lg border border-slate-700 bg-slate-800/80 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-4">Session</h2>
             
             {joinCode ? (
-              <div className="rounded-lg border-2 border-green-200 bg-green-50 p-6 mb-6">
+              <div className="rounded-lg border-2 border-green-700/50 bg-green-500/10 p-6 mb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-sm font-medium text-green-800 mb-1">Join code</div>
-                    <div className="font-mono text-3xl font-bold text-green-900 tracking-wider">
+                    <div className="text-sm font-medium text-green-300 mb-1">Join code</div>
+                    <div className="font-mono text-3xl font-bold text-green-300 tracking-wider">
                       {joinCode}
                     </div>
                   </div>
@@ -260,8 +498,8 @@ export default function TeacherSessionPage() {
                 </div>
               </div>
             ) : (
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 mb-6">
-                <p className="text-gray-600 text-center">
+              <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-6 mb-6">
+                <p className="text-slate-400 text-center">
                   No session found. Create one from the Teacher dashboard.
                 </p>
               </div>
@@ -269,16 +507,20 @@ export default function TeacherSessionPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Timer */}
-              <div className="rounded-lg border bg-gray-50 p-4 text-center">
-                <div className="text-sm font-medium text-gray-600 mb-2">Timer</div>
-                <div className="font-mono text-2xl font-bold text-gray-900">
-                  {typeof timerSeconds === 'number' ? formatTime(timerSeconds) : '--:--'}
-                </div>
+              <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-4 text-center">
+                <div className="text-sm font-medium text-slate-300 mb-2">Timer</div>
+                <Timer 
+                  duration={durationMin}
+                  initialSeconds={typeof timerSeconds === 'number' ? timerSeconds : undefined}
+                  isActive={sessionStatus === 'running'}
+                  showProgressBar={true}
+                  className="w-full"
+                />
               </div>
 
               {/* Duration Input */}
-              <div className="rounded-lg border bg-gray-50 p-4">
-                <label className="text-sm font-medium text-gray-600 block mb-2">
+              <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-4">
+                <label className="text-sm font-medium text-slate-300 block mb-2">
                   Duration (minutes)
                 </label>
                 <input 
@@ -287,153 +529,110 @@ export default function TeacherSessionPage() {
                   max={180} 
                   value={durationMin}
                   onChange={(e) => setDurationMin(Math.max(1, Math.min(180, parseInt(e.target.value || '10', 10))))}
-                  className="w-full rounded-md border-gray-300 px-3 py-2 text-center font-medium focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-slate-600 bg-slate-700/50 text-white px-3 py-2 text-center font-medium focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
 
               {/* Control Buttons */}
-              <div className="rounded-lg border bg-gray-50 p-4">
-                <div className="text-sm font-medium text-gray-600 mb-2 text-center">Controls</div>
+              <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-4">
+                <div className="text-sm font-medium text-slate-300 mb-2 text-center">Controls</div>
                 <div className="grid grid-cols-2 gap-2">
                   <button 
                     onClick={start} 
-                    disabled={!sessionId}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    disabled={!sessionId || isOperationLoading || sessionStatus === 'running' || sessionStatus === 'ended'}
+                    className="bg-blue-500 hover:bg-blue-600 disabled:bg-slate-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center"
                   >
-                    Start
+                    {isOperationLoading && sessionStatus === 'ready' ? (
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : "Start"}
                   </button>
                   <button 
                     onClick={pause} 
-                    disabled={!sessionId}
-                    className="bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    disabled={!sessionId || sessionStatus !== 'running' || isOperationLoading}
+                    className="bg-yellow-500 hover:bg-yellow-600 disabled:bg-slate-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center"
                   >
-                    Pause
+                    {isOperationLoading && sessionStatus === 'running' ? (
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : "Pause"}
                   </button>
                   <button 
                     onClick={resume} 
-                    disabled={!sessionId}
-                    className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    disabled={!sessionId || sessionStatus !== 'paused' || isOperationLoading}
+                    className="bg-green-600 hover:bg-green-700 disabled:bg-slate-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center"
                   >
-                    Resume
+                    {isOperationLoading && sessionStatus === 'paused' ? (
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : "Resume"}
                   </button>
                   <button 
                     onClick={stop} 
-                    disabled={!sessionId}
-                    className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    disabled={!sessionId || sessionStatus === 'ended' || isOperationLoading}
+                    className="bg-red-600 hover:bg-red-700 disabled:bg-slate-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center"
                   >
-                    Stop
+                    {isOperationLoading && (sessionStatus === 'running' || sessionStatus === 'paused') ? (
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : "Stop"}
                   </button>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Leaderboard Section */}
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Leaderboard</h2>
-            {leaderboard.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <div className="text-lg mb-2">📊</div>
-                <p>No submissions yet.</p>
-                <p className="text-sm mt-1">Results will appear here as students complete the quiz.</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {leaderboard.map((row, i) => (
-                  <div 
-                    key={row.studentId} 
-                    className={`flex items-center justify-between rounded-lg p-4 border-2 ${
-                      i === 0 ? 'border-yellow-200 bg-yellow-50' : 
-                      i === 1 ? 'border-gray-200 bg-gray-50' :
-                      i === 2 ? 'border-orange-200 bg-orange-50' :
-                      'border-gray-100 bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold ${
-                        i === 0 ? 'bg-yellow-500 text-white' :
-                        i === 1 ? 'bg-gray-400 text-white' :
-                        i === 2 ? 'bg-orange-500 text-white' :
-                        'bg-gray-300 text-gray-700'
-                      }`}>
-                        {i + 1}
-                      </div>
-                      <div>
-                        <div className="font-medium text-gray-900">Student {row.studentId}</div>
-                        <div className="text-sm text-gray-600">{row.percent.toFixed(1)}% correct</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-gray-900">{row.percent.toFixed(1)}%</div>
-                      {/* Could add submission time here */}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
 
-        {/* Tips Sidebar */}
-        <div className="space-y-6">
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">💡 Tips</h2>
-            <ul className="space-y-3 text-sm text-gray-700">
-              <li className="flex items-start gap-3">
-                <span className="text-green-500 mt-0.5">•</span>
-                Share the join code with students.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-blue-500 mt-0.5">•</span>
-                Start the timer when all are ready.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-yellow-500 mt-0.5">•</span>
-                You can pause/resume at any time.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-purple-500 mt-0.5">•</span>
-                Monitor the leaderboard for real-time progress.
-              </li>
-            </ul>
-          </div>
-
+        {/* Right Sidebar: Session Info only (Tips removed) */}
+  <div className="space-y-6 max-w-md w-full mx-auto">
           {/* Session Info */}
-          <div className="rounded-lg border bg-blue-50 p-6 shadow-sm">
-            <h3 className="font-semibold text-blue-900 mb-3">Session Status</h3>
-            <div className="space-y-3 text-sm">
+          <div className="rounded-lg border border-slate-700 bg-slate-800/80 p-6 shadow-lg">
+            <h3 className="font-semibold text-white mb-3">Session Status</h3>
+            <div className="space-y-3 text-sm text-slate-300">
               <div className="flex justify-between items-center">
-                <span className="text-blue-700">Status:</span>
+                <span className="text-slate-300">Status:</span>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  sessionStatus === 'running' ? 'bg-green-100 text-green-800' :
-                  sessionStatus === 'ready' ? 'bg-yellow-100 text-yellow-800' :
-                  sessionStatus === 'paused' ? 'bg-orange-100 text-orange-800' :
-                  sessionStatus === 'ended' ? 'bg-red-100 text-red-800' :
-                  'bg-gray-100 text-gray-800'
+                  sessionStatus === 'running' ? 'bg-green-500/15 text-green-300 border border-green-700/40' :
+                  sessionStatus === 'ready' ? 'bg-yellow-500/15 text-yellow-300 border border-yellow-700/40' :
+                  sessionStatus === 'paused' ? 'bg-orange-500/15 text-orange-300 border border-orange-700/40' :
+                  sessionStatus === 'ended' ? 'bg-red-500/15 text-red-300 border border-red-700/40' :
+                  'bg-slate-700/40 text-slate-300 border border-slate-600'
                 }`}>
-                  {sessionStatus.charAt(0).toUpperCase() + sessionStatus.slice(1)}
+                  {sessionStatus === 'running' && timerSeconds ? (
+                    <>Active • {formatTime(timerSeconds)} remaining</>
+                  ) : (
+                    sessionStatus.charAt(0).toUpperCase() + sessionStatus.slice(1)
+                  )}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-blue-700">Session ID:</span>
-                <span className="font-mono text-blue-900 text-xs">{sessionId || 'None'}</span>
+                <span className="text-slate-300">Session ID:</span>
+                <span className="font-mono text-slate-200 text-xs">{sessionId || 'None'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-blue-700">Join Code:</span>
-                <span className="font-mono text-blue-900 font-bold">{joinCode || 'None'}</span>
+                <span className="text-slate-300">Join Code:</span>
+                <span className="font-mono text-slate-100 font-bold">{joinCode || 'None'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-blue-700">Participants:</span>
-                <span className="font-semibold text-blue-900">{participants.length}</span>
+                <span className="text-slate-300">Participants:</span>
+                <span className="font-semibold text-white">{participants.length}</span>
               </div>
             </div>
             
             {participants.length > 0 && (
-              <div className="mt-4 pt-3 border-t border-blue-200">
-                <h4 className="text-sm font-medium text-blue-900 mb-2">Current Participants:</h4>
+              <div className="mt-4 pt-3 border-t border-slate-700">
+                <h4 className="text-sm font-medium text-white mb-2">Current Participants:</h4>
                 <div className="space-y-1 max-h-32 overflow-y-auto">
                   {participants.map((p, i) => (
-                    <div key={p.studentId} className="text-xs text-blue-800 bg-blue-100 px-2 py-1 rounded">
+                    <div key={p.studentId} className="text-xs text-slate-200 bg-slate-700/60 px-2 py-1 rounded">
                       {p.name || p.studentId}
                     </div>
                   ))}
@@ -443,6 +642,53 @@ export default function TeacherSessionPage() {
           </div>
         </div>
       </div>
+      </div>
+
+      {/* Integrated Leaderboard Section */}
+  <section className="mt-6 max-w-5xl mx-auto w-full">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-white">Leaderboard</h2>
+        </div>
+        {leaderboard.length === 0 ? (
+          <div className="text-center py-8 text-slate-400 border border-dashed border-slate-700/60 rounded-lg bg-slate-900/30">
+            <div className="text-lg mb-2">📊</div>
+            <p>No submissions yet.</p>
+            <p className="text-sm mt-1">Results will appear here as students complete the quiz.</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {leaderboard.map((row, i) => (
+              <div
+                key={row.studentId}
+                className={`flex items-center justify-between rounded-md p-4 border ${
+                  i === 0 ? 'border-yellow-400/40 bg-yellow-500/10' :
+                  i === 1 ? 'border-slate-600 bg-slate-800/70' :
+                  i === 2 ? 'border-orange-400/40 bg-orange-500/10' :
+                  'border-slate-700 bg-slate-900/40'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold ${
+                    i === 0 ? 'bg-yellow-500 text-white' :
+                    i === 1 ? 'bg-slate-500 text-white' :
+                    i === 2 ? 'bg-orange-500 text-white' :
+                    'bg-slate-600 text-white'
+                  }`}>
+                    {i + 1}
+                  </div>
+                  <div>
+                    <div className="font-medium text-white">Student {row.studentId}</div>
+                    <div className="text-sm text-slate-300">{row.percent.toFixed(1)}% correct</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-base font-bold text-white">{row.percent.toFixed(1)}%</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

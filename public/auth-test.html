@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #0070f3;
+        }
+        .card {
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0051c3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Authentication Test</h1>
+    
+    <div class="card">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regUserType">User Type</label>
+                <select id="regUserType">
+                    <option value="teacher">Teacher</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="regUserId">User ID</label>
+                <input type="text" id="regUserId" placeholder="Faculty ID or Student Roll Number">
+            </div>
+            <div class="form-group">
+                <label for="regName">Name</label>
+                <input type="text" id="regName" placeholder="Full Name">
+            </div>
+            <div class="form-group" id="regEmailGroup">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="Email Address">
+            </div>
+            <div class="form-group" id="regPasswordGroup">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="Password">
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <div id="registerResult" class="result"></div>
+    </div>
+
+    <div class="card">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginUserType">User Type</label>
+                <select id="loginUserType">
+                    <option value="teacher">Teacher</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="loginUserId">User ID</label>
+                <input type="text" id="loginUserId" placeholder="Faculty ID or Student Roll Number">
+            </div>
+            <div class="form-group" id="loginPasswordGroup">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <script>
+        // Show/hide password field based on user type
+        document.getElementById('regUserType').addEventListener('change', function() {
+            const isTeacher = this.value === 'teacher';
+            document.getElementById('regPasswordGroup').style.display = isTeacher ? 'block' : 'none';
+            document.getElementById('regEmailGroup').style.display = isTeacher ? 'block' : 'none';
+        });
+
+        document.getElementById('loginUserType').addEventListener('change', function() {
+            const isTeacher = this.value === 'teacher';
+            document.getElementById('loginPasswordGroup').style.display = isTeacher ? 'block' : 'none';
+        });
+
+        // Register form submission
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('registerResult');
+            resultDiv.innerHTML = 'Processing...';
+            resultDiv.className = 'result';
+
+            const userType = document.getElementById('regUserType').value;
+            const userId = document.getElementById('regUserId').value;
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (!userId || !name || (userType === 'teacher' && (!email || !password))) {
+                resultDiv.innerHTML = 'Please fill all required fields';
+                resultDiv.className = 'result error';
+                return;
+            }
+
+            try {
+                const payload = {
+                    userType,
+                    userId,
+                    name,
+                    password: userType === 'teacher' ? password : undefined,
+                    email: userType === 'teacher' ? email : undefined
+                };
+
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `Registration successful: ${result.message}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.innerHTML = `Registration failed: ${result.message}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.innerHTML = 'Processing...';
+            resultDiv.className = 'result';
+
+            const userType = document.getElementById('loginUserType').value;
+            const userId = document.getElementById('loginUserId').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!userId || (userType === 'teacher' && !password)) {
+                resultDiv.innerHTML = 'Please fill all required fields';
+                resultDiv.className = 'result error';
+                return;
+            }
+
+            try {
+                const payload = {
+                    userType,
+                    userId,
+                    password: userType === 'teacher' ? password : undefined
+                };
+
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `Login successful: ${result.message}`;
+                    resultDiv.className = 'result success';
+                    
+                    // Store the user info in localStorage
+                    localStorage.setItem('user', JSON.stringify({
+                        id: result.user?.id,
+                        userId: result.user?.userId,
+                        name: result.user?.name,
+                        type: userType,
+                        token: result.token
+                    }));
+                    
+                    // Show user info
+                    resultDiv.innerHTML += `<br>Logged in as: ${result.user.name}`;
+                } else {
+                    resultDiv.innerHTML = `Login failed: ${result.message}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        });
+
+        // Initialize form visibility
+        document.getElementById('regUserType').dispatchEvent(new Event('change'));
+        document.getElementById('loginUserType').dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

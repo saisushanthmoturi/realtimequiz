@@ -13,9 +13,9 @@ function generateSessionCode(): string {
   return result;
 }
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   try {
-    const { id } = await params;
+    const { id } = params instanceof Promise ? await params : params;
     const quizId = id;
     
     // Get quiz from the consistent storage system

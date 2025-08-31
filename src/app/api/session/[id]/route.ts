@@ -3,10 +3,11 @@ import { storage } from '@/lib/storage';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    const sessionId = params.id;
+    // Handle both Promise<{id: string}> and {id: string} formats
+    const { id: sessionId } = params instanceof Promise ? await params : params;
     const session = await storage.getSession(sessionId);
 
     if (!session) {
@@ -36,10 +37,11 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    const sessionId = params.id;
+    // Handle both Promise<{id: string}> and {id: string} formats
+    const { id: sessionId } = params instanceof Promise ? await params : params;
     await storage.updateSession({
       sessionId,
       status: 'ended'

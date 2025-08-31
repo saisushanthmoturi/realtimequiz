@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SimpleDB, Quiz, Question, DB_KEYS } from '@/lib/database';
-import { AIQuestionService } from '@/lib/ai-service';
+import { generateQuiz } from '@/lib/ai-service';
+import { nanoid } from 'nanoid';
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   try {
-    const quizId = params.id;
+    const { id: quizId } = params instanceof Promise ? await params : params;
     const { searchParams } = new URL(request.url);
     const studentId = searchParams.get('studentId');
 
@@ -32,28 +33,71 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       );
     }
 
-    // Generate unique questions for the student if studentId is provided
-    let questions;
+    // Generate questions or fetch from cache
+    let questions: any[] = [];
+    
+    // Try to get questions from the database first (cache)
     if (studentId) {
-      questions = await AIQuestionService.generateQuestionsForStudent(
-        quiz.topic,
-        quiz.questionCount,
-        studentId,
-        quiz.id
+      // Look for cached questions for this specific student and quiz
+      const cachedQuestions = SimpleDB.findAll<Question>(
+        DB_KEYS.QUESTIONS, 
+        q => q.studentId === studentId && q.quizId === quizId
       );
-
-      // Save questions to database
-      questions.forEach(question => {
-        SimpleDB.add(DB_KEYS.QUESTIONS, question);
-      });
-    } else {
-      // Fallback to generating generic questions
-      questions = await AIQuestionService.generateQuestionsForStudent(
-        quiz.topic,
-        quiz.questionCount,
-        'anonymous',
-        quiz.id
-      );
+      
+      if (cachedQuestions.length >= quiz.questionCount) {
+        // Use cached questions if we have enough
+        questions = cachedQuestions.slice(0, quiz.questionCount);
+        console.log(`Using ${questions.length} cached questions for student ${studentId}`);
+      }
+    }
+    
+    // If no cached questions found, generate new ones
+    if (questions.length === 0) {
+      try {
+        // Set a timeout to avoid hanging requests
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Question generation timed out')), 10000);
+        });
+        
+        const generationPromise = generateQuiz({
+          topics: [quiz.topic],
+          difficulty: 'medium',
+          numQuestions: quiz.questionCount,
+          mode: 'same'
+        });
+        
+        // Race between generation and timeout
+        const result = await Promise.race([generationPromise, timeoutPromise]) as any;
+        questions = result.questions;
+        
+        // Add student ID and quiz ID to questions for caching
+        questions = questions.map(q => ({
+          ...q,
+          studentId: studentId || 'anonymous',
+          quizId: quizId
+        }));
+        
+        // Save questions to database for future use
+        questions.forEach((question: any) => {
+          SimpleDB.add(DB_KEYS.QUESTIONS, question);
+        });
+      } catch (error) {
+        console.error('Error generating questions:', error);
+        
+        // Fallback to basic questions on error
+        questions = Array.from({ length: quiz.questionCount }).map((_, i) => ({
+          id: `q-${nanoid(8)}`,
+          topic: quiz.topic,
+          mode: 'same' as const,
+          type: 'mcq' as const,
+          question: `Question ${i+1} about ${quiz.topic}?`,
+          options: ['Option A', 'Option B', 'Option C', 'Option D'],
+          answer: 'Option A',
+          difficulty: 'medium' as const,
+          studentId: studentId || 'anonymous',
+          quizId: quizId
+        }));
+      }
     }
 
     // Return quiz data with questions
