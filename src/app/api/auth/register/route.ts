@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ServerAuthService } from '@/lib/server-auth';
+import { AuthService } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,8 +15,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // For students, generate a simple password if not provided
+    const userPassword = password || (userType === 'student' ? 'student123' : '');
+    
     // Enforce password requirement for teachers
-    if (userType === 'teacher' && !password) {
+    if (userType === 'teacher' && !userPassword) {
       console.log('Password required for teacher account');
       return NextResponse.json(
         { success: false, message: 'Password is required for teacher accounts' },
@@ -25,12 +28,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Register the user
-    console.log('Calling ServerAuthService.register');
-    const result = await ServerAuthService.register({
+    console.log('Calling AuthService.register');
+    const result = await AuthService.register({
       userType: userType as 'teacher' | 'student', 
       userId,
       name,
-      password,
+      password: userPassword,
       email
     });
     console.log('Registration result:', { success: result.success, message: result.message });

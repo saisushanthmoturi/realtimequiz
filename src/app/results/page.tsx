@@ -152,7 +152,7 @@ function ResultsContent() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center p-4 bg-white rounded-lg border">
                 <div className="text-2xl font-bold text-green-600 mb-1">{correctAnswers}</div>
                 <div className="text-sm text-gray-600">Correct Answers</div>
@@ -164,6 +164,12 @@ function ResultsContent() {
               <div className="text-center p-4 bg-white rounded-lg border">
                 <div className="text-2xl font-bold text-blue-600 mb-1">{formatTime(result.timeSpent)}</div>
                 <div className="text-sm text-gray-600">Time Taken</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg border">
+                <div className="text-2xl font-bold text-purple-600 mb-1">
+                  {new Date(result.submittedAt).toLocaleTimeString()}
+                </div>
+                <div className="text-sm text-gray-600">Submitted At</div>
               </div>
             </div>
           </div>

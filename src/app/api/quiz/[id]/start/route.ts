@@ -38,20 +38,20 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // Generate unique session code
     let sessionCode = generateSessionCode();
     
-    // Ensure session code is unique (check existing sessions)
+    // Ensure session code is unique by checking existing active sessions
     let attempts = 0;
     while (attempts < 10) {
       try {
-        const existingSessions = await storage.listQuizzes();
-        const codeExists = existingSessions.some(q => 
-          q.status === 'launched' && q.questions.some(question => 
-            question.metadata?.sessionCode === sessionCode
-          )
-        );
+        const activeSessions = await storage.listActiveSessions();
+        const codeExists = activeSessions.some(session => {
+          const existingCode = session.joinCode;
+          return existingCode === sessionCode;
+        });
         if (!codeExists) break;
         sessionCode = generateSessionCode();
         attempts++;
-      } catch {
+      } catch (error) {
+        console.error('Error checking existing sessions:', error);
         break; // If we can't check, proceed with current code
       }
     }

@@ -12,11 +12,32 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     // Check if user is logged in and is a student
-    const userType = sessionStorage.getItem('userType');
-    const storedUserId = sessionStorage.getItem('userId');
+    // Try sessionStorage first, then fallback to localStorage
+    let userType = sessionStorage.getItem('userType');
+    let storedUserId = sessionStorage.getItem('userId');
+    
+    // If not in sessionStorage, try localStorage
+    if (!userType || !storedUserId) {
+      try {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          const parsed = JSON.parse(userData);
+          userType = parsed.type;
+          storedUserId = parsed.userId;
+          
+          // Store in sessionStorage for consistency
+          if (userType) sessionStorage.setItem('userType', userType);
+          if (storedUserId) sessionStorage.setItem('userId', storedUserId);
+          sessionStorage.setItem('userName', parsed.name || '');
+          sessionStorage.setItem('authToken', parsed.token || '');
+        }
+      } catch (e) {
+        console.error('Error parsing user data:', e);
+      }
+    }
     
     if (userType !== 'student' || !storedUserId) {
-      router.push('/');
+      router.push('/auth');
       return;
     }
     
@@ -77,94 +98,205 @@ export default function StudentDashboard() {
   };
 
   const logout = () => {
+    localStorage.clear();
     sessionStorage.clear();
-    router.push('/');
+    router.push('/auth');
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Student Dashboard</h1>
-            <p className="text-gray-600">Welcome, {userId}</p>
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.1),transparent_50%)]"></div>
+      
+      <div className="relative">
+        <div className="mx-auto max-w-7xl p-6">
+          {/* Header */}
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold tracking-tight text-white">Student Dashboard</h1>
+              <p className="mt-1 text-sm text-slate-400">Welcome back, {userId}</p>
+            </div>
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800/50 px-4 py-2 text-sm text-slate-300 hover:bg-slate-700/50 hover:text-white transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Logout
+            </button>
           </div>
-          <button
-            onClick={logout}
-            className="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-          >
-            Logout
-          </button>
+
+          {/* Join Quiz Section */}
+          <div className="rounded-xl border border-slate-700/60 bg-slate-800/80 p-8 shadow-2xl">
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold text-white mb-2">Join Live Quiz</h2>
+              <p className="text-slate-400">Enter the session code provided by your teacher to join a live quiz session</p>
+            </div>
+
+            {error && (
+              <div className="mb-6 rounded-lg border border-red-700/40 bg-red-500/10 px-4 py-3 text-red-300">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {error}
+                </div>
+              </div>
+            )}
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {/* Left side - Join Quiz Form */}
+              <div className="space-y-6">
+                <div>
+                  <label htmlFor="sessionCode" className="block text-sm font-medium text-slate-300 mb-3">
+                    Session Code
+                  </label>
+                  <div className="flex gap-3">
+                    <input
+                      id="sessionCode"
+                      type="text"
+                      value={sessionCode}
+                      onChange={(e) => setSessionCode(e.target.value.toUpperCase())}
+                      placeholder="Enter 6-digit code"
+                      className="flex-1 rounded-lg border border-slate-600 bg-slate-700/50 px-4 py-3 text-center font-mono text-lg tracking-widest text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      maxLength={6}
+                      autoComplete="off"
+                    />
+                    <button
+                      onClick={joinQuiz}
+                      disabled={isJoining || !sessionCode.trim()}
+                      className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-blue-700 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {isJoining ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          Joining...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                          </svg>
+                          Join Quiz
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Instructions Card */}
+                <div className="rounded-lg border border-blue-700/50 bg-blue-500/10 p-6">
+                  <h3 className="text-lg font-semibold text-blue-300 mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    How to Join
+                  </h3>
+                  <ol className="space-y-2 text-sm text-blue-200">
+                    <li className="flex items-start gap-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">1</span>
+                      <span>Get the 6-digit session code from your teacher</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">2</span>
+                      <span>Enter the code and click "Join Quiz"</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">3</span>
+                      <span>Wait for the teacher to start the timer</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">4</span>
+                      <span>Answer all questions before time runs out</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              {/* Right side - Features */}
+              <div className="space-y-6">
+                {/* AI Features Card */}
+                <div className="rounded-lg border border-purple-700/50 bg-purple-500/10 p-6">
+                  <h3 className="text-lg font-semibold text-purple-300 mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    AI-Powered Questions
+                  </h3>
+                  <p className="text-purple-200 text-sm mb-4">
+                    Experience personalized learning with intelligent question generation
+                  </p>
+                  <ul className="space-y-2 text-sm text-purple-200">
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                      <span>Unique questions for each student</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                      <span>Adaptive difficulty levels</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                      <span>Instant feedback & explanations</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                      <span>Prevents cheating naturally</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Live Features Card */}
+                <div className="rounded-lg border border-green-700/50 bg-green-500/10 p-6">
+                  <h3 className="text-lg font-semibold text-green-300 mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Real-time Features
+                  </h3>
+                  <ul className="space-y-2 text-sm text-green-200">
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                      <span>Live leaderboard updates</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                      <span>Real-time timer synchronization</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                      <span>Instant result notifications</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                      <span>Interactive quiz experience</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="mt-8 pt-6 border-t border-slate-700/50">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div className="p-4 rounded-lg bg-slate-700/30">
+                  <div className="text-2xl font-bold text-blue-400">AI</div>
+                  <div className="text-sm text-slate-400">Powered Questions</div>
+                </div>
+                <div className="p-4 rounded-lg bg-slate-700/30">
+                  <div className="text-2xl font-bold text-green-400">Live</div>
+                  <div className="text-sm text-slate-400">Real-time Sessions</div>
+                </div>
+                <div className="p-4 rounded-lg bg-slate-700/30">
+                  <div className="text-2xl font-bold text-purple-400">Smart</div>
+                  <div className="text-sm text-slate-400">Adaptive Learning</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Join Live Quiz Section */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Join Live Quiz</h3>
-          <p className="text-gray-600 mb-6">
-            Enter the session code provided by your teacher to join a live quiz.
-          </p>
-          
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700">
-              {error}
-            </div>
-          )}
-          
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <div className="flex-1">
-              <label htmlFor="sessionCode" className="block text-sm font-medium text-gray-700 mb-2">
-                Session Code
-              </label>
-              <input
-                id="sessionCode"
-                type="text"
-                value={sessionCode}
-                onChange={(e) => setSessionCode(e.target.value.toUpperCase())}
-                placeholder="Enter 6-digit code (e.g., IPBKIT)"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center font-mono text-lg tracking-widest"
-                maxLength={6}
-                autoComplete="off"
-              />
-            </div>
-            <div className="flex items-end">
-              <button
-                onClick={joinQuiz}
-                disabled={isJoining || !sessionCode.trim()}
-                className="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium transition-colors"
-              >
-                {isJoining ? 'Joining...' : 'Join Quiz'}
-              </button>
-            </div>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-blue-50 rounded-lg p-4 mb-6">
-            <h4 className="font-semibold text-blue-900 mb-2">📝 How to Join:</h4>
-            <ol className="list-decimal list-inside space-y-1 text-blue-800 text-sm">
-              <li>Get the 6-digit session code from your teacher</li>
-              <li>Enter the code above and click "Join Quiz"</li>
-              <li>Wait for your teacher to start the timer</li>
-              <li>Complete all questions before time runs out</li>
-            </ol>
-          </div>
-
-          {/* AI Features Info */}
-          <div className="mt-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
-            <h4 className="text-lg font-semibold text-purple-900 mb-2">🤖 AI-Powered Questions</h4>
-            <p className="text-purple-800 text-sm mb-4">
-              Each student gets unique, AI-generated questions tailored to the quiz topic!
-            </p>
-            <ul className="space-y-1 text-purple-700 text-sm">
-              <li>• Different questions prevent cheating</li>
-              <li>• Personalized difficulty and explanations</li>
-              <li>• Intelligent fallback when API unavailable</li>
-            </ul>
-          </div>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }

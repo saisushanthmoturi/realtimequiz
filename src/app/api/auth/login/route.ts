@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ServerAuthService } from '@/lib/server-auth';
+import { AuthService } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,11 +27,11 @@ export async function POST(request: NextRequest) {
         );
       }
       console.log('Attempting teacher login with password');
-      result = await ServerAuthService.login(userId, password, userType);
+      result = await AuthService.login(userId, password, userType);
     } else {
-      // Students can login without a password
+      // Students can use simple login (auto-create if needed)
       console.log('Attempting student simple login');
-      result = await ServerAuthService.simpleLogin(userId, userType);
+      result = await AuthService.simpleLogin(userId, userType);
     }
 
     console.log('Login result:', { success: result.success, message: result.message });

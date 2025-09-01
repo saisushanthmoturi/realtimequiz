@@ -34,7 +34,7 @@ export default function TeacherDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { timerSeconds, startSession } = useQuizSocket();
+  const { timerSeconds, startSession, connected, recoverSession, sessionStatus } = useQuizSocket();
 
   // UI step helper
   const step: 1 | 2 | 3 = !currentQuiz ? 1 : sessionId ? 3 : 2;
@@ -48,24 +48,102 @@ export default function TeacherDashboard() {
   const addTopic = () => setQuizSetup({ ...quizSetup, topics: [...quizSetup.topics, ''] });
   const removeTopic = (index: number) => setQuizSetup({ ...quizSetup, topics: quizSetup.topics.filter((_, i) => i !== index) });
 
-  // useEffect to check if we have a stored session
+  // useEffect to check authentication
+  useEffect(() => {
+    // Check if user is logged in and is a teacher
+    let userType = sessionStorage.getItem('userType');
+    let storedUserId = sessionStorage.getItem('userId');
+    
+    // If not in sessionStorage, try localStorage
+    if (!userType || !storedUserId) {
+      try {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          const parsed = JSON.parse(userData);
+          userType = parsed.type;
+          storedUserId = parsed.userId;
+          
+          // Store in sessionStorage for consistency
+          if (userType) sessionStorage.setItem('userType', userType);
+          if (storedUserId) sessionStorage.setItem('userId', storedUserId);
+          sessionStorage.setItem('userName', parsed.name || '');
+          sessionStorage.setItem('authToken', parsed.token || '');
+        }
+      } catch (e) {
+        console.error('Error parsing user data:', e);
+      }
+    }
+    
+    if (userType !== 'teacher' || !storedUserId) {
+      router.push('/auth');
+      return;
+    }
+  }, [router]);
+
+  // useEffect to check if we have a stored session and recover timer state
   useEffect(() => {
     try {
       const storedSession = sessionStorage.getItem('currentSession');
-      if (storedSession) {
+      if (storedSession && !currentQuiz) { // Only restore if no current quiz
         const session = JSON.parse(storedSession);
         setSessionId(session.id);
         setJoinCode(session.joinCode);
+        
+        // Try to recover session timer state if connected
+        if (connected && session.id) {
+          console.log('Attempting to recover session:', session.id);
+          recoverSession(session.id);
+        }
       }
     } catch (error) {
       console.error('Failed to load stored session:', error);
+      // Clear corrupted session data
+      try {
+        sessionStorage.removeItem('currentSession');
+      } catch (e) {
+        console.error('Failed to clear corrupted session:', e);
+      }
     }
-  }, []);
+  }, [currentQuiz, connected]); // Add connected as dependency
+
+  // Enhanced logging for debugging
+  useEffect(() => {
+    console.log('Teacher Socket State:', {
+      timerSeconds,
+      sessionStatus,
+      sessionId,
+      connected,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Test socket connection
+    if (typeof window !== 'undefined') {
+      console.log('Teacher page socket debugging:', {
+        hasSocket: !!(window as any).io,
+        currentSession: sessionStorage.getItem('currentSession')
+      });
+    }
+  }, [timerSeconds, sessionStatus, sessionId, connected]);
 
   const generateQuiz = async () => {
     try {
       setLoading(true);
       setError(null);
+      
+      // Clear any existing session data when generating a new quiz
+      setCurrentQuiz(null);
+      setSessionId(null);
+      setJoinCode(null);
+      
+      try {
+        sessionStorage.removeItem('currentSession');
+        sessionStorage.removeItem('rq_sessionId');
+        sessionStorage.removeItem('rq_joinCode');
+        sessionStorage.removeItem('rq_quizTitle');
+      } catch (e) {
+        console.error('Failed to clear session storage:', e);
+      }
+      
       const res = await fetch('/api/quiz/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,12 +209,10 @@ export default function TeacherDashboard() {
         sessionStorage.setItem('currentSession', JSON.stringify({
           id: sessionId,
           joinCode: joinCode,
+          quizId: currentQuiz.id, // Add quiz ID for validation
           quizTitle: currentQuiz.topics.join(', ') || 'Untitled Quiz',
           duration: durationMin * 60
         }));
-        
-        // Navigate to session page
-        router.push('/teacher/session');
       } catch (e) {
         console.error('Failed to store session data', e);
       }
@@ -173,6 +249,24 @@ export default function TeacherDashboard() {
     }
   };
 
+  const startNewQuiz = () => {
+    // Reset all state
+    setCurrentQuiz(null);
+    setSessionId(null);
+    setJoinCode(null);
+    setError(null);
+    
+    // Clear session storage
+    try {
+      sessionStorage.removeItem('currentSession');
+      sessionStorage.removeItem('rq_sessionId');
+      sessionStorage.removeItem('rq_joinCode');
+      sessionStorage.removeItem('rq_quizTitle');
+    } catch (e) {
+      console.error('Failed to clear session storage:', e);
+    }
+  };
+
   return (
     <div className="relative">
       <div className="mx-auto max-w-7xl p-6">
@@ -182,18 +276,28 @@ export default function TeacherDashboard() {
           <h1 className="text-3xl font-semibold tracking-tight text-white">Create New Quiz</h1>
           <p className="mt-1 text-sm text-slate-400">Generate and refine questions with AI assistance</p>
         </div>
-        {joinCode && (
-          <div className="hidden md:flex items-center gap-3 rounded-lg border border-green-700/50 bg-green-500/10 px-4 py-2 text-green-300">
-            <span className="text-sm font-medium">Join Code</span>
-            <span className="font-mono text-lg font-bold">{joinCode}</span>
+        <div className="flex items-center gap-4">
+          {(currentQuiz || sessionId) && (
             <button
-              onClick={() => navigator.clipboard.writeText(joinCode)}
-              className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-700"
+              onClick={startNewQuiz}
+              className="rounded-md border border-slate-600 bg-slate-700/50 px-4 py-2 text-sm text-slate-300 hover:bg-slate-600/50 hover:text-white transition-colors"
             >
-              Copy
+              Start New Quiz
             </button>
-          </div>
-        )}
+          )}
+          {joinCode && (
+            <div className="hidden md:flex items-center gap-3 rounded-lg border border-green-700/50 bg-green-500/10 px-4 py-2 text-green-300">
+              <span className="text-sm font-medium">Join Code</span>
+              <span className="font-mono text-lg font-bold">{joinCode}</span>
+              <button
+                onClick={() => navigator.clipboard.writeText(joinCode)}
+                className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-700"
+              >
+                Copy
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Stepper */}
@@ -578,10 +682,36 @@ export default function TeacherDashboard() {
                 )}
 
                 <div>
-                  <div className="text-sm font-medium text-slate-300">Timer</div>
+                  <div className="text-sm font-medium text-slate-300 mb-2">Quiz Session Status</div>
                   {typeof timerSeconds === 'number' ? (
-                    <div className="mt-1 rounded-md border border-slate-700 bg-slate-900/40 p-3 text-center font-mono text-lg text-slate-200">
-                      {Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}
+                    <div className="space-y-3">
+                      <div className="rounded-md border border-slate-700 bg-slate-900/40 p-4 text-center">
+                        <div className="font-mono text-2xl font-bold text-slate-200 mb-2">
+                          {Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}
+                        </div>
+                        <div className="flex items-center justify-center gap-2 text-sm">
+                          <div className={`w-2 h-2 rounded-full ${
+                            sessionStatus === 'running' ? 'bg-green-500 animate-pulse' :
+                            sessionStatus === 'paused' ? 'bg-yellow-500' :
+                            sessionStatus === 'ended' ? 'bg-red-500' :
+                            'bg-gray-500'
+                          }`}></div>
+                          <span className={`font-medium capitalize ${
+                            sessionStatus === 'running' ? 'text-green-400' :
+                            sessionStatus === 'paused' ? 'text-yellow-400' :
+                            sessionStatus === 'ended' ? 'text-red-400' :
+                            'text-gray-400'
+                          }`}>
+                            {sessionStatus === 'running' ? 'Quiz Running Live' :
+                             sessionStatus === 'paused' ? 'Quiz Paused' :
+                             sessionStatus === 'ended' ? 'Quiz Ended' :
+                             'Session Status Unknown'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-xs text-slate-400 text-center">
+                        Students are seeing the same timer and can submit answers
+                      </div>
                     </div>
                   ) : (
                     <div className="mt-2 space-y-3">
@@ -633,6 +763,21 @@ export default function TeacherDashboard() {
                         className="w-full rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
                       >
                         Start {durationMin}-minute quiz
+                      </button>
+                      
+                      {/* Debug timer test button */}
+                      <button
+                        onClick={() => {
+                          if (sessionId) {
+                            console.log('Testing timer with sessionId:', sessionId);
+                            startSession(sessionId, 60); // Test with 1 minute
+                          } else {
+                            console.log('No sessionId available for testing');
+                          }
+                        }}
+                        className="w-full rounded-md border border-yellow-600 bg-yellow-500/20 px-4 py-2 text-sm font-medium text-yellow-300 hover:bg-yellow-500/30"
+                      >
+                        🧪 Test Timer (60s)
                       </button>
                     </div>
                   )}

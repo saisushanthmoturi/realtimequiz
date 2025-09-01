@@ -23,7 +23,7 @@ export default function Timer({
   const totalInitialSeconds = initialSeconds !== undefined ? initialSeconds : (duration || 0) * 60;
   const [timeLeft, setTimeLeft] = useState(totalInitialSeconds);
 
-  // Update timer if initialSeconds or duration changes
+  // Update timer when external time changes (for real-time sync)
   useEffect(() => {
     if (initialSeconds !== undefined) {
       setTimeLeft(initialSeconds);
@@ -35,7 +35,8 @@ export default function Timer({
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
-    if (isActive && timeLeft > 0) {
+    // Only run local countdown if we're not getting real-time updates (initialSeconds is undefined)
+    if (isActive && timeLeft > 0 && initialSeconds === undefined) {
       interval = setInterval(() => {
         setTimeLeft(timeLeft => {
           if (timeLeft <= 1) {
@@ -52,7 +53,7 @@ export default function Timer({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isActive, timeLeft, onTimeUpAction]);
+  }, [isActive, timeLeft, onTimeUpAction, initialSeconds]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -71,6 +72,13 @@ export default function Timer({
     return Math.max(0, Math.min(100, ((totalInitialSeconds - timeLeft) / totalInitialSeconds) * 100));
   };
 
+  const getProgressColor = () => {
+    const percentage = (timeLeft / totalInitialSeconds) * 100;
+    if (percentage > 50) return 'bg-green-500';
+    if (percentage > 20) return 'bg-yellow-500';
+    return 'bg-red-500';
+  };
+
   return (
     <div className={`flex flex-col items-center ${className}`}>
       <div className="font-mono text-2xl font-bold">
@@ -83,11 +91,7 @@ export default function Timer({
       {showProgressBar && (
         <div className="mt-2 h-1.5 w-full rounded-full bg-slate-700">
           <div 
-            className={`h-full rounded-full transition-all ${
-              timeLeft / totalInitialSeconds > 0.5 ? 'bg-green-500' : 
-              timeLeft / totalInitialSeconds > 0.25 ? 'bg-yellow-500' : 
-              'bg-red-500'
-            }`}
+            className={`h-full rounded-full transition-all ${getProgressColor()}`}
             style={{ width: `${getProgressPercentage()}%` }}
           />
         </div>

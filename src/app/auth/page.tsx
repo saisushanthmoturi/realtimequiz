@@ -92,13 +92,22 @@ export default function AuthPage() {
       if (response.ok) {
         // For login, store user and redirect
         if (!isRegistering) {
-          localStorage.setItem('user', JSON.stringify({
+          const userData = {
             id: result.user?.id || userId.trim(),
             userId: result.user?.userId || userId.trim(),
             name: result.user?.name || '',
             type: userType,
             token: result.token || ''
-          }));
+          };
+          
+          // Store in localStorage for main app state
+          localStorage.setItem('user', JSON.stringify(userData));
+          
+          // Also store individual items in sessionStorage for compatibility with existing pages
+          sessionStorage.setItem('userId', userData.userId);
+          sessionStorage.setItem('userType', userData.type);
+          sessionStorage.setItem('userName', userData.name);
+          sessionStorage.setItem('authToken', userData.token);
 
           // Redirect to the appropriate dashboard
           router.push(userType === 'teacher' ? '/teacher' : '/student');

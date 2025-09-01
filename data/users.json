@@ -300,5 +300,104 @@
     "name": "Student 2324",
     "password": "",
     "createdAt": "2025-08-31T04:50:44.945Z"
+  },
+  {
+    "id": "1756619244112",
+    "userType": "student",
+    "userId": "S12345",
+    "name": "John Doe",
+    "password": "$2b$12$5jQE3rlTM63Zwbz7b1mLPetgdHnwRxpA0AvyW2lhJgFWrmxjS1er.",
+    "createdAt": "2025-08-31T05:47:24.112Z"
+  },
+  {
+    "id": "1756619259031",
+    "userType": "teacher",
+    "userId": "T001",
+    "name": "Professor Smith",
+    "email": "smith@university.com",
+    "password": "$2b$12$R9Lc8wV85n97yelF0g/W5eQeApoi7p0lulI0cnSvqAIYzOEt5.FhG",
+    "createdAt": "2025-08-31T05:47:39.031Z"
+  },
+  {
+    "id": "1756619357405",
+    "userType": "student",
+    "userId": "19223",
+    "name": "suzie",
+    "password": "$2b$12$4Wkhu3Sms5la2EGvfU62iu/yVXu7/dTRFSm9hUtEe8YboGwtuJvs6",
+    "createdAt": "2025-08-31T05:49:17.405Z"
+  },
+  {
+    "id": "1756619495373",
+    "userType": "student",
+    "userId": "S67890",
+    "name": "Jane Student",
+    "password": "$2b$12$tqoeUZJ58h10Ol.tLaZsYu0PgpSduwjP06ROfaT4DCPHIKrmxHHra",
+    "createdAt": "2025-08-31T05:51:35.373Z"
+  },
+  {
+    "id": "1756619840650",
+    "userType": "student",
+    "userId": "2332",
+    "name": "Student 2332",
+    "password": "",
+    "createdAt": "2025-08-31T05:57:20.650Z"
+  },
+  {
+    "id": "1756619856256",
+    "userType": "student",
+    "userId": "2432",
+    "name": "rohan",
+    "password": "$2b$12$GlgPqoVol1s8LVwYhbnE5OZxiyV7VBInI6dbCYiumJ9J89y1cMK/S",
+    "createdAt": "2025-08-31T05:57:36.256Z"
+  },
+  {
+    "id": "1756619878065",
+    "userType": "student",
+    "userId": "5656",
+    "name": "Student 5656",
+    "password": "",
+    "createdAt": "2025-08-31T05:57:58.065Z"
+  },
+  {
+    "id": "1756620262223",
+    "userType": "student",
+    "userId": "S77777",
+    "name": "New Student",
+    "password": "$2b$12$JQGzmTIrNK3lpEeMeLMrve8W7oUVt4g/J3JpQke/iU1A.UFlQdad2",
+    "createdAt": "2025-08-31T06:04:22.223Z"
+  },
+  {
+    "id": "1756620361064",
+    "userType": "student",
+    "userId": "S00000",
+    "name": "Test Student Zero",
+    "password": "$2b$12$EpYeC64uek.dHIRFG9uNguiEamh/m4zlnPLW87wDIrA5s4aROZHZm",
+    "createdAt": "2025-08-31T06:06:01.064Z"
+  },
+  {
+    "id": "1756620435153",
+    "userType": "student",
+    "userId": "12121",
+    "name": "susus",
+    "password": "$2b$12$2Ej1UmZ8pXVTrK3WK9OSv.iV/7wMe8Zee4igHf/8nguJNXHHz7reS",
+    "createdAt": "2025-08-31T06:07:15.153Z"
+  },
+  {
+    "id": "1756620576375",
+    "userType": "teacher",
+    "userId": "2431",
+    "name": "jbbj",
+    "email": "sos@gmail.com",
+    "password": "$2b$12$bCa.DX/9eE0fOVAdpyE2KOqkkql3gGT/EA3eDiSZYusQcvf77kZcK",
+    "createdAt": "2025-08-31T06:09:36.375Z"
+  },
+  {
+    "id": "1756700120800",
+    "userType": "teacher",
+    "userId": "111",
+    "name": "sd",
+    "email": "ssss@gmail.com",
+    "password": "$2b$12$vYW23YuQqwGwTirQd2YGx.Y/SBVq9AszYXurYz/JKAa4At7ggh50q",
+    "createdAt": "2025-09-01T04:15:20.800Z"
   }
 ]

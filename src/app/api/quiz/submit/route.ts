@@ -83,7 +83,35 @@ export async function POST(request: NextRequest) {
       try {
         session = await storage.getSession(sessionId);
         if (session) {
-          console.log('Found session:', { id: session.sessionId, status: session.status });
+          console.log('Found session:', { 
+            id: session.sessionId, 
+            status: session.status,
+            endsAt: session.endsAt
+          });
+          
+          // Validate session timing
+          if (session.status === 'ended') {
+            console.log('Session has ended, rejecting submission');
+            return NextResponse.json(
+              { success: false, message: 'Quiz session has ended. No more submissions are allowed.' },
+              { status: 410 } // 410 Gone - resource no longer available
+            );
+          }
+          
+          if (session.endsAt) {
+            const endsAt = new Date(session.endsAt).getTime();
+            const now = Date.now();
+            
+            if (now > endsAt) {
+              console.log('Session time has expired, updating status and rejecting submission');
+              // Auto-update session status to ended
+              await storage.updateSession({ sessionId, status: 'ended' });
+              return NextResponse.json(
+                { success: false, message: 'Quiz time has expired. No more submissions are allowed.' },
+                { status: 410 }
+              );
+            }
+          }
         } else {
           console.log('Session not found:', sessionId);
         }

@@ -18,46 +18,106 @@ export function useQuizSocket() {
   const [endsAt, setEndsAt] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('🔌 Initializing socket connection...');
     const socket = io({
       path: '/api/socket',
       autoConnect: true
     });
 
-    socket.on('connect', () => setConnected(true));
-    socket.on('disconnect', () => setConnected(false));
+    socket.on('connect', () => {
+      console.log('✅ Socket connected successfully!', socket.id);
+      setConnected(true);
+    });
+    
+    socket.on('disconnect', () => {
+      console.log('❌ Socket disconnected');
+      setConnected(false);
+    });
+    
+    socket.on('connect_error', (error) => {
+      console.error('🔥 Socket connection error:', error);
+      setConnected(false);
+    });
     
     socket.on('leaderboard:update', ({ rows }) => {
+      console.log('📊 Leaderboard update received:', rows);
       setLeaderboard(rows);
     });
 
     socket.on('timer:tick', ({ remaining }) => {
+      console.log('⏱️ Timer tick received:', remaining);
       setTimerSeconds(remaining);
       setSessionStatus('running');
     });
 
     socket.on('session:started', ({ endsAt }) => {
+      console.log('🚀 Session started:', endsAt);
       setSessionStatus('running');
       setEndsAt(endsAt);
     });
 
     socket.on('session:paused', ({ remaining }) => {
+      console.log('⏸️ Session paused:', remaining);
       setTimerSeconds(remaining);
       setSessionStatus('paused');
     });
 
     socket.on('session:resumed', ({ remaining, endsAt }) => {
+      console.log('▶️ Session resumed:', remaining, endsAt);
       setTimerSeconds(remaining);
       setSessionStatus('running');
       setEndsAt(endsAt);
     });
 
     socket.on('session:ended', () => {
+      console.log('🏁 Session ended');
       setSessionStatus('ended');
+      setTimerSeconds(null);
+    });
+
+    socket.on('timer:finished', () => {
+      console.log('⏰ Timer finished');
+      setSessionStatus('ended');
+      setTimerSeconds(0);
+    });
+
+    socket.on('session:recovered', ({ sessionId, remaining, endsAt }) => {
+      console.log('🔄 Session recovered:', sessionId, 'remaining:', remaining, 'endsAt:', endsAt);
+      if (remaining > 0) {
+        setTimerSeconds(remaining);
+        setSessionStatus('running');
+        setEndsAt(endsAt);
+      } else {
+        setSessionStatus('ended');
+        setTimerSeconds(null);
+      }
+    });
+
+    socket.on('session:expired', ({ sessionId }) => {
+      console.log('⌛ Session expired:', sessionId);
+      setSessionStatus('ended');
+      setTimerSeconds(null);
+    });
+
+    socket.on('session:not_found', ({ sessionId }) => {
+      console.log('❌ Session not found:', sessionId);
+      setSessionStatus('unknown');
+      setTimerSeconds(null);
+    });
+
+    socket.on('session:status', ({ sessionId, status }) => {
+      console.log('📋 Session status update:', sessionId, status);
+      setSessionStatus(status);
+    });
+
+    socket.on('session:error', ({ sessionId, error }) => {
+      console.error('❌ Session error:', sessionId, error);
     });
 
     setSocket(socket);
 
     return () => {
+      console.log('🔌 Cleaning up socket connection...');
       socket.disconnect();
     };
   }, []);
@@ -94,6 +154,10 @@ export function useQuizSocket() {
     });
   }, [socket]);
 
+  const recoverSession = useCallback((sessionId: string) => {
+    socket?.emit('teacher:session:reconnect', { sessionId });
+  }, [socket]);
+
   return {
     connected,
     leaderboard,
@@ -105,6 +169,7 @@ export function useQuizSocket() {
     resumeSession,
     stopSession,
     joinSession,
-    submitAnswer
+    submitAnswer,
+    recoverSession
   };
 }

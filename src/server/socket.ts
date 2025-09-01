@@ -42,18 +42,144 @@ class LeaderboardAggregator {
 
 const leaderboards = new Map<string, LeaderboardAggregator>();
 
-export function initSocketIO(server: HttpServer): SocketServer {
-  if (global.io) {
-    return global.io;
-  }
+// Store timers for each session to manage pause/resume (global to persist across socket connections)
+const sessionTimers = new Map<string, { 
+  timer: NodeJS.Timeout;
+  endsAt: string;
+  remaining: number;
+  isPaused: boolean;
+}>();
 
-  const io = new SocketServer(server, {
-    path: '/api/socket',
-    addTrailingSlash: false,
-  });
+// Function to recover active timers on server restart
+async function recoverActiveTimers(io: SocketServer) {
+  try {
+    const sessions = await storage.listAllSessions();
+    const activeSessions = sessions.filter(s => s.status === 'running' && s.endsAt);
+    
+    console.log(`Recovering ${activeSessions.length} active session timers`);
+    
+    for (const session of activeSessions) {
+      const endsAt = new Date(session.endsAt!).getTime();
+      const now = Date.now();
+      const remaining = Math.ceil((endsAt - now) / 1000);
+      
+      if (remaining > 0) {
+        console.log(`Recovering session ${session.sessionId} with ${remaining} seconds remaining`);
+        
+        const timer = setInterval(async () => {
+          const now = Date.now();
+          const remaining = Math.ceil((endsAt - now) / 1000);
+          
+          if (remaining <= 0) {
+            clearInterval(timer);
+            await storage.updateSession({ sessionId: session.sessionId, status: 'ended' });
+            io.to(`session:${session.sessionId}`).emit('session:ended');
+            io.to(`session:${session.sessionId}`).emit('timer:finished');
+            console.log(`Recovered session ${session.sessionId} timer finished`);
+          } else {
+            io.to(`session:${session.sessionId}`).emit('timer:tick', { remaining });
+          }
+        }, 1000);
+        
+        // Don't store these in sessionTimers as they're recovered and may not have full state
+      } else {
+        // Session has already expired
+        console.log(`Session ${session.sessionId} already expired, marking as ended`);
+        await storage.updateSession({ sessionId: session.sessionId, status: 'ended' });
+      }
+    }
+  } catch (error) {
+    console.error('Error recovering active timers:', error);
+  }
+}
+
+export function initSocketIO(server: HttpServer, io?: SocketServer): SocketServer {
+  // If io is provided (from custom server), use it; otherwise create new one
+  if (!io) {
+    if (global.io) {
+      return global.io;
+    }
+
+    io = new SocketServer(server, {
+      path: '/api/socket',
+      addTrailingSlash: false,
+    });
+  }
 
   // Session management
   io.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+
+    // Recover existing session timers on connect
+    socket.on('teacher:session:reconnect', async ({ sessionId }) => {
+      console.log('🔄 Teacher attempting to reconnect to session:', sessionId);
+      
+      try {
+        const session = await storage.getSession(sessionId);
+        if (!session) {
+          console.log('❌ Session not found:', sessionId);
+          socket.emit('session:not_found', { sessionId });
+          return;
+        }
+        
+        console.log('📋 Session found:', {
+          sessionId: session.sessionId,
+          status: session.status,
+          endsAt: session.endsAt
+        });
+        
+        // Join the session room first
+        socket.join(`session:${sessionId}`);
+        
+        if (session.status === 'running' && session.endsAt) {
+          const endsAt = new Date(session.endsAt).getTime();
+          const now = Date.now();
+          const remaining = Math.ceil((endsAt - now) / 1000);
+          
+          console.log('⏱️ Calculating remaining time:', {
+            endsAt: session.endsAt,
+            now: new Date(now).toISOString(),
+            remaining
+          });
+          
+          if (remaining > 0) {
+            // Session is still active, send current state
+            socket.emit('session:recovered', { 
+              sessionId, 
+              remaining,
+              endsAt: session.endsAt 
+            });
+            console.log('✅ Session recovered successfully with', remaining, 'seconds remaining');
+          } else {
+            // Session has expired, update status
+            await storage.updateSession({ sessionId, status: 'ended' });
+            socket.emit('session:expired', { sessionId });
+            console.log('⌛ Session expired, marked as ended');
+          }
+        } else if (session.status === 'paused') {
+          // For paused sessions, we need to check if we have timer info
+          const timerInfo = sessionTimers.get(sessionId);
+          if (timerInfo) {
+            socket.emit('session:recovered', { 
+              sessionId, 
+              remaining: timerInfo.remaining,
+              endsAt: timerInfo.endsAt 
+            });
+            console.log('✅ Paused session recovered with', timerInfo.remaining, 'seconds remaining');
+          } else {
+            socket.emit('session:status', { sessionId, status: session.status });
+            console.log('📋 Paused session status sent (no timer info)');
+          }
+        } else {
+          // Session is ready or ended
+          socket.emit('session:status', { sessionId, status: session.status });
+          console.log('📋 Session status sent:', session.status);
+        }
+      } catch (error) {
+        console.error('❌ Error during session recovery:', error);
+        socket.emit('session:error', { sessionId, error: 'Recovery failed' });
+      }
+    });
     // Teacher events
     socket.on('teacher:session:create', async ({ quizId, teacherId }) => {
       const session: Session = {
@@ -69,14 +195,6 @@ export function initSocketIO(server: HttpServer): SocketServer {
         socket.join(`session:${session.sessionId}`);
       io.emit('session:ready', { sessionId: session.sessionId, joinCode: session.joinCode });
     });
-
-    // Store timers for each session to manage pause/resume
-    const sessionTimers = new Map<string, { 
-      timer: NodeJS.Timeout;
-      endsAt: string;
-      remaining: number;
-      isPaused: boolean;
-    }>();
 
     socket.on('teacher:session:start', async ({ sessionId, durationSec }) => {
       const session = await storage.getSession(sessionId);
@@ -103,35 +221,53 @@ export function initSocketIO(server: HttpServer): SocketServer {
         endsAt 
       });
 
-      // Start timer
-      const timer = setInterval(() => {
-        const timerInfo = sessionTimers.get(sessionId);
-        if (!timerInfo || timerInfo.isPaused) return;
+      // Start persistent timer that continues even if server restarts
+      const startTimer = () => {
+        const timer = setInterval(async () => {
+          const timerInfo = sessionTimers.get(sessionId);
+          if (!timerInfo || timerInfo.isPaused) return;
 
-        const now = Date.now();
-        const end = new Date(timerInfo.endsAt).getTime();
-        const remaining = Math.ceil((end - now) / 1000);
+          // Always calculate from session.endsAt to handle server restarts
+          const session = await storage.getSession(sessionId);
+          if (!session || !session.endsAt) {
+            clearInterval(timer);
+            sessionTimers.delete(sessionId);
+            return;
+          }
+
+          const now = Date.now();
+          const end = new Date(session.endsAt).getTime();
+          const remaining = Math.ceil((end - now) / 1000);
+          
+          // Update the remaining time in our timer info
+          if (timerInfo) {
+            timerInfo.remaining = remaining;
+          }
+          
+          if (remaining <= 0) {
+            clearInterval(timer);
+            await storage.updateSession({ sessionId, status: 'ended' });
+            io.to(`session:${sessionId}`).emit('session:ended');
+            io.to(`session:${sessionId}`).emit('timer:finished');
+            sessionTimers.delete(sessionId);
+            console.log(`Session ${sessionId} timer finished`);
+          } else {
+            io.to(`session:${sessionId}`).emit('timer:tick', { remaining });
+          }
+        }, 1000);
         
-        // Update the remaining time in our timer info
-        timerInfo.remaining = remaining;
-        
-        if (remaining <= 0) {
-          clearInterval(timer);
-          storage.updateSession({ sessionId, status: 'ended' });
-          io.to(`session:${sessionId}`).emit('session:ended');
-          sessionTimers.delete(sessionId);
-        } else {
-          io.to(`session:${sessionId}`).emit('timer:tick', { remaining });
-        }
-      }, 1000);
+        return timer;
+      };
       
       // Store timer info
       sessionTimers.set(sessionId, {
-        timer,
+        timer: startTimer(),
         endsAt,
         remaining: durationSec,
         isPaused: false
       });
+
+      console.log(`Session ${sessionId} started with ${durationSec} seconds`);
     });
 
     // Student events
@@ -244,6 +380,9 @@ export function initSocketIO(server: HttpServer): SocketServer {
       // Could implement presence tracking here
     });
   });
+
+  // Recover any active timers when server starts
+  recoverActiveTimers(io);
 
   global.io = io;
   return io;

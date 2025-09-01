@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Student Auth Flow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Authentication Flow Test</h1>
+    
+    <div class="step">
+        <h3>Step 1: Register Student</h3>
+        <button onclick="registerStudent()">Register Student S999</button>
+        <div id="registerResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 2: Try Login Without Registration (Should Fail)</h3>
+        <button onclick="loginUnregisteredStudent()">Try Login S888 (Unregistered)</button>
+        <div id="unregisteredResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 3: Login Registered Student (Should Work)</h3>
+        <button onclick="loginStudent()">Login Student S999</button>
+        <div id="loginResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 4: Check Storage</h3>
+        <button onclick="checkStorage()">Check localStorage & sessionStorage</button>
+        <div id="storageResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 5: Redirect Test</h3>
+        <button onclick="window.location.href='/student'">Go to Student Page</button>
+        <p>This should work if authentication is properly stored</p>
+    </div>
+
+    <script>
+        async function registerStudent() {
+            const result = document.getElementById('registerResult');
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: 'S999',
+                        name: 'Test Student',
+                        userType: 'student'
+                    })
+                });
+                
+                const data = await response.json();
+                result.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                result.className = data.success ? 'success' : 'error';
+            } catch (error) {
+                result.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function loginUnregisteredStudent() {
+            const result = document.getElementById('unregisteredResult');
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: 'S888',
+                        userType: 'student'
+                    })
+                });
+                
+                const data = await response.json();
+                result.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                result.className = data.success ? 'success' : 'error';
+            } catch (error) {
+                result.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function loginStudent() {
+            const result = document.getElementById('loginResult');
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: 'S999',
+                        userType: 'student'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Simulate what the auth page does
+                if (data.success) {
+                    const userData = {
+                        id: data.user?.id || 'S999',
+                        userId: data.user?.userId || 'S999',
+                        name: data.user?.name || '',
+                        type: 'student',
+                        token: data.token || ''
+                    };
+                    
+                    // Store in localStorage for main app state
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    
+                    // Also store individual items in sessionStorage for compatibility
+                    sessionStorage.setItem('userId', userData.userId);
+                    sessionStorage.setItem('userType', userData.type);
+                    sessionStorage.setItem('userName', userData.name);
+                    sessionStorage.setItem('authToken', userData.token);
+                }
+                
+                result.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                result.className = data.success ? 'success' : 'error';
+            } catch (error) {
+                result.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        function checkStorage() {
+            const result = document.getElementById('storageResult');
+            const localStorage_user = localStorage.getItem('user');
+            const sessionStorage_data = {
+                userId: sessionStorage.getItem('userId'),
+                userType: sessionStorage.getItem('userType'),
+                userName: sessionStorage.getItem('userName'),
+                authToken: sessionStorage.getItem('authToken')
+            };
+            
+            result.innerHTML = `
+                <h4>localStorage:</h4>
+                <pre>${localStorage_user || 'No data'}</pre>
+                <h4>sessionStorage:</h4>
+                <pre>${JSON.stringify(sessionStorage_data, null, 2)}</pre>
+            `;
+            result.className = 'success';
+        }
+    </script>
+</body>
+</html>

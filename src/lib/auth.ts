@@ -116,27 +116,18 @@ export class AuthService {
     }
   }
 
-  // Simple verification for demo (when no password is set)
+  // Simple verification for students (only allows existing registered students)
   static async simpleLogin(userId: string, userType: 'teacher' | 'student'): Promise<{
     success: boolean;
     message: string;
     user?: AuthUser;
     token?: string;
   }> {
-    // Check if user exists, if not create one for demo
-    let user = SimpleDB.findBy<User>(DB_KEYS.USERS, 'userId', userId);
+    // Check if user exists - DO NOT auto-create
+    const user = SimpleDB.findBy<User>(DB_KEYS.USERS, 'userId', userId);
     
     if (!user) {
-      // Auto-create user for demo purposes
-      user = {
-        id: Date.now().toString(),
-        userType,
-        userId,
-        name: `${userType === 'teacher' ? 'Prof.' : 'Student'} ${userId}`,
-        password: '', // No password for demo
-        createdAt: new Date().toISOString()
-      };
-      SimpleDB.add(DB_KEYS.USERS, user);
+      return { success: false, message: 'Student not found. Please register first.' };
     }
 
     if (user.userType !== userType) {

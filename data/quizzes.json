@@ -11274,5 +11274,1315 @@
     ],
     "createdAt": "2025-08-31T04:49:25.208Z",
     "status": "draft"
+  },
+  {
+    "id": "quiz-5Qi8efHYk3cAH36dYsPj5",
+    "topics": [
+      "neutrons"
+    ],
+    "difficulty": "medium",
+    "mode": "different",
+    "numQuestions": 7,
+    "numSets": 3,
+    "questionsPerSet": 7,
+    "poolSize": 21,
+    "questions": [
+      {
+        "id": "q-uu2kAa-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What is the charge of a neutron?",
+        "options": [
+          "+1",
+          "0",
+          "-1",
+          "+2"
+        ],
+        "answer": "0",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-a1B2Cc-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "Where are neutrons located in an atom?",
+        "options": [
+          "In the nucleus",
+          "In the electron cloud",
+          "Orbiting the nucleus",
+          "Outside the atom"
+        ],
+        "answer": "In the nucleus",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-b3D4Ee-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "true_false",
+        "question": "Neutrons have approximately the same mass as protons.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-c5F6Gg-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What is the role of neutrons in the stability of an atom's nucleus?",
+        "options": [
+          "They contribute to the atom's overall charge",
+          "They determine the atom's chemical properties",
+          "They help to overcome the electrostatic repulsion between protons",
+          "They are not relevant to nuclear stability"
+        ],
+        "answer": "They help to overcome the electrostatic repulsion between protons",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-d7H8Ii-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "Isotopes of an element differ in the number of:",
+        "options": [
+          "protons",
+          "electrons",
+          "neutrons",
+          "all of the above"
+        ],
+        "answer": "neutrons",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      },
+      {
+        "id": "q-e9J1Kk-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "true_false",
+        "question": "Free neutrons are stable particles.",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 5
+        }
+      },
+      {
+        "id": "q-f1L2Mm-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "short_answer",
+        "question": "What is the approximate mass of a neutron in atomic mass units?",
+        "answer": "1",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 6
+        }
+      },
+      {
+        "id": "q-g3N4Oo-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "Neutron decay results in which particles?",
+        "options": [
+          "proton, electron, antineutrino",
+          "proton, positron, neutrino",
+          "electron, neutrino",
+          "proton, neutron"
+        ],
+        "answer": "proton, electron, antineutrino",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 7
+        }
+      },
+      {
+        "id": "q-h5P6Qq-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What is the process called when a neutron is absorbed by an atomic nucleus?",
+        "options": [
+          "Nuclear fusion",
+          "Nuclear fission",
+          "Neutron capture",
+          "Radioactive decay"
+        ],
+        "answer": "Neutron capture",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 8
+        }
+      },
+      {
+        "id": "q-i7R8Ss-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "true_false",
+        "question": "The number of neutrons in an atom's nucleus determines its atomic number.",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 9
+        }
+      },
+      {
+        "id": "q-j9T1Uu-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "Which of these is NOT a property of a neutron?",
+        "options": [
+          "Mass",
+          "Charge",
+          "Spin",
+          "Color charge"
+        ],
+        "answer": "Color charge",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 10
+        }
+      },
+      {
+        "id": "q-k1V2Ww-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "short_answer",
+        "question": "What is a neutron star?",
+        "answer": "A star composed primarily of neutrons",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 11
+        }
+      },
+      {
+        "id": "q-l3X4Xx-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "How are neutrons produced in nuclear fission?",
+        "options": [
+          "By the splitting of heavy nuclei",
+          "By the fusion of light nuclei",
+          "By radioactive decay",
+          "By electron capture"
+        ],
+        "answer": "By the splitting of heavy nuclei",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 12
+        }
+      },
+      {
+        "id": "q-m5Y6Yy-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What is the term for a neutron that is not bound in an atomic nucleus?",
+        "options": [
+          "Free neutron",
+          "Bound neutron",
+          "Neutron star",
+          "Neutronium"
+        ],
+        "answer": "Free neutron",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 13
+        }
+      },
+      {
+        "id": "q-n7Z8Zz-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "true_false",
+        "question": "Thermal neutrons are slow-moving neutrons.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 14
+        }
+      },
+      {
+        "id": "q-o9A1Aa-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What particle is emitted when a neutron undergoes beta decay?",
+        "options": [
+          "proton",
+          "electron",
+          "positron",
+          "alpha particle"
+        ],
+        "answer": "electron",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 15
+        }
+      },
+      {
+        "id": "q-p1B2Bb-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "short_answer",
+        "question": "What is the role of a moderator in a nuclear reactor?",
+        "answer": "To slow down neutrons",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 16
+        }
+      },
+      {
+        "id": "q-q3C4Cc-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "What is the strong nuclear force's role concerning neutrons and protons?",
+        "options": [
+          "Attracts neutrons and protons",
+          "Repels neutrons and protons",
+          "Only attracts protons",
+          "Only attracts neutrons"
+        ],
+        "answer": "Attracts neutrons and protons",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 17
+        }
+      },
+      {
+        "id": "q-r5D6Dd-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "true_false",
+        "question": "Neutrons are fundamental particles.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 18
+        }
+      },
+      {
+        "id": "q-s7E8Ee-*",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "Which type of radiation is associated with neutron emission?",
+        "options": [
+          "Alpha radiation",
+          "Beta radiation",
+          "Gamma radiation",
+          "Neutron radiation"
+        ],
+        "answer": "Neutron radiation",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 19
+        }
+      },
+      {
+        "id": "q-HELuluFUzx2u",
+        "topic": "neutrons",
+        "mode": "different",
+        "type": "mcq",
+        "question": "(medium) neutrons: Sample question 1 of 21?",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Option A",
+        "difficulty": "medium",
+        "metadata": {
+          "local": true,
+          "idx": 0,
+          "setIndex": 0
+        }
+      }
+    ],
+    "createdAt": "2025-08-31T05:42:02.967Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-BSmM2nRAQm0DSZW0tGqIm",
+    "topics": [
+      "arrays"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 10,
+    "poolSize": 10,
+    "questions": [
+      {
+        "id": "q-mJrBrD-*",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the time complexity of inserting an element at the beginning of an array?",
+        "options": [
+          "O(1)",
+          "O(n)",
+          "O(log n)",
+          "O(n^2)"
+        ],
+        "answer": "O(n)",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-aBcDeF-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Which data structure is best suited for implementing a queue?",
+        "options": [
+          "Linked List",
+          "Array",
+          "Binary Tree",
+          "Graph"
+        ],
+        "answer": "Array",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-xyZwPl-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "true_false",
+        "question": "An array is a dynamic data structure.",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-123abc-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What does the term 'out of bounds' mean in the context of arrays?",
+        "options": [
+          "Accessing an element beyond the array's allocated memory",
+          "The array is full",
+          "The array is empty",
+          "The array is sorted"
+        ],
+        "answer": "Accessing an element beyond the array's allocated memory",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-def456-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the most efficient way to search for a specific element in a sorted array?",
+        "options": [
+          "Linear Search",
+          "Binary Search",
+          "Bubble Sort",
+          "Merge Sort"
+        ],
+        "answer": "Binary Search",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      },
+      {
+        "id": "q-ghi789-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "true_false",
+        "question": "Arrays can only store elements of the same data type.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 5
+        }
+      },
+      {
+        "id": "q-jkl012-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Explain the difference between a sparse array and a dense array.",
+        "answer": "A sparse array contains mostly null or zero values, while a dense array contains mostly non-zero values.",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 6
+        }
+      },
+      {
+        "id": "q-mno345-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Which of the following is NOT a common operation performed on arrays?",
+        "options": [
+          "Insertion",
+          "Deletion",
+          "Traversal",
+          "Recursion"
+        ],
+        "answer": "Recursion",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 7
+        }
+      },
+      {
+        "id": "q-pqr678-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Describe a scenario where using a linked list would be more efficient than using an array.",
+        "answer": "When frequent insertions or deletions are needed in the middle of the data structure, a linked list is more efficient than an array because it avoids the need to shift elements.",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 8
+        }
+      },
+      {
+        "id": "q-stu901-",
+        "topic": "arrays",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the average time complexity of searching for an element in an unsorted array?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n^2)"
+        ],
+        "answer": "O(n)",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 9
+        }
+      }
+    ],
+    "createdAt": "2025-08-31T06:10:09.403Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-wd0aldbWxSD2tZbFBcDx4",
+    "topics": [
+      "pointers"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-GOLktE-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What will the following C++ code snippet print? \\n```cpp\\nint x = 10; \\nint *ptr = &x; \\ncout << *ptr; \\n```",
+        "options": [
+          "10",
+          "Address of x",
+          "Garbage Value",
+          "Compilation Error"
+        ],
+        "answer": "10",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-aBcDeF-",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What does the following C++ code snippet do?\\n```cpp\\nint *ptr = nullptr; \\n```",
+        "options": [
+          "Initializes ptr to point to a valid memory location",
+          "Initializes ptr to point to an invalid memory location",
+          "Initializes ptr to point to the beginning of the program's memory space",
+          "Initializes ptr to null, indicating it does not point to any valid memory location"
+        ],
+        "answer": "Initializes ptr to null, indicating it does not point to any valid memory location",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-xyz123-",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "true_false",
+        "question": "In C++, a pointer variable can hold the address of any data type.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-ghi789-",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the size of a pointer variable in a 64-bit system?",
+        "options": [
+          "1 byte",
+          "2 bytes",
+          "4 bytes",
+          "8 bytes"
+        ],
+        "answer": "8 bytes",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-jkl456-",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Explain the difference between a pointer and a reference in C++.",
+        "answer": "A pointer is a variable that stores the memory address of another variable, while a reference is an alias for an existing variable. Pointers can be reassigned, while references cannot.",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:13:56.332Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-kiqMOqYlKDBKdYWkYq_ZP",
+    "topics": [
+      "pointers"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-YCRxi3-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What does the statement 'int *ptr;' declare in C?",
+        "options": [
+          "A pointer to an integer",
+          "An integer variable",
+          "An array of integers",
+          "A function that returns an integer"
+        ],
+        "answer": "A pointer to an integer",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-1e34r-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the value of *ptr after the following code executes? int x = 10; int *ptr = &x;",
+        "options": [
+          "10",
+          "Address of x",
+          "NULL",
+          "Garbage value"
+        ],
+        "answer": "10",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-9821f-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "true_false",
+        "question": "Pointers can only point to variables of the same data type.",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-5678d-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What does NULL represent in the context of pointers?",
+        "options": [
+          "An integer value of 0",
+          "The address of the last element in memory",
+          "A special value indicating that a pointer does not point to a valid memory location",
+          "A pointer to a null character"
+        ],
+        "answer": "A special value indicating that a pointer does not point to a valid memory location",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-2345g-*",
+        "topic": "pointers",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Explain the difference between a pointer and a reference in C++.",
+        "answer": "Pointers are variables that hold memory addresses, while references are aliases to existing variables.",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:15:38.573Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-7ah0q1vFk-CJ3_IH4ct8W",
+    "topics": [
+      "Math"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-i4QsPx-*",
+        "topic": "Math",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the result of 2 + 2 * 2?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "answer": "6",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-a1B2c3D4",
+        "topic": "Math",
+        "mode": "same",
+        "type": "true_false",
+        "question": "Is 10 a prime number?",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-e5F6g7H8",
+        "topic": "Math",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Solve for x: 2x + 5 = 11",
+        "options": [
+          "3",
+          "6",
+          "8",
+          "1"
+        ],
+        "answer": "3",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-i9j0k1L2",
+        "topic": "Math",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "What is the square root of 144?",
+        "answer": "12",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-m3n4o5P6",
+        "topic": "Math",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the value of pi (to two decimal places)?",
+        "options": [
+          "3.14",
+          "3.15",
+          "3.16",
+          "3.17"
+        ],
+        "answer": "3.14",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:18:45.256Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-rhuj_vNZaew2l5EYc2lwg",
+    "topics": [
+      "JavaScript"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 3,
+    "poolSize": 3,
+    "questions": [
+      {
+        "id": "q-EBJEYC-1",
+        "topic": "JavaScript",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What does the 'this' keyword refer to in JavaScript?",
+        "options": [
+          "The global object",
+          "The window object",
+          "The object that called the function",
+          "The function itself"
+        ],
+        "answer": "The object that called the function",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-EBJEYC-2",
+        "topic": "JavaScript",
+        "mode": "same",
+        "type": "true_false",
+        "question": "JavaScript is a case-sensitive language.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-EBJEYC-3",
+        "topic": "JavaScript",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "What is the purpose of the 'map' method in JavaScript?",
+        "answer": "To create a new array by applying a function to each element of an existing array",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:19:14.844Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-9ZEn1J_JiLHXJgkmymG5f",
+    "topics": [
+      "Test"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 3,
+    "poolSize": 3,
+    "questions": [
+      {
+        "id": "q-nMYW-J-*",
+        "topic": "Test",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the capital of France?",
+        "options": [
+          "Berlin",
+          "Paris",
+          "Rome",
+          "Madrid"
+        ],
+        "answer": "Paris",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-aBcD-123",
+        "topic": "Test",
+        "mode": "same",
+        "type": "true_false",
+        "question": "Is the Earth flat?",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-XyZ-456",
+        "topic": "Test",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Name a mammal that lives in the Arctic.",
+        "answer": "Polar bear",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:19:21.886Z",
+    "status": "draft"
+  },
+  {
+    "id": "1756700644368",
+    "title": "Test Math Quiz 1",
+    "topic": "Mathematics",
+    "description": "Test quiz for Mathematics",
+    "questionCount": 5,
+    "type": "multiple-choice",
+    "status": "launched",
+    "createdBy": "test-teacher",
+    "createdAt": "2025-09-01T04:24:04.368Z",
+    "timeLimit": 10
+  },
+  {
+    "id": "1756700645448",
+    "title": "Test Science Quiz 1",
+    "topic": "Science",
+    "description": "Test quiz for Science",
+    "questionCount": 5,
+    "type": "multiple-choice",
+    "status": "launched",
+    "createdBy": "test-teacher",
+    "createdAt": "2025-09-01T04:24:05.448Z",
+    "timeLimit": 10
+  },
+  {
+    "id": "1756700646025",
+    "title": "Test History Quiz 1",
+    "topic": "History",
+    "description": "Test quiz for History",
+    "questionCount": 5,
+    "type": "multiple-choice",
+    "status": "launched",
+    "createdBy": "test-teacher",
+    "createdAt": "2025-09-01T04:24:06.025Z",
+    "timeLimit": 10
+  },
+  {
+    "id": "quiz-x1vKXTlwklGidpN3Y_DXB",
+    "topics": [
+      "thermodynamics"
+    ],
+    "difficulty": "hard",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-MqL3X6-*",
+        "topic": "thermodynamics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the efficiency of a Carnot engine operating between 1000 K and 300 K?",
+        "options": [
+          "0.3",
+          "0.7",
+          "0.5",
+          "0.9"
+        ],
+        "answer": "0.7",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-aBcDeF-*",
+        "topic": "thermodynamics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "A system undergoes an adiabatic process. Which of the following statements is true?",
+        "options": [
+          "The internal energy of the system remains constant",
+          "No heat is exchanged between the system and its surroundings",
+          "The temperature of the system remains constant",
+          "The volume of the system remains constant"
+        ],
+        "answer": "No heat is exchanged between the system and its surroundings",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-123XYZ-*",
+        "topic": "thermodynamics",
+        "mode": "same",
+        "type": "true_false",
+        "question": "The entropy of an isolated system can only increase over time.",
+        "answer": "true",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-uVwXyZ-*",
+        "topic": "thermodynamics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Which thermodynamic potential is minimized at constant temperature and pressure?",
+        "options": [
+          "Internal Energy",
+          "Enthalpy",
+          "Gibbs Free Energy",
+          "Helmholtz Free Energy"
+        ],
+        "answer": "Gibbs Free Energy",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-789abc-*",
+        "topic": "thermodynamics",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "State the third law of thermodynamics.",
+        "answer": "The entropy of a perfect crystal at absolute zero is zero.",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:29:49.533Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-d00Ki5QuD2I-rf1NuemqU",
+    "topics": [
+      "calculus"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-SAhn7G-*",
+        "topic": "calculus",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the derivative of f(x) = x^³ - 4x + 6?",
+        "options": [
+          "3x^² - 4",
+          "x^² - 4x",
+          "3x^² - 4x + 6",
+          "x^³ - 4"
+        ],
+        "answer": "3x^² - 4",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-fK1sd2+",
+        "topic": "calculus",
+        "mode": "same",
+        "type": "true_false",
+        "question": "The integral of cos(x) is sin(x) + C.",
+        "answer": "true",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-aBcDeF-",
+        "topic": "calculus",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Find the limit as x approaches 2 of (x^² - 4) / (x - 2).",
+        "options": [
+          "0",
+          "4",
+          "2",
+          "undefined"
+        ],
+        "answer": "4",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-xyz123=",
+        "topic": "calculus",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "State the fundamental theorem of calculus.",
+        "answer": "The fundamental theorem of calculus states that differentiation and integration are inverse operations.",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-jkl789@",
+        "topic": "calculus",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the derivative of  f(x) = e^x?",
+        "options": [
+          "e^x",
+          "x*e^(x-1)",
+          "1",
+          "0"
+        ],
+        "answer": "e^x",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T04:53:17.651Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-0OCHyRMfFHN6M_N9zIsG6",
+    "topics": [
+      "integration"
+    ],
+    "difficulty": "medium",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-k16ByW-*",
+        "topic": "integration",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the integral of x^2 with respect to x?",
+        "options": [
+          "(1/3)x^3 + C",
+          "2x + C",
+          "x^3 + C",
+          "x^2 + C"
+        ],
+        "answer": "(1/3)x^3 + C",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-a89GhL-*",
+        "topic": "integration",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Evaluate the definite integral of 2x from 0 to 1.",
+        "options": [
+          "1",
+          "2",
+          "0",
+          "3"
+        ],
+        "answer": "1",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-c72Asd-*",
+        "topic": "integration",
+        "mode": "same",
+        "type": "true_false",
+        "question": "The integral of sin(x) is cos(x) + C.",
+        "answer": "false",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-p45Fgh-*",
+        "topic": "integration",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Find the integral of e^x dx",
+        "options": [
+          "e^x + C",
+          "x e^x + C",
+          "e^x/x + C",
+          "ln|x| + C"
+        ],
+        "answer": "e^x + C",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-r67Tyu-*",
+        "topic": "integration",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "What is the integral of 1/x with respect to x?",
+        "answer": "ln|x| + C",
+        "difficulty": "medium",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T06:17:17.543Z",
+    "status": "draft"
+  },
+  {
+    "id": "quiz-H95u0sVnbWybuT4kfOHIa",
+    "topics": [
+      "data analytics"
+    ],
+    "difficulty": "hard",
+    "mode": "same",
+    "numQuestions": 5,
+    "poolSize": 5,
+    "questions": [
+      {
+        "id": "q-08dKgV-*",
+        "topic": "data analytics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the most appropriate statistical method to analyze the relationship between two continuous variables?",
+        "options": [
+          "A. Chi-square test",
+          "B. T-test",
+          "C. Linear regression",
+          "D. ANOVA"
+        ],
+        "answer": "A. Chi-square test",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 0
+        }
+      },
+      {
+        "id": "q-a1B2cd3-",
+        "topic": "data analytics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "What is the key assumption of a linear regression model?",
+        "options": [
+          "A. Homoscedasticity",
+          "B. Normality of errors",
+          "C. Independence of errors",
+          "D. All of the above"
+        ],
+        "answer": "A. Homoscedasticity",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 1
+        }
+      },
+      {
+        "id": "q-Ef4gh5-",
+        "topic": "data analytics",
+        "mode": "same",
+        "type": "true_false",
+        "question": "A p-value of 0.03 indicates strong evidence against the null hypothesis.",
+        "answer": "true",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 2
+        }
+      },
+      {
+        "id": "q-Ij6kl7-",
+        "topic": "data analytics",
+        "mode": "same",
+        "type": "mcq",
+        "question": "Which technique is best suited to reduce dimensionality in high-dimensional data while preserving most of the variance?",
+        "options": [
+          "A. K-means clustering",
+          "B. Principal Component Analysis (PCA)",
+          "C. Linear Discriminant Analysis (LDA)",
+          "D. K-Nearest Neighbors (KNN)"
+        ],
+        "answer": "A. K-means clustering",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 3
+        }
+      },
+      {
+        "id": "q-Mn8op9-",
+        "topic": "data analytics",
+        "mode": "same",
+        "type": "short_answer",
+        "question": "Explain the bias-variance tradeoff in machine learning.",
+        "answer": "The bias-variance tradeoff describes the balance between model complexity and its ability to generalize to unseen data. High bias leads to underfitting, while high variance leads to overfitting.",
+        "difficulty": "hard",
+        "metadata": {
+          "idx": 4
+        }
+      }
+    ],
+    "createdAt": "2025-09-01T06:32:42.822Z",
+    "status": "draft"
   }
 ]

@@ -169,13 +169,32 @@ export class JsonStorageAdapter implements StorageAdapter {
   }
 
   async getSessionByJoinCode(joinCode: string): Promise<Session | null> {
-    const sessions = await this.readJsonFile<Session>('quiz_sessions.json');
-    return sessions.find(s => s.joinCode === joinCode.toUpperCase()) || null;
+    const sessions = await this.readJsonFile<any>('quiz_sessions.json');
+    return sessions.find((s: any) => {
+      const code = s.joinCode || s.sessionCode;
+      return code === joinCode.toUpperCase();
+    }) || null;
   }
 
   async listActiveSessions(): Promise<Session[]> {
-    const sessions = await this.readJsonFile<Session>('quiz_sessions.json');
-    return sessions.filter(s => s.status !== 'ended');
+    const sessions = await this.readJsonFile<any>('quiz_sessions.json');
+    return sessions.filter((s: any) => {
+      // Handle both legacy and new format
+      const isActive = s.status ? (s.status !== 'ended') : (s.isActive === true);
+      return isActive;
+    }).map((s: any) => ({
+      sessionId: s.sessionId || s.id,
+      quizId: s.quizId,
+      teacherId: s.teacherId || 'unknown',
+      joinCode: s.joinCode || s.sessionCode,
+      status: s.status || (s.isActive ? 'running' : 'ended'),
+      participants: s.participants || [],
+      startedAt: s.startedAt || s.createdAt
+    }));
+  }
+
+  async listAllSessions(): Promise<Session[]> {
+    return this.readJsonFile<Session>('quiz_sessions.json');
   }
 
   async saveSession(session: Session): Promise<void> {

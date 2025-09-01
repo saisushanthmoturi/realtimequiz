@@ -45,7 +45,9 @@ export default function TeacherSessionPage() {
     startSession, 
     pauseSession, 
     resumeSession, 
-    stopSession 
+    stopSession,
+    connected,
+    recoverSession
   } = useQuizSocket();
   
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -93,6 +95,25 @@ export default function TeacherSessionPage() {
       setSessionStatus(socketStatus);
     }
   }, [socketStatus]);
+
+  // Add session recovery when connected and sessionId is available
+  useEffect(() => {
+    if (connected && sessionId) {
+      console.log('🔄 Session monitor: Attempting to recover session:', sessionId);
+      // Add a small delay to ensure socket is fully ready
+      setTimeout(() => {
+        recoverSession(sessionId);
+      }, 100);
+    }
+  }, [connected, sessionId, recoverSession]);
+
+  // Also try to recover immediately when sessionId becomes available, even if already connected
+  useEffect(() => {
+    if (sessionId && connected) {
+      console.log('🔄 Session monitor: Session ID available, attempting immediate recovery:', sessionId);
+      recoverSession(sessionId);
+    }
+  }, [sessionId]);
 
   // Poll for session updates
   useEffect(() => {
@@ -509,13 +530,23 @@ export default function TeacherSessionPage() {
               {/* Timer */}
               <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-4 text-center">
                 <div className="text-sm font-medium text-slate-300 mb-2">Timer</div>
-                <Timer 
-                  duration={durationMin}
-                  initialSeconds={typeof timerSeconds === 'number' ? timerSeconds : undefined}
-                  isActive={sessionStatus === 'running'}
-                  showProgressBar={true}
-                  className="w-full"
-                />
+                {typeof timerSeconds === 'number' ? (
+                  <Timer 
+                    initialSeconds={timerSeconds}
+                    isActive={sessionStatus === 'running'}
+                    showProgressBar={true}
+                    className="w-full"
+                  />
+                ) : (
+                  <div className="text-center py-4">
+                    <div className="font-mono text-3xl font-bold text-slate-400">
+                      --:--
+                    </div>
+                    <div className="text-xs text-slate-500 mt-2">
+                      {connected ? 'Waiting for timer...' : 'Connecting...'}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Duration Input */}
@@ -688,6 +719,48 @@ export default function TeacherSessionPage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Debug Section - Remove in production */}
+      <section className="bg-slate-800 rounded-lg border border-slate-700 p-6 mt-6">
+        <h2 className="text-lg font-semibold text-white mb-4">🔧 Debug Information</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div className="bg-slate-900/60 p-3 rounded">
+            <div className="text-slate-400">Socket Connected</div>
+            <div className={`font-bold ${connected ? 'text-green-400' : 'text-red-400'}`}>
+              {connected ? 'Yes' : 'No'}
+            </div>
+          </div>
+          <div className="bg-slate-900/60 p-3 rounded">
+            <div className="text-slate-400">Timer Seconds</div>
+            <div className="text-white font-bold">
+              {timerSeconds !== null ? timerSeconds : 'null'}
+            </div>
+          </div>
+          <div className="bg-slate-900/60 p-3 rounded">
+            <div className="text-slate-400">Socket Status</div>
+            <div className="text-white font-bold">{socketStatus}</div>
+          </div>
+          <div className="bg-slate-900/60 p-3 rounded">
+            <div className="text-slate-400">Session Status</div>
+            <div className="text-white font-bold">{sessionStatus}</div>
+          </div>
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button 
+            onClick={() => sessionId && recoverSession(sessionId)}
+            className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+            disabled={!sessionId || !connected}
+          >
+            🔄 Force Recovery
+          </button>
+          <button 
+            onClick={() => console.log('Current state:', { sessionId, timerSeconds, sessionStatus, connected })}
+            className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded text-sm"
+          >
+            📋 Log State
+          </button>
+        </div>
       </section>
     </div>
   );

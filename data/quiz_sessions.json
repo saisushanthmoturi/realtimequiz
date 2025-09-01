@@ -393,5 +393,147 @@
     ],
     "startedAt": "2025-08-31T04:49:39.514Z",
     "endsAt": "2025-08-31T04:59:39.514Z"
+  },
+  {
+    "sessionId": "session-A7bEynF_LJTNMfCyt33Pr",
+    "quizId": "quiz-5Qi8efHYk3cAH36dYsPj5",
+    "teacherId": "teacher-1",
+    "joinCode": "RJQPVA",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "12121",
+        "name": "Student 12121"
+      }
+    ],
+    "startedAt": "2025-09-01T04:15:41.484Z",
+    "endsAt": "2025-09-01T04:25:41.484Z"
+  },
+  {
+    "sessionId": "session-qNM_ABcpEW2o4_GTNSVnQ",
+    "quizId": "1756700644368",
+    "teacherId": "current-teacher",
+    "joinCode": "ASXUVJ",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-09-01T04:24:05.123Z"
+  },
+  {
+    "sessionId": "session-PjoFJOCgBQ2ie3Sbg_XX0",
+    "quizId": "1756700645448",
+    "teacherId": "current-teacher",
+    "joinCode": "3VPFXF",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-09-01T04:24:05.695Z"
+  },
+  {
+    "sessionId": "session-o7MLG118fbCzVF1jCEGpm",
+    "quizId": "1756700646025",
+    "teacherId": "current-teacher",
+    "joinCode": "FXMN7L",
+    "status": "running",
+    "participants": [],
+    "startedAt": "2025-09-01T04:24:06.284Z"
+  },
+  {
+    "sessionId": "session-6yRLPoNG6RSqq5_qgtaVW",
+    "quizId": "quiz-_f1CWIbPOcbbRLvGq7JzF",
+    "teacherId": "test-teacher",
+    "joinCode": "M3PFG3",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-wOZnIsgbY2mmpOYGPqLDy",
+    "quizId": "quiz-TSd0gd491KOxoRrDTzdli",
+    "teacherId": "test-teacher",
+    "joinCode": "H4WT77",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-njOx-iNCEJdKl6MIvo0df",
+    "quizId": "quiz-VsUmxzuKww1IiBiMpvXQD",
+    "teacherId": "test-teacher",
+    "joinCode": "TYY9IR",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-P6tvcLXmpo2gJmlov8X4d",
+    "quizId": "quiz-IcbjbNFokiN4ZIT0oyPEw",
+    "teacherId": "test-teacher",
+    "joinCode": "QLPUWL",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-HZIVGXK-6rrBSPJ0oLvv6",
+    "quizId": "quiz-5Qi8efHYk3cAH36dYsPj5",
+    "teacherId": "test-teacher",
+    "joinCode": "LSPZND",
+    "status": "ready",
+    "participants": []
+  },
+  {
+    "sessionId": "session-Mpuc6VgkHW1PHYP8MElEo",
+    "quizId": "quiz-x1vKXTlwklGidpN3Y_DXB",
+    "teacherId": "teacher-1",
+    "joinCode": "CHWY9D",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "12121",
+        "name": "Student 12121"
+      }
+    ],
+    "startedAt": "2025-09-01T04:29:59.086Z",
+    "endsAt": "2025-09-01T04:39:59.086Z"
+  },
+  {
+    "sessionId": "session-M3thKX7LcHabGp3gbrcNY",
+    "quizId": "quiz-d00Ki5QuD2I-rf1NuemqU",
+    "teacherId": "teacher-1",
+    "joinCode": "QJDATK",
+    "status": "ended",
+    "participants": [
+      {
+        "studentId": "12121",
+        "name": "Student 12121"
+      }
+    ],
+    "startedAt": "2025-09-01T04:53:36.863Z",
+    "endsAt": "2025-09-01T05:03:36.863Z"
+  },
+  {
+    "sessionId": "session-2zwh49gae7Ywez3syWqwJ",
+    "quizId": "quiz-0OCHyRMfFHN6M_N9zIsG6",
+    "teacherId": "teacher-1",
+    "joinCode": "NRIBJU",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "12121",
+        "name": "Student 12121"
+      }
+    ],
+    "startedAt": "2025-09-01T06:17:39.810Z",
+    "endsAt": "2025-09-01T06:27:39.810Z"
+  },
+  {
+    "sessionId": "session-CeREJ_KIdoQSuI1_9K4Ka",
+    "quizId": "quiz-H95u0sVnbWybuT4kfOHIa",
+    "teacherId": "teacher-1",
+    "joinCode": "YKEHIL",
+    "status": "running",
+    "participants": [
+      {
+        "studentId": "12121",
+        "name": "Student 12121"
+      }
+    ],
+    "startedAt": "2025-09-01T06:32:49.271Z",
+    "endsAt": "2025-09-01T06:42:49.271Z"
   }
 ]
