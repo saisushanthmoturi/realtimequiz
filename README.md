@@ -2,7 +2,7 @@
 
 A comprehensive real-time quiz platform built for colleges, featuring AI-generated unique questions, role-based authentication, and personalized feedback systems.
 
-## 🚀 **FULLY IMPLEMENTED & READY TO USE**
+##  **FULLY IMPLEMENTED & READY TO USE**
 
 The application is complete with all major features working! Run `npm run dev` and visit http://localhost:3000 to start using the platform.
 
